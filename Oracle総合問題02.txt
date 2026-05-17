@@ -1,0 +1,765 @@
+SQLテスト問題集02
+
+---
+問題1：CREATE USER文
+
+ユーザ名が testuser、パスワードが system のユーザを作成したい。実行する SQL 文として正しいものはどれか。
+
+- A. CREATE USER system MAKEDNAME BY testuser;
+- B. CREATE USER testuser IDENTIFIED BY system;
+- C. CREATE USER testuser SET PASSWORD system;
+- D. CREATE PASSWORD system USERNAME testuser;
+
+解答：B
+
+解説：  
+Oracleでユーザを作成しパスワードを設定する正しい構文は CREATE USER ユーザ名 IDENTIFIED BY パスワード; です。  
+- Bが正解です。  
+- A・C・D は実在しない構文または他のDBMSの構文です。
+
+---
+問題2：GRANT文
+
+ユーザ scott に、「CREATE TABLE」という権限を割り当てたい。実行する SQL 文として正しいものはどれか。なお、「CREATE TABLE」は表を作成できる権限です。
+
+- A. CREATE ROLE CREATE TABLE IDENTIFIED BY scott;
+- B. GRANT CREATE TABLE TO scott;
+- C. SET ROLE CREATE TABLE TO scott;
+- D. REVOKE CREATE TABLE FROM scott;
+
+解答：B
+
+解説：  
+権限をユーザに付与する正しい構文は GRANT 権限 TO ユーザ; です。  
+- Bが正解です。  
+- A・C は構文が誤っています。  
+- D の REVOKE は権限を剥奪する際の構文です。
+
+---
+問題3：DROP USER文（CASCADE）
+
+ユーザ taro のスキーマにはテーブルやビュー等のオブジェクトが保存されているとする。
+これらも含めてまとめてユーザ taro を削除する場合に正しい SQL はどれか。
+
+- A. DROP TABLE taro;
+- B. DROP USER taro CASCADE;
+- C. DROP USER taro;
+- D. DROP TABLE taro CASCADE;
+
+解答：B
+
+解説：  
+オブジェクトを所有しているユーザを削除するには DROP USER ユーザ名 CASCADE; を使用して、所有しているオブジェクトもまとめて削除する必要があります。  
+- Bが正解です。  
+- C の CASCADE なしの DROP USER では、オブジェクトが存在するためエラーになります。  
+- A・D の DROP TABLE はテーブルを削除する構文です。
+
+---
+問題4：NOT NULL制約
+
+下記のSQLを実行してstudentsテーブルを作成したい。gender列にある下線部に、必ず値を入れるための制約を記述する場合、正しい制約はどれか。
+
+CREATE TABLE students (
+id NUMBER(5) PRIMARY KEY ,
+name VARCHAR2(10) ,
+age NUMBER(2),
+gender NUMBER(1) ________ ,
+birthday DATE
+);
+
+- A. PRIMARY KEY
+- B. NOT NULL
+- C. UNIQUE
+- D. FOREIGN KEY
+
+解答：B
+
+解説：  
+「必ず値を入れる（NULLを許可しない）」ための制約は NOT NULL 制約です。  
+- Bが正解です。  
+- A の PRIMARY KEY は主キー制約（一意かつNOT NULL）ですが、ここではgender列に対する単一の必須入力要件を満たす NOT NULL が適切です。  
+- C の UNIQUE は一意制約です。  
+- D の FOREIGN KEY は外部キー制約です。
+
+---
+問題5：ALTER TABLE（列の削除）
+
+emp テーブルの address 列を削除したい。Oracle で実行可能な正しい SQL 文はどれか。
+
+- A. MODIFY TABLE address DROP(emp);
+- B. ADD TABLE address FROM(emp);
+- C. DROP TABLE emp FROM(address);
+- D. ALTER TABLE emp DROP COLUMN address;
+
+解答：D
+
+解説：  
+表から列を削除する正しい構文は ALTER TABLE テーブル名 DROP COLUMN 列名; です。  
+- Dが正解です。  
+- A・B・C は実在しない構文です。
+
+---
+問題6：外部キー制約（表制約）
+
+empテーブルのdeptno列からdeptテーブルの一意キーid列に外部参照できるように設定したい。実行するSQLとして正しいものはどれか。
+
+- A. 
+CREATE TABLE emp (
+(中略)
+FOREIGN KEY (deptno) REFERENCES dept (id) );
+
+- B. 
+CREATE TABLE emp (
+(中略)
+FOREIGN KEY (id) REFERENCES dept (deptno)
+);
+
+- C. 
+CREATE TABLE emp (
+(中略)
+REFERENCES id FOREIGN KEY dept (deptno) );
+
+- D. 
+CREATE TABLE emp (
+(中略)
+REFERENCES id FOREIGN KEY deptno(dept)
+);
+
+
+解答：A
+
+解説：  
+外部キー制約を表レベルで定義する正しい構文は FOREIGN KEY (自表の列名) REFERENCES 参照先テーブル名 (参照先の列名) です。  
+- empのdeptnoからdeptのidを参照するため、Aが正解です。  
+- B は自表と参照先の列が逆になっています。  
+- C・D は構文が間違っています。
+
+---
+問題7：WHERE句を含むSELECT文
+
+SQL> SELECT * FROM emp;
+
+EMPNO ENAME      JOB       MGR  HIREDATE  SAL   COMM  DEPTNO
+----- ---------- --------- ---- --------- ----- ----- ------
+7369  SMITH      CLERK     7902 80-12-17  800         20
+7499  ALLEN      SALESMAN  7698 81-02-20  1600  300   30
+7521  WARD       SALESMAN  7698 81-02-22  1250  500   30
+7566  JONES      MANAGER   7839 81-04-02  2975        20
+7654  MARTIN     SALESMAN  7698 81-09-28  1250  1400  30
+7698  BLAKE      MANAGER   7839 81-05-01  2850        30
+7782  CLARK      MANAGER   7839 81-06-09  2450        10
+7839  KING       PRESIDENT      81-11-17  5000        10
+7844  TURNER     SALESMAN  7698 81-09-08  1500  0     30
+7900  JAMES      CLERK     7698 81-12-03  950         30
+7902  FORD       ANALYST   7566 81-12-03  3000        20
+7934  MILLER     CLERK     7782 82-01-23  1300        10
+
+上記のempテーブルに対し、以下のSQLを発行した場合の結果として正しいものはどれか。
+
+SELECT * FROM emp WHERE deptno = 10;
+
+- A. 
+EMPNO ENAME      JOB       MGR  HIREDATE  SAL   COMM  DEPTNO
+----- ---------- --------- ---- --------- ----- ----- ------
+7782  CLARK      MANAGER   7839 81-06-09  2450        10
+7839  KING       PRESIDENT      81-11-17  5000        10
+7934  MILLER     CLERK     7782 82-01-23  1300        10
+
+- B. 
+EMPNO ENAME      JOB       MGR  HIREDATE  SAL   COMM  DEPTNO
+----- ---------- --------- ---- --------- ----- ----- ------
+7782  CLARK      MANAGER   7839 81-06-09  2450        10
+
+- C. 
+DEPTNO
+------
+10
+
+- D. 
+DEPTNO
+------
+10
+10
+10
+
+解答：A
+
+解説：  
+SELECT * はすべての列を取得します。WHERE deptno = 10 によって deptno が 10 の行のみが絞り込まれます。  
+- deptno が 10 のレコードは CLARK, KING, MILLER の3件なので、この3件の全列が表示されるAが正解です。  
+- C・D は特定の列のみ取得した場合の表示ですが、SELECT * を使用しているため誤りです。
+
+---
+問題8：DISTINCTキーワード
+
+(前問と同じempテーブルに対し)
+「deptno」が「30」の従業員のJOB列を重複なく取得し以下のとおり結果を出力したい。実行するSQL文として正しいものはどれか。
+
+JOB
+---------
+SALESMAN
+CLERK
+MANAGER
+
+- A. DISTINCT SELECT job FROM emp WHERE deptno = 30;
+- B. SELECT job DISTINCT FROM emp WHERE deptno = 30;
+- C. SELECT DISTINCT job FROM emp WHERE deptno = 30;
+- D. SELECT job FROM emp DISTINCT WHERE deptno = 30;
+
+解答：C
+
+解説：  
+重複を除いて取得するには SELECT の直後に DISTINCT を記述します。  
+- C の SELECT DISTINCT 列名 FROM ... が正しい構文です。  
+- A・B・D は DISTINCT の記述位置が誤っているため構文エラーになります。
+
+---
+問題9：AS（別名指定）とダブルクォーテーション
+
+SQL> SELECT * FROM students;
+
+ID NAME       AGE GENDER BIRTHDAY
+-- ---------- --- ------ --------
+1  Taro       15  1      95-12-05
+2  Jiro       16  1      94-09-10
+3  Hanako     15  2      95-06-08
+
+上記のstudentsテーブルに対し、以下の結果が出力される文を選択しなさい。
+※Oracleでは、日本語の列別名を付ける場合にダブルクオーテーションを使用する。（"）
+
+ID 氏名       AGE GENDER BIRTHDAY
+-- ---------- --- ------ --------
+1  Taro       15  1      95-12-05
+2  Jiro       16  1      94-09-10
+3  Hanako     15  2      95-06-08
+
+- A. SELECT *, name AS "氏名" FROM students;
+- B. SELECT id, name AS "氏名", age , gender, birthday FROM students;
+- C. SELECT name AS "氏名", id, age, gender, birthday FROM students;
+- D. SELECT id, age, name AS "氏名", gender, birthday FROM students;
+
+解答：B
+
+解説：  
+出力結果を見ると id, name(氏名), age, gender, birthday の順に表示されています。  
+- この並び順通りに SELECT 句で列を指定しているBが正解です。  
+- C・D は列の順序が出力結果と異なります。  
+- A の * と他の列を混在させる書き方は、テーブル名の修飾が必要なためエラーになります。
+
+---
+問題10：INSERT文（列と値の数が不一致）
+
+itemsテーブルに対して、下記のSQL文でレコードの登録を行いたい。想定される結果として正しいものはどれか。
+
+INSERT INTO items(id, name, category) VALUES(1, 'book', 3, 3);
+
+なお、itemsのテーブル定義は下記内容であり、itemsテーブルにはまだ1レコードも登録されていないとする。
+
+列名        型            制約
+---------   ------------- ------------
+id          NUMBER(5)     PRIMARY KEY
+name        VARCHAR2(10)
+category    NUMBER(2)
+stock       NUMBER(5)
+
+
+- A. レコードが登録され、stock列には3が登録される。
+- B. レコードが登録され、stock列には0が登録される。
+- C. レコードが登録され、stock列にはnullが登録される。
+- D. 実行時にエラーが発生する。
+
+解答：D
+
+解説：  
+INSERT文で指定した列数（id, name, category の3つ）に対して、VALUES句で指定した値の数（1, 'book', 3, 3 の4つ）が一致していません。  
+- 列数と値の数が異なるため、Dの「実行時にエラーが発生する」が正解です。
+
+---
+問題11：UPDATE文（複数列の更新）
+
+empテーブル中でempno列が8000のレコードに対して、下記内容に更新したい。実行するSQL 文として正しいものはどれか。
+
+更新対象の列名 更新後の値
+------------- -----------
+deptno        10
+sal           3000
+
+
+- A. UPDATE emp SET deptno = 10 AND sal = 3000 WHERE empno = 8000;
+- B. UPDATE emp SET VALUES(deptno = 10, sal = 3000) WHERE empno = 8000;
+- C. UPDATE emp SET deptno = 10, sal = 3000 WHERE empno = 8000;
+- D. UPDATE emp SET deptno = 10, sal = 3000, empno= 8000;
+
+解答：C
+
+解説：  
+UPDATE文で複数の列を更新する場合は、SET 列1 = 値1, 列2 = 値2 のようにカンマで区切ります。  
+- Cが正しい構文です。  
+- A の AND はWHERE句の条件結合用でありSET句では使えません。  
+- B の VALUES はINSERT文の構文です。  
+- D は WHERE 句の指定がなく、empno の更新が含まれてしまっています。
+
+---
+問題12：WHERE句なしのDELETE文
+
+SQL> SELECT * FROM students;
+
+ID NAME       AGE GENDER BIRTHDAY
+-- ---------- --- ------ --------
+1  Taro       15  1      95-12-05
+2  Jiro       16  1      94-09-10
+3  Hanako     15  2      95-06-08
+
+上記のstudentsテーブルに対して、下記のようにWHERE句を付けずにDELETE文を実行した。
+このとき、実行結果として正しいものはどれか。
+
+SQL> DELETE FROM students;
+
+- A. レコードが1行削除される。
+- B. レコードが全行削除される。
+- C. studentsテーブルとその中のレコードが全行削除される。
+- D. 実行時にエラーが発生する。
+
+解答：B
+
+解説：  
+DELETE文にWHERE句を指定しない場合、テーブル内のすべてのレコード（行）が削除されます。  
+- Bが正解です。  
+- C のテーブル自体の削除は DROP TABLE の動作です。
+
+---
+問題13：トランザクションとCOMMIT
+
+あなたはOracle Databaseを使用したデータベースの運用業務を行っている。あなたは業務指示により、レコード数0行のitemsテーブルに対して下記のSQL文2行を正常に実行した後、作業完了と判断して別の業務に移った。
+
+INSERT INTO items VALUES(1, 'apple', 1, 20);
+INSERT INTO items VALUES(2, 'orange', 1, 30);
+
+その後、他のメンバーから作業が完了していないとの指摘を受けた。
+Oracle Databaseの仕様上の観点で、最も正しい理由はどれか。
+なお、対象のデータベースのトランザクションに関する設定はデフォルト状態だとする。
+
+- A. 実行後にデータベースとの接続を切っていなかったから。
+- B. 実行後にデータベースを再起動していなかったから。
+- C. 実行後にSELECT文を実行していなかったから。
+- D. 実行後にCOMMIT文を実行していなかったから。
+
+解答：D
+
+解説：  
+INSERT等のDML文を実行しただけでは、変更は確定されておらず他のユーザからは見えません。  
+- 変更をデータベースに確定させ、他のユーザからも参照できるようにするには COMMIT 文を実行する必要があります。したがってDが正解です。
+
+---
+問題14：読取一貫性
+
+SQL> SELECT * FROM students;
+
+ID NAME       AGE GENDER BIRTHDAY
+-- ---------- --- ------ --------
+1  Taro       15  1      95-12-05
+2  Jiro       16  1      94-09-10
+3  Hanako     15  2      95-06-08
+
+上記のstudentsテーブルに対して、1人目のデータベース利用者が下記のSQL文を実行した。
+
+SQL> UPDATE students SET age = 18;
+
+同じタイミングで2人目のデータベース利用者が下記のSQL文を実行した。このとき、2人目のデータベース利用者側での実行結果として正しいものはどれか。
+
+SQL> SELECT * FROM students;
+
+- A. 1人目のデータベース利用者がトランザクションを終了させるまで、実行待ち状態となる。
+- B. 
+ID NAME       AGE GENDER BIRTHDAY
+-- ---------- --- ------ --------
+1  Taro       18  1      95-12-05
+2  Jiro       18  1      94-09-10
+3  Hanako     18  2      95-06-08
+
+- C. 
+ID NAME       AGE GENDER BIRTHDAY
+-- ---------- --- ------ --------
+1  Taro       15  1      95-12-05
+2  Jiro       16  1      94-09-10
+3  Hanako     15  2      95-06-08
+
+- D. 実行時にエラーが発生する。
+
+解答：C
+
+解説：  
+Oracleでは 読み取り一貫性 が保証されており、他のユーザが変更中でまだ COMMIT されていないデータは、変更前の状態で参照されます。  
+- 2人目のSELECT結果は変更前のデータが返るため、Cが正解です。
+
+---
+問題15：SAVEPOINTを含むSQL文の動作
+
+SQL> SELECT empno, ename FROM emp;
+
+EMPNO ENAME
+----- ------
+8000  DAVID
+
+上記のempテーブルに対して以下のSQL文を実行した。
+
+SQL> INSERT INTO emp(empno, ename) VALUES(9000, 'RYAN');
+SQL> SAVEPOINT A;
+SQL> INSERT INTO emp(empno, ename) VALUES(9001, 'ROY');
+SQL> SAVEPOINT B;
+SQL> INSERT INTO emp(empno, ename) VALUES(9002, 'ALEX');
+SQL> ROLLBACK TO A;
+
+その後、 empテーブルに対して以下のSQL文を実行した。このときの実行結果として正しいものはどれか。
+
+SQL> COMMIT;
+SQL> SELECT empno, ename FROM emp;
+
+- A. 
+EMPNO ENAME
+----- ------
+9000  RYAN
+
+- B. 
+EMPNO ENAME
+----- ------
+8000  DAVID
+9000  RYAN
+9001  ROY
+
+- C. 
+EMPNO ENAME
+----- ------
+8000  DAVID
+9000  RYAN
+9001  ROY
+9002  ALEX
+
+- D. 
+EMPNO ENAME
+----- ------
+8000  DAVID
+9000  RYAN
+
+解答：D
+
+解説：  
+ROLLBACK TO A; によって、SAVEPOINT A 以降に実行された処理（ROYとALEXのINSERT）が取り消されます。  
+- その後 COMMIT; されるため、元のDAVIDと、SAVEPOINT A の前に実行されたRYANのINSERTのみが確定します。よってDが正解です。
+
+---
+問題16：算術演算子（＋の利用）
+
+SQL> SELECT * FROM students;
+
+ID NAME       AGE GENDER BIRTHDAY
+-- ---------- --- ------ --------
+1  Taro       16  1      95-12-05
+2  Jiro       15  1      94-09-10
+3  Hanako     16  2      95-06-08
+
+上記のstudentsテーブルを使用して、id列が1のレコードが持つage列の値を5加算して、出力したい。実行するSQLとして正しいものはどれか。なお、出力結果の列名には別名は使用しないものとする。
+
+- A. SELECT (age ADD 5) FROM students WHERE id = 1;
+- B. SELECT age FROM students WHERE id = 1 ADD (age + 5);
+- C. SELECT (age + 5) FROM students WHERE id = 1;
+- D. SELECT age FROM students WHERE age + 5;
+
+解答：C
+
+解説：  
+SELECT句で列の値に算術演算を行う場合、そのまま + 演算子が使用できます。  
+- C の SELECT (age + 5) ... が正しい構文です。  
+- ADD というキーワードはこのような算術演算には使用しません。
+
+---
+問題17：述語INのORへの書き換え
+
+以下のSQL文と同じ結果を求めているSQL文として正しいものはどれか。
+
+SELECT * FROM emp WHERE deptno IN (100, 200);
+
+- A. SELECT * FROM emp WHERE deptno <> 100 OR deptno <> 200;
+- B. SELECT * FROM emp WHERE deptno <> 100 AND deptno <> 200;
+- C. SELECT * FROM emp WHERE deptno = 100 AND deptno = 200;
+- D. SELECT * FROM emp WHERE deptno = 100 OR deptno = 200;
+
+解答：D
+
+解説：  
+IN句は、指定した複数の値のいずれかに一致するものを検索する条件であり、OR演算子を使って書き換えることができます。  
+- IN (100, 200) は deptno = 100 OR deptno = 200 と同義なので、Dが正解です。
+
+---
+問題18：IS NOT NULLとLIKEの条件指定
+
+items テーブルから、stock 列の値が NULL ではなく、かつ name 列(文字列型)の値に文字「o」を含むレコードのみを検索したい。実行する SQL 文として正しいものはどれか。
+
+- A. SELECT * FROM items WHERE stock IS NOT NULL AND name LIKE '%o%';
+- B. SELECT * FROM items WHERE stock IS NOT NULL AND name LIKE 'o';
+- C. SELECT * FROM items WHERE stock <> NULL AND name LIKE '%o%';
+- D. SELECT * FROM items WHERE stock <> NULL AND name LIKE 'o';
+
+解答：A
+
+解説：  
+NULLかどうかの判定には IS NOT NULL を使用します（<> NULL は誤り）。また、特定の文字を「含む（部分一致）」場合はワイルドカード % を前後に付けて LIKE '%o%' とします。  
+- Aが正解です。  
+- B・D の LIKE 'o' では「o」1文字との完全一致になってしまいます。
+
+---
+問題19：集約関数 COUNT
+
+accountテーブルに登録されている全レコード数を求めたい。実行するSQL文として正しいものはどれか。
+
+- A. SELECT NUMBER(*) FROM account;
+- B. SELECT SUM(*) FROM account;
+- C. SELECT UNIQUE(*) FROM account;
+- D. SELECT COUNT(*) FROM account;
+
+解答：D
+
+解説：  
+テーブルの全レコード数（行数）を取得するには集約関数の COUNT(*) を使用します。  
+- Dが正解です。  
+- SUM は合計値を求める関数であり、NUMBER や UNIQUE という集約関数は存在しません。
+
+---
+問題20：集約関数SUM・GROUP BY句
+
+SQL> SELECT * FROM items;
+
+ID NAME       CATEGORY STOCK
+-- ---------- -------- -----
+1  apple      1        20
+2  orange     1        30
+3  banana     1        40
+
+上記のitemsテーブルに対して下記SQL文を実行した。想定される結果として正しいものはどれか。
+
+SQL> SELECT category, SUM(stock) FROM items GROUP BY category;
+
+- A. 
+CATEGORY SUM(stock)
+-------- ----------
+1        20
+2        30
+3        40
+
+- B. 
+CATEGORY SUM(stock)
+-------- ----------
+1        90
+
+- C. 
+CATEGORY SUM(stock)
+-------- ----------
+1        20,30,40
+
+- D. 実行時にエラーが発生する。
+
+解答：B
+
+解説：  
+GROUP BY category によりカテゴリ単位でグループ化され、同じ category = 1 の stock（20, 30, 40）が SUM 関数によって合算されます。  
+- 20 + 30 + 40 = 90 となり、結果は 1 | 90 となるため、Bが正解です。
+
+---
+問題21：集約関数・GROUP BY・HAVING句
+
+(問題7と同じempテーブルに対し)
+「職種ごとの最高給与を求め、最高給与が2000を超える職種」だけを表示する以下の結果をSQLを実行して出力したい。実行するSQLとして正しいものはどれか。
+
+JOB       MAX(SAL)
+--------- --------
+PRESIDENT 5000
+MANAGER   2975
+ANALYST   3000
+
+- A. SELECT job, MAX(sal) FROM emp GROUP BY job HAVING MAX(sal) > 2000;
+- B. SELECT job, MAX(sal) FROM emp GROUP BY job WHERE MAX(sal) > 2000;
+- C. SELECT job, MAX(sal) FROM emp GROUP BY job HAVING sal > 2000;
+- D. SELECT job, MAX(sal) FROM emp GROUP BY job WHERE sal > 2000;
+
+解答：A
+
+解説：  
+GROUP BYでグループ化した後の結果に対して条件を指定（絞り込み）する場合は、HAVING 句を使用します。  
+- 集約関数 MAX(sal) > 2000 を条件にするため、Aが正解です。  
+- WHERE句では集約関数を使用できないためエラーになります。
+
+---
+問題22：結合（テーブル指定の記述ミス）
+
+SQL> SELECT * FROM students;
+
+ID NAME       CLASS_ID
+-- ---------- --------
+1  Tanaka     1
+2  Suzuki     1
+3  Sato       2
+
+SQL> SELECT * FROM class_rooms;
+
+CLASS_ID CLASS_NAME
+-------- ----------
+1        classA
+2        classB
+3        classC
+
+上記のstudentsテーブルとclass_roomsテーブルを内部結合する下記のSQL文を実行したところエラーが発生した。原因として正しいものはどれか。
+
+SQL> SELECT id, name, class_id, class_name
+     FROM students
+     INNER JOIN class_rooms ON students.class_id = class_rooms.class_id;
+
+なお、studentsテーブルのclass_id列はclass_roomsテーブルのclass_id列を外部参照しているとする。
+
+- A. FROM句で各テーブルに別名を付けていない。
+- B. SELECT句でclass_id列がどのテーブルの列であるか明記されていない。
+- C. ON句で同名の列名での比較を行っている。
+- D. SELECT句でON句で使用していない列が指定されている。
+
+解答：B
+
+解説：  
+結合する複数のテーブルに同じ名前の列（class_id）が存在する場合、SELECT句などで単に class_id と指定すると、どちらのテーブルの列か判別できず「列の定義があいまいです」というエラーが発生します。  
+- テーブル名または別名で students.class_id のように修飾する必要があるため、Bが正解です。
+
+---
+問題23：左外部結合の実行結果（レコード数）
+
+SQL> SELECT * FROM employee;
+
+EMP_ID EMP_NAME   DEPT_ID
+------ ---------- -------
+1      田中太郎   2
+2      鈴木二郎   2
+3      渡辺花子   3
+4      佐藤達夫   3
+
+SQL> SELECT * FROM dept;
+
+DEPT_ID DEPT_NAME
+------- ----------
+1       総務部
+2       営業部
+3       開発部
+
+上記のemployeeテーブルとdeptテーブルをLEFT OUTER JOIN（左外部結合）で結合し、結合結果の「レコード数」を出力したい。「deptテーブル」を基準のテーブルとする場合、以下のSQL文となる。このSQL文を実行したときに出力されるレコード数の値として正しいものはどれか。
+
+SQL> SELECT COUNT(*)
+     FROM dept LEFT OUTER JOIN employee
+     ON dept.dept_id = employee.dept_id;
+
+- A. 2
+- B. 3
+- C. 4
+- D. 5
+
+解答：D
+
+解説：  
+LEFT OUTER JOIN は、基準となる左側のテーブル（dept）の全レコードを必ず出力し、条件に一致する右側のテーブル（employee）のレコードを結合します。  
+- dept_id = 1 の行（一致0件で1行）、dept_id = 2 の行（一致2件で2行）、dept_id = 3 の行（一致2件で2行）となり、合計5行が出力されるためDが正解です。
+
+---
+問題24：左外部結合の正しいSQL文
+
+SQL> SELECT * FROM products;
+
+PRODUCT_ID PRODUCT_NAME CATEGORY_ID
+---------- ------------ -----------
+1          Apple        1
+2          Orange       1
+3          Banana       2
+
+SQL> SELECT * FROM categories;
+
+CATEGORY_ID CATEGORY_NAME
+----------- -------------
+1           Fruit
+2           Fruit
+3           Vegetable
+
+上記の products テーブルと categories テーブルを結合し、「すべてのカテゴリID（category_id）とカテゴリ名（category_name）」を出力するSQL文として正しいものはどれか。
+
+- A. SELECT c.category_id, c.category_name, p.product_name FROM categories c LEFT OUTER JOIN products p ON c.category_id = p.category_id;
+- B. SELECT c.category_id, c.category_name, p.product_name FROM categories c INNER JOIN products p ON c.category_id = p.category_id;
+- C. SELECT c.category_id, c.category_name, p.product_name FROM categories c RIGHT OUTER JOIN products p ON c.category_id = p.category_id;
+- D. SELECT c.category_id, c.category_name, p.product_name FROM products p LEFT OUTER JOIN categories c ON c.category_id = p.category_id;
+
+解答：A
+
+解説：  
+「すべてのカテゴリ」を出力するには、categories テーブルを基準とした外部結合を行う必要があります。  
+- categories テーブルを左側に配置して LEFT OUTER JOIN を使用している A が正解です。  
+- D は categories が右側ですが LEFT OUTER JOIN なので products が基準になってしまいます。
+
+---
+問題25：サブクエリ（実行結果を得るための記述）
+
+列名        型            制約
+---------   ------------- ------------
+id          NUMBER(5)     PRIMARY KEY
+name        VARCHAR2(10)
+category    NUMBER(2)
+stock       NUMBER(5)
+
+上記のテーブル定義を持つitemsテーブルに対して、「stock列の値が10未満という条件で絞り込み検索するサブクエリの結果から、name列の値のみを出力する」処理を実行したい。上記の要件を満たすSQL文として正しいものはどれか。
+
+- A. SELECT name FROM SELECT * FROM items WHERE stock < 10;
+- B. SELECT name FROM (SELECT stock FROM items WHERE stock < 10);
+- C. SELECT name FROM (SELECT * FROM items WHERE stock < 10);
+- D. SELECT name FROM (SELECT * FROM items) WHERE stock < 10;
+
+解答：C
+
+解説：  
+FROM句にサブクエリ（インラインビュー）を記述する場合、サブクエリ全体を括弧 () で囲む必要があります。  
+- サブクエリから name 列を取得するには、サブクエリのSELECT句で name 列（または * ）が取得されている必要があります。B は stock しか取得していないためエラーになります。  
+- 条件付きで全列を取得するサブクエリを正しく括弧で囲んでいる C が正解です。
+
+---
+問題26：WHERE句でのスカラ・サブクエリ
+
+(問題7と同じempテーブルに対し)
+上記のempテーブルを使用して、sal列の値が全レコードの平均値以上であるレコードのみを検索したい。実行するSQL文として正しいものはどれか。
+
+- A. SELECT * FROM emp WHERE sal >= (SELECT AVG(sal) FROM emp);
+- B. SELECT * FROM emp WHERE sal >= AVG(sal);
+- C. SELECT * FROM (SELECT AVG(sal) FROM emp);
+- D. SELECT * FROM (SELECT AVG(sal) FROM emp GROUP BY sal HAVING sal >= AVG(sal));
+
+解答：A
+
+解説：  
+WHERE句で集約関数（AVGなど）の計算結果と比較するには、サブクエリを使用する必要があります。  
+- WHERE sal >= (平均値を求めるサブクエリ) と記述している A が正解です。  
+- WHERE句に直接 AVG(sal) と記述する B はエラーになります。
+
+---
+問題27：スカラ・サブクエリにならない記述
+
+(問題7と同じempテーブルに対し)
+上記のempテーブルに対して下記のSQL文を実行したところエラーが発生した。原因として正しいものはどれか。
+
+SELECT empno, ename, sal FROM emp
+WHERE deptno = (
+  SELECT deptno FROM emp WHERE sal = (
+    SELECT MIN(sal) FROM emp GROUP BY job
+  )
+);
+
+- A. サブクエリが入れ子になって記述されている。
+- B. サブクエリが1 行 1 列の検索結果を返さない。
+- C. 一番外側のSELECT句にdeptno列の指定がない。
+- D. 一番内側のSELECT句で集約関数を使用している。
+
+解答：B
+
+解説：  
+WHERE sal = (サブクエリ) のように = などの単一行比較演算子を使用する場合、サブクエリは必ず 1行1列 の結果（スカラ値）を返す必要があります。  
+- 一番内側のサブクエリで GROUP BY job によって職種ごとに複数の結果が返されるためエラーになります。したがって B が正解です。
+
+---

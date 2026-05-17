@@ -1,0 +1,968 @@
+
+Java 総合試験問題　応用編
+
+
+---
+【変数】に関する問題
+
+問1. 以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+String s = "100";
+int n = 50;
+System.out.println(s + n);
+----------
+
+1. 150
+2. 10050
+3. コンパイルエラー
+4. 100 50
+
+正解：2番
+
+【解説】
+  String s = "100";
+  int n = 50;
+  System.out.println(s + n);
+
+Javaの+演算子は左から右に評価されます。
+  "100" + 50 → 文字列 "100" に数値50を連結 → "10050"
+
+・1番：150はint型同士の足し算の結果ですが、sはString型のため算術加算にはなりません。
+・3番：String + int の演算はコンパイルエラーになりません（文字列連結として扱われます）。
+・4番：スペース区切りにはなりません。
+
+
+---
+
+問2. 以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+int x = 10;
+int y = x;
+y = 99;
+System.out.println(x);
+----------
+
+1. 99
+2. 10
+3. 0
+4. コンパイルエラー
+
+正解：2番
+
+【解説】
+  int x = 10;
+  int y = x;  // xの「値（10）」がyにコピーされる
+  y = 99;     // yを変更してもxには影響しない
+  System.out.println(x);  // 10
+
+int型などの基本型（プリミティブ型）は値そのものがコピーされます。
+yを変更してもxは別の変数なので変わりません。
+
+・1番：yに99を代入しましたが、xは独立した変数なので変わりません。
+・3番：int型の初期値は0ですが、xには10が代入済みです。
+
+
+---
+【演算子】に関する問題
+
+問3. 以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+System.out.println(3 + 4 + "合計");
+System.out.println("合計" + 3 + 4);
+----------
+
+1. 7合計 / 合計7
+2. 7合計 / 合計34
+3. 34合計 / 合計34
+4. 34合計 / 合計7
+
+正解：2番
+
+【解説】
+  System.out.println(3 + 4 + "合計");
+  → 3 + 4 = 7（数値計算が先）→ 7 + "合計" = "7合計"
+
+  System.out.println("合計" + 3 + 4);
+  → "合計" + 3 = "合計3"（文字列連結）→ "合計3" + 4 = "合計34"
+
++演算子は左から右に評価され、文字列が登場した時点から以降は文字列連結になります。
+
+・1番：2行目が「合計7」になるのは、3+4が先に計算される場合ですが、左から順に評価するため合計34が正解です。
+・3番：1行目が「34合計」になるのは文字列連結の誤解です。3+4が先に計算されます。
+
+
+---
+
+問4. 以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+int a = 7;
+double b = a / 2;
+System.out.println(b);
+----------
+
+1. 3.5
+2. 3.0
+3. 4.0
+4. コンパイルエラー
+
+正解：2番
+
+【解説】
+  int a = 7;
+  double b = a / 2;  // a(7)とリテラル2はどちらもint型
+
+int型同士の除算は整数除算になります。
+  7 / 2 = 3（小数点以下切り捨て） → double b = 3 → 3.0
+
+・1番：3.5は 7.0 / 2.0（double同士）または (double)a / 2 の場合の結果です。
+・3番：切り上げにはなりません。Javaの整数除算は常に切り捨てです。
+
+
+---
+【配列】に関する問題
+
+問5. 以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+int[] nums = {10, 20, 30, 40};
+System.out.println(nums[nums.length - 1]);
+----------
+
+1. 30
+2. 40
+3. 3
+4. コンパイルエラー
+
+正解：2番
+
+【解説】
+  int[] nums = {10, 20, 30, 40};
+  nums.length = 4（要素数）
+  nums.length - 1 = 3（最後の添字）
+  nums[3] = 40
+
+nums.length は「要素数」を返します。最後の添字は nums.length - 1 です。
+
+・1番：30はnums[2]の値です。nums.length-1はlengthそのものではありません。
+・3番：3はlengthの値（nums.lengthの計算結果）ですが、これは添字であり出力されるのは40です。
+
+
+---
+
+問6. 以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+int[] nums = {5, 10, 15};
+nums[0] = 100;
+System.out.println(nums[0] + nums[1]);
+----------
+
+1. 15
+2. 110
+3. 115
+4. 105
+
+正解：2番
+
+【解説】
+  int[] nums = {5, 10, 15};
+  nums[0] = 100;       // 5 → 100 に変更
+  System.out.println(nums[0] + nums[1]);  // 100 + 10 = 110
+
+配列の要素は後から変更できます。nums[0]が100に変わることを正確に追う必要があります。
+
+・1番：15は変更前のnums[0](5)+nums[1](10)の場合です。
+・3番：115はnums[0](100)+nums[2](15)の場合です。
+・4番：105はnums[0](100)+nums[2](5)の誤解の場合です。
+
+
+
+---
+【分岐】に関する問題
+
+問7. 以下のコードで「B評価」と表示されるために変数scoreに代入すべき値として正しいものを選べ。
+
+---Java---
+if (score >= 80) {
+    System.out.println("A評価");
+} else if (score >= 60) {
+    System.out.println("B評価");
+} else {
+    System.out.println("C評価");
+}
+----------
+
+1. 85
+2. 70
+3. 55
+4. 80
+
+正解：2番
+
+【解説】
+  if (score >= 80) → A評価（80以上）
+  else if (score >= 60) → B評価（60以上80未満）
+
+  score = 70 → 70 >= 80 は偽 → 70 >= 60 は真 → B評価
+
+・1番：85は80以上なので「A評価」になります。
+・3番：55は60未満なので「C評価」になります。
+・4番：80は80以上なので「A評価」になります（>=80の条件に合致）。
+
+---
+
+問8. 以下のswitch文の実行結果として正しいものを選べ。
+ただし、変数dayには2が代入されているとする。
+
+---Java---
+switch (day) {
+    case 1:
+        System.out.println("月曜");
+    case 2:
+        System.out.println("火曜");
+    case 3:
+        System.out.println("水曜");
+        break;
+    case 4:
+        System.out.println("木曜");
+}
+----------
+
+1. 火曜
+2. 火曜、水曜
+3. 月曜、火曜、水曜
+4. 火曜、水曜、木曜
+
+正解：2番
+
+【解説】
+  day = 2 → case 2に一致
+  case 2: System.out.println("火曜"); → 火曜を出力
+  break文がないため次のcase 3へフォールスルー
+  case 3: System.out.println("水曜"); → 水曜を出力
+  break; → ここで終了
+
+・1番：break文がないためcase 3にも進みます。
+・3番：case 1はday=2と一致しないため実行されません。
+・4番：case 4はbreak後なので実行されません。
+
+
+---
+【繰り返し】に関する問題
+
+問9. 以下のfor文の実行結果として正しいものを選べ。
+
+---Java---
+for (int i = 2; i <= 8; i += 2) {
+    System.out.print(i + " ");
+}
+----------
+
+1. 2 4 6 8
+2. 2 4 6
+3. 0 2 4 6 8
+4. 2 4 6 8 10
+
+正解：1番
+
+【解説】
+  for (int i = 2; i <= 8; i += 2)
+  i=2: 2 出力、i+=2 → i=4
+  i=4: 4 出力、i+=2 → i=6
+  i=6: 6 出力、i+=2 → i=8
+  i=8: 8 出力、i+=2 → i=10
+  i=10: 10 <= 8 は偽 → ループ終了
+
+・2番：6で終わるのはi<=6の条件の場合です。
+・3番：0から始まるのはi=0からの場合です。
+・4番：10はi=10のときi<=8の条件を満たさないため出力されません。
+
+
+---
+
+問10. 以下のwhile文の実行結果として正しいものを選べ。
+
+---Java---
+int count = 10;
+while (count > 0) {
+    count -= 3;
+}
+System.out.println(count);
+----------
+
+1. 1
+2. -2
+3. 0
+4. -1
+
+正解：2番
+
+【解説】
+  count = 10
+  1回目: 10 > 0 → count = 10 - 3 = 7
+  2回目: 7 > 0  → count = 7 - 3 = 4
+  3回目: 4 > 0  → count = 4 - 3 = 1
+  4回目: 1 > 0  → count = 1 - 3 = -2
+  5回目: -2 > 0 は偽 → ループ終了
+  出力: -2
+
+・1番：1はループ前の最後の正の値ですが、さらに-3されます。
+・3番：0ちょうどにはなりません（3の倍数で0になる場合のみ）。
+・4番：-1にはなりません（10から3を引いていくと7→4→1→-2になります）。
+
+
+---
+【クラス】に関する問題
+
+問11. 以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+class Car {
+    String color = "赤";
+}
+
+// mainメソッド内
+Car c = new Car();
+c.color = "青";
+System.out.println(c.color);
+----------
+
+1. 赤
+2. 青
+3. null
+4. コンパイルエラー
+
+正解：2番
+
+【解説】
+  Car c = new Car();  // color = "赤"
+  c.color = "青";     // フィールドを"青"に変更
+  System.out.println(c.color);  // 青を出力
+
+・1番：「赤」は初期値ですが、c.color = "青" で上書きされます。
+・3番：nullはString型の初期値ですが、"赤"で初期化されています。
+・4番：publicフィールドへの直接アクセスはコンパイルエラーになりません。
+
+
+---
+【メソッド】に関する問題
+
+問12. 以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+public int multiply(int a, int b) {
+    return a * b;
+}
+
+// mainメソッド内
+int result = multiply(4, 5);
+System.out.println(result + 10);
+----------
+
+1. 20
+2. 30
+3. 4510
+4. コンパイルエラー
+
+正解：2番
+
+【解説】
+  multiply(4, 5) → 4 * 5 = 20 を返す
+  int result = 20;
+  result + 10 = 30
+  System.out.println(30);
+
+・1番：20はmultiply()の戻り値ですが、+10がされていません。
+・3番：4510は文字列連結の誤解です（result と 10 はどちらもint型）。
+・4番：int型同士の演算はコンパイルエラーになりません。
+
+
+---
+【アクセス修飾子】に関する問題
+
+問13. 以下のコードでコンパイルエラーが発生する箇所として正しいものを選べ。
+
+---Java---
+class Person {
+    private String name;
+}
+
+class Main {
+    public static void main(String[] args) {
+        Person p = new Person();
+        p.name = "太郎";  // ← A
+    }
+}
+----------
+
+1. class Person { の行
+2. private String name; の行
+3. p.name = "太郎"; の行（A）
+4. エラーは発生しない
+
+正解：3番
+
+【解説】
+  class Person { private String name; }
+  → nameはprivateのため、Personクラス外からアクセス不可
+
+  class Main { ... p.name = "太郎"; }
+  → MainクラスからPersonのprivateフィールドへアクセス → コンパイルエラー
+
+・1番：Person型の変数宣言はエラーになりません。
+・2番：privateフィールドの定義自体はエラーになりません。
+・4番：エラーは発生します。
+
+
+---
+
+問14. 以下のsetterメソッドの実装として正しいものを選べ。
+ただし、フィールドは private String name; とする。
+
+1. public String setName(String n) { name = n; }
+2. public void setName(String n) { name = n; }
+3. public void setName() { return name; }
+4. private void setName(String n) { name = n; }
+
+正解：2番
+
+【解説】
+setterメソッドの構造：
+  public void setフィールド名(型 引数) { フィールド名 = 引数; }
+  public void setName(String n) { name = n; }
+
+・1番：String型を返す（戻り値型がString）はgetterの誤りです。setterはvoidです。
+・3番：return nameはgetterの処理です。setterはフィールドへ代入します。
+・4番：privateにすると外部から呼び出せず、setterの意味がなくなります。
+
+
+---
+【オーバーロード】に関する問題
+
+問15. 以下のメソッド定義のうち、オーバーロードの組み合わせとして成立しないものを選べ。
+
+1. void calc(int a) と void calc(double a)
+2. void calc(int a, String b) と void calc(String a, int b)
+3. void calc(int a) と int calc(int a)
+4. void calc(int a) と void calc(int a, int b)
+
+正解：3番
+
+【解説】
+オーバーロードは「引数の型または数が異なること」が条件です。
+戻り値の型だけが違うメソッドはオーバーロードとして認識されません。
+
+  void calc(int a) と int calc(int a)
+  → 引数が同じ(int a) → オーバーロード不可（コンパイルエラー）
+
+・1番：引数の型が違う（int vs double）→ オーバーロード可
+・2番：引数の順序が違う（int,String vs String,int）→ オーバーロード可
+・4番：引数の数が違う（1個 vs 2個）→ オーバーロード可
+
+
+
+---
+
+問16. 以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+class Calc {
+    int add(int a) { return a + 1; }
+    int add(int a, int b) { return a + b; }
+}
+
+// mainメソッド内
+Calc c = new Calc();
+System.out.println(c.add(5));
+System.out.println(c.add(3, 4));
+----------
+
+1. 5と7が順に表示される
+2. 6と7が順に表示される
+3. 5と3が順に表示される
+4. 6と34が順に表示される
+
+正解：2番
+
+【解説】
+  c.add(5)    → add(int a) が呼ばれる → 5 + 1 = 6
+  c.add(3, 4) → add(int a, int b) が呼ばれる → 3 + 4 = 7
+
+Javaは引数の数・型によって自動的に適切なオーバーロードメソッドを選びます。
+
+・1番：5と7の誤りは add(5) の結果を+1しないことで起こります。
+・3番：5と3の誤りは計算していない場合です。
+・4番：6と34は数値を文字列連結した場合の誤解です。
+
+
+---
+【コンストラクタ】に関する問題
+
+問17. コンストラクタの定義として間違っているものを選べ。
+ただし、クラス名はAnimalとする。
+
+1. public Animal() { }
+2. public void Animal() { }
+3. public Animal(String name) { }
+4. Animal() { }
+
+正解：2番
+
+【解説】
+コンストラクタの定義ルール：
+  1. クラス名と全く同じ名前
+  2. 戻り値の型を記述しない（voidも含め不可）
+
+  public void Animal() { } はvoidが付いているため、
+  コンストラクタではなくvoidを返す通常のメソッドとして扱われます。
+
+・1番：引数なし、戻り値なし、クラス名一致 → 正しいコンストラクタ
+・3番：引数あり → 正しいコンストラクタ
+・4番：アクセス修飾子なし → 有効なコンストラクタ（パッケージプライベート）
+
+
+---
+
+問18. 以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+class Dog {
+    String name;
+    Dog(String n) {
+        name = n;
+        System.out.println(name + "が生まれました");
+    }
+}
+
+// mainメソッド内
+Dog d1 = new Dog("ポチ");
+Dog d2 = new Dog("コロ");
+----------
+
+1. 何も表示されない
+2. ポチが生まれました / コロが生まれました の順に表示される
+3. コロが生まれました / ポチが生まれました の順に表示される
+4. ポチが生まれました のみ表示される
+
+正解：2番
+
+【解説】
+  Dog d1 = new Dog("ポチ"); → コンストラクタ実行 → "ポチが生まれました"
+  Dog d2 = new Dog("コロ"); → コンストラクタ実行 → "コロが生まれました"
+
+newのたびにコンストラクタが実行され、生成順に出力されます。
+
+・1番：コンストラクタ内にprintln()があるため、出力は必ず発生します。
+・3番：d1より前にd2が生成されることはありません（記述順通りです）。
+・4番：d2のコンストラクタも実行されるため、コロも表示されます。
+
+
+---
+【staticメンバ】に関する問題
+
+問19. 以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+class Counter {
+    static int count = 0;
+}
+
+// mainメソッド内
+Counter c1 = new Counter();
+Counter c2 = new Counter();
+c1.count++;
+c2.count++;
+System.out.println(Counter.count);
+----------
+
+1. 0
+2. 1
+3. 2
+4. コンパイルエラー
+
+正解：3番
+
+【解説】
+  static int count = 0; // クラス全体で共有される1つの変数
+
+  Counter c1 = new Counter();
+  Counter c2 = new Counter();
+  c1.count++;  // count = 1（共有されているため同じ変数）
+  c2.count++;  // count = 2（c1とc2は同じstatic変数を参照）
+  System.out.println(Counter.count); // 2
+
+static変数はオブジェクトごとではなく、クラスで1つだけ存在します。
+
+・1番：初期値の0のままでは++処理がないことになります。
+・2番：c1またはc2の片方しかカウントしていない場合の誤りです。
+・4番：static変数をインスタンスから参照してもコンパイルエラーにはなりません。
+
+
+---
+
+問20. 以下のコードでコンパイルエラーになる行として正しいものを選べ。
+
+---Java---
+class MyClass {
+    int value = 10;           // A
+    static void show() {
+        System.out.println(value); // B
+    }
+}
+----------
+
+1. A行（int value = 10;）
+2. static void show() {
+3. B行（System.out.println(value);）
+4. エラーは発生しない
+
+正解：3番
+
+【解説】
+  class MyClass {
+      int value = 10;           // インスタンス変数
+      static void show() {
+          System.out.println(value); // ← エラー
+      }
+  }
+
+staticメソッドはオブジェクトなしで呼び出せます。
+しかし、インスタンス変数(value)はオブジェクトが必要なため、
+staticメソッド内から直接アクセスすることはできません。
+
+・1番：インスタンス変数の定義自体はエラーになりません。
+・2番：staticメソッドの定義自体はエラーになりません。
+・4番：エラーは発生します。
+
+
+---
+【継承】に関する問題
+
+問21. 以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+class Animal {
+    void speak() { System.out.println("..."); }
+}
+class Cat extends Animal {
+    void speak() { System.out.println("ニャー"); }
+}
+
+// mainメソッド内
+Animal a = new Cat();
+a.speak();
+----------
+
+1. ...
+2. ニャー
+3. コンパイルエラー
+4. ...とニャーが両方表示される
+
+正解：2番
+
+【解説】
+  Animal a = new Cat(); // 変数の型はAnimal、実体はCat
+  a.speak();            // 実体のCatのspeak()が呼ばれる
+
+これを「ポリモーフィズム（多態性）」と言います。
+オーバーライドされたメソッドは、参照型ではなく実際のオブジェクトの型で決まります。
+
+・1番：「...」はAnimalのspeak()ですが、実体はCatなのでCatのspeak()が優先されます。
+・3番：コンパイルエラーにはなりません（AnimalはCatの親クラスなので代入可能）。
+・4番：両方が表示されるのはsuper.speak()を呼んでいる場合だけです。
+
+
+---
+
+問22. 以下のコードのコンストラクタ実行順序として正しいものを選べ。
+
+---Java---
+class Animal {
+    Animal() { System.out.println("Animalコンストラクタ"); }
+}
+class Dog extends Animal {
+    Dog() { System.out.println("Dogコンストラクタ"); }
+}
+
+// mainメソッド内
+Dog d = new Dog();
+----------
+
+1. Dogコンストラクタ → Animalコンストラクタ の順に表示される
+2. Animalコンストラクタ → Dogコンストラクタ の順に表示される
+3. Animalコンストラクタ のみ表示される
+4. Dogコンストラクタ のみ表示される
+
+正解：2番
+
+【解説】
+  new Dog() を実行すると：
+    1. DogコンストラクタがまずAnimalのsuper()を暗黙的に呼び出す
+    2. "Animalコンストラクタ"が出力される
+    3. 次にDogコンストラクタ本体が実行される
+    4. "Dogコンストラクタ"が出力される
+
+・1番：逆順です。スーパークラスが先に実行されます。
+・3番：Dogコンストラクタも必ず実行されます。
+・4番：Animalコンストラクタも必ず実行されます。
+
+
+---
+【インターフェイス】に関する問題
+
+問23. 以下のコードでコンパイルエラーになるものを選べ。
+
+---Java---
+interface Shape {
+    int SIDES = 4;    // A
+    void draw();      // B
+}
+----------
+
+A行のSIDESに別の値を代入しようとした場合の記述として
+
+1. SIDES = 6; は可能
+2. Shape.SIDES = 6; は可能
+3. SIDES = 6; はコンパイルエラーになる（定数のため変更不可）
+4. インターフェイスにフィールドは定義できないためA行自体がエラー
+
+正解：3番
+
+【解説】
+インターフェイスのフィールドは自動的に public static final が付きます。
+finalが付いているため、一度初期化された後は値を変更できません。
+
+  interface Shape {
+      int SIDES = 4;  // = public static final int SIDES = 4;
+  }
+  SIDES = 6;  // コンパイルエラー（finalフィールドへの再代入）
+
+・1番：SIDES = 6 は直接代入できず、コンパイルエラーになります。
+・2番：Shape.SIDES = 6 もfinalのため変更不可です。
+・4番：インターフェイスにフィールドは定義できます（定数として）。
+
+
+---
+
+問24. 以下のコードでコンパイルエラーになる実装クラスを選べ。
+ただし、インターフェイスPrintableには void print(); が定義されているとする。
+
+1. class A implements Printable { public void print() { System.out.println("A"); } }
+2. class B implements Printable { void print() { System.out.println("B"); } }
+3. class C implements Printable { public void print() { } }
+4. abstract class D implements Printable { }
+
+正解：2番
+
+【解説】
+インターフェイスのメソッドは暗黙的にpublicになります。
+実装クラスでオーバーライドする際、スーパー（インターフェイス）より
+アクセス制限を狭めることはできません。
+
+  interface Printable { void print(); }  // 実際はpublic void print()
+  class B { void print() { ... } }       // packageプライベート → アクセス制限が狭まる → エラー
+
+・1番：publicでオーバーライド → 問題なし
+・3番：メソッド本体が空でも実装として有効
+・4番：abstractクラスはインターフェイスのメソッドを実装しなくても可
+
+
+---
+【パッケージ】に関する問題
+
+問25. 以下のコードでコンパイルエラーになるパッケージ文の書き方を選べ。
+
+---Java---
+import java.util.ArrayList;
+package jp.co.sss.app;   // ← この位置に記述
+
+public class Main { }
+----------
+
+1. package文はどこに書いても問題ない
+2. package文はimport文より後に記述してはならないためエラーになる
+3. package文はクラス内に記述しなければならない
+4. パッケージ名に「.」は使用できない
+
+正解：2番
+
+【解説】
+ソースファイルの正しい記述順序：
+  1. package文（ファイル先頭、1行のみ）
+  2. import文
+  3. クラス定義
+
+  import java.util.ArrayList;
+  package jp.co.sss.app;   // ← import文の後 → コンパイルエラー
+
+・1番：package文の位置には厳格なルールがあります。
+・3番：package文はクラス内ではなく、ファイルの最初に記述します。
+・4番：「.」は階層の区切りに使用します。使用可能です。
+
+
+---
+
+問26. パッケージ「jp.co.sss.model.entity」の下にあるクラス「UserEntity」を1クラスだけインポートするimport文として正しいものを選べ。
+
+1. import jp.co.sss.model.entity.*;
+2. import jp.co.sss.model.entity;
+3. import jp.co.sss.model.entity.UserEntity;
+4. include jp.co.sss.model.entity.UserEntity;
+
+正解：3番
+
+【解説】
+特定クラス1つをインポートする書き方：
+  import 完全パッケージ名.クラス名;
+  import jp.co.sss.model.entity.UserEntity;
+
+・1番：ワイルドカード（*）はパッケージ内の全クラスをインポートします（特定クラスのみではない）。
+・2番：クラス名がなく、パッケージ名のみです。
+・4番：includeはJavaに存在しません。
+
+
+---
+【例外】に関する問題
+
+問27. 以下のコードでコンパイルエラーが出ないようにする修正として正しいものを選べ。
+ただし、br.readLine()はIOExceptionをスローする可能性があるとする。
+
+---Java---
+BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+String line = br.readLine();
+----------
+
+1. if文でnullチェックを行う
+2. try-catch(IOException e)でreadLine()を囲む、またはメソッドにthrows IOExceptionを宣言する
+3. lineの型をObjectに変更する
+4. System.out.println()で出力する
+
+正解：2番
+
+【解説】
+IOExceptionはチェック例外です。チェック例外はコンパイラが処理を強制します。
+
+  方法A：try-catch
+    try { String line = br.readLine(); } catch(IOException e) { ... }
+
+  方法B：throws宣言
+    void method() throws IOException { String line = br.readLine(); }
+
+・1番：nullチェックのifは例外処理ではありません。
+・3番：変数の型変更は例外の発生とは無関係です。
+・4番：println()を追加しても例外処理にはなりません。
+
+
+---
+
+問28. 以下のコードの動作として正しいものを選べ。
+
+---Java---
+try {
+    int result = 10 / 0;
+} catch (ArithmeticException e) {
+    System.out.println("エラー：" + e.getMessage());
+}
+----------
+
+1. 「エラー：/ by zero」と表示される
+2. プログラムが強制終了する
+3. resultに0が代入される
+4. コンパイルエラーになる
+
+正解：1番
+
+【解説】
+  try {
+      int result = 10 / 0;  // 0除算 → ArithmeticException発生
+  } catch (ArithmeticException e) {
+      System.out.println("エラー：" + e.getMessage());
+  }
+
+10 / 0 でArithmeticExceptionが発生し、catchブロックで捕捉されます。
+e.getMessage()は例外のメッセージ「/ by zero」を返します。
+
+・2番：try-catchで例外が捕捉されるため、プログラムは終了しません。
+・3番：0除算の結果は0にはなりません（例外が発生します）。
+・4番：0除算の構文はコンパイルエラーではなく実行時エラーです。
+
+
+---
+【コレクションフレームワーク】に関する問題
+
+問29. 以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+import java.util.ArrayList;
+
+ArrayList<String> list = new ArrayList<>();
+list.add("Java");
+list.add("Python");
+list.add("Java");
+System.out.println(list.size());
+System.out.println(list.get(1));
+----------
+
+1. 2 / Java
+2. 3 / Python
+3. 2 / Python
+4. 3 / Java
+
+正解：2番
+
+【解説】
+  list.add("Java");    // [Java]         size=1
+  list.add("Python");  // [Java, Python]  size=2
+  list.add("Java");    // [Java, Python, Java] size=3  ← 重複OK
+  list.size() → 3
+  list.get(1) → "Python"（インデックス1 = 2番目の要素）
+
+ArrayListは重複した値を追加できます。インデックスは0から始まります。
+
+・1番：2/Javaはlist.size()が2またはget(1)がJavaの場合の誤りです。
+・3番：2/Pythonはlist.size()を2と誤解した場合です。
+・4番：3/Javaはget(1)をget(0)または重複のないHashSetと混同した場合です。
+
+
+---
+
+問30. 以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+import java.util.HashMap;
+
+HashMap<String, Integer> map = new HashMap<>();
+map.put("apple", 100);
+map.put("banana", 200);
+map.put("apple", 300);
+System.out.println(map.get("apple"));
+System.out.println(map.size());
+----------
+
+1. 100 / 2
+2. 300 / 2
+3. 100 / 3
+4. 300 / 3
+
+正解：2番
+
+【解説】
+  map.put("apple", 100);   // {"apple":100}
+  map.put("banana", 200);  // {"apple":100, "banana":200}
+  map.put("apple", 300);   // 同じキー"apple"で再put → {"apple":300, "banana":200}
+
+HashMapは同じキーでput()すると値が上書きされます（追加ではない）。
+  map.get("apple") → 300
+  map.size() → 2（appleとbananaの2つ）
+
+・1番：100はappleの初期値ですが、300で上書きされています。
+・3番：100/3はappleが上書きされず3エントリになると誤解した場合です。
+・4番：300/3はappleが上書きにより3エントリになると誤解した場合です。
+
+
+---
+

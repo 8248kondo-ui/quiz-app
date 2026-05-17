@@ -1,0 +1,1125 @@
+Java総合試験 ── コード多用版
+---
+【変数】に関する問題
+
+問1. 以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+public class Main {
+    public static void main(String[] args) {
+        String s1 = "Hello";
+        String s2 = 100 + 20 + "World";
+        System.out.println(s2);
+    }
+}
+----------
+
+1. Hello120World
+2. World12010
+3. 120World
+4. 100World
+
+正解：3番「120World」
+
+【解説】
+Javaでは演算子は左から右へ評価されます。
+  100 + 20 + "World"
+  → まず 100 + 20 が整数の足し算 → 120
+  → 次に 120 + "World" が文字列連結 → "120World"
+
+【ひっかけのポイント】
+文字列が右側にある場合、左側の整数同士の計算が先に行われる点に注意。
+"World" + 100 + 20 の場合は "World10020" になります。
+---
+
+【変数】に関する問題
+
+問2. 以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+public class Main {
+    public static void main(String[] args) {
+        double d = 7 / 2;
+        System.out.println(d);
+    }
+}
+----------
+
+1. 3.5
+2. 3.0
+3. 4.0
+4. コンパイルエラーになる
+
+正解：2番「3.0」
+
+【解説】
+7 / 2 は両方 int 型なので、結果は整数の 3（小数点以下切り捨て）になります。
+その後、int の 3 を double 型の変数 d に代入すると自動変換されて 3.0 になります。
+
+  double d = 7 / 2;
+  → 7 / 2 = 3（int同士の整数除算）
+  → d = 3.0（intからdoubleへの自動変換）
+
+【ひっかけのポイント】
+「double型の変数に代入するから 3.5 になる」と思いがちですが、
+代入される前に右辺の計算が完了してしまいます。
+小数点を得るには (double)7 / 2 や 7.0 / 2 のようにする必要があります。
+---
+
+【演算子】に関する問題
+
+問3. 以下のコードを実行したとき、コンソールに出力される内容として正しいものを選べ。
+
+---Java---
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("答え：" + 3 + 5);
+    }
+}
+----------
+
+1. 答え：8
+2. 答え：35
+3. 8
+4. 35
+
+正解：2番「答え：35」
+
+【解説】
+"答え：" + 3 + 5 は左から評価されます。
+  → "答え：" + 3 → "答え：3"（文字列連結）
+  → "答え：3" + 5 → "答え：35"（文字列連結）
+
+【ひっかけのポイント】
+「3 + 5 = 8 が先に計算される」と思うのは誤り。
++ 演算子は左から右へ順番に評価されるため、
+文字列が最初に現れた時点でその後はすべて文字列連結として扱われます。
+計算を先に行いたい場合は「"答え：" + (3 + 5)」と括弧でくくります。
+---
+
+【演算子】に関する問題
+
+問4. 以下のコードを実行したとき、変数resultに格納される値として正しいものを選べ。
+ただし、変数aには10が、変数bには3が代入されているとする。
+
+---Java---
+int a = 10;
+int b = 3;
+int result = (int)((double)a / b);
+----------
+
+1. 3
+2. 3.333...
+3. 4
+4. コンパイルエラーになる
+
+正解：1番「3」
+
+【解説】
+  (int)((double)a / b)
+  → (double)10 / 3 = 3.333...（doubleにキャストしてから割り算）
+  → (int)3.333... = 3（intにキャストで小数点以下切り捨て）
+
+計算の順序：
+1. (double)a → 10 を double にキャスト → 10.0
+2. 10.0 / 3 → double同士の割り算 → 3.333...
+3. (int)3.333... → 3（切り捨て）
+
+【ひっかけのポイント】
+「切り捨て」であり「四捨五入」ではない点に注意。
+3.999... でも (int) をつけると 3 になります。
+
+---
+
+【配列】に関する問題
+
+問5. 以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+public class Main {
+    public static void main(String[] args) {
+        int[] nums = {10, 20, 30, 40, 50};
+        System.out.println(nums[nums.length - 1]);
+    }
+}
+----------
+
+1. 40
+2. 50
+3. 5
+4. 4
+
+正解：2番「50」
+
+【解説】
+  int[] nums = {10, 20, 30, 40, 50};
+  nums.length → 5（要素数）
+  nums.length - 1 → 4（最後の添字）
+  nums[4] → 50
+
+配列の添字は0から始まるため、最後の要素は [length - 1] でアクセスします。
+
+【ひっかけのポイント】
+「nums.length」は5ですが、「nums[5]」はArrayIndexOutOfBoundsExceptionになります。
+最後の要素には nums[nums.length - 1] でアクセスするのが定番パターンです。
+---
+
+【配列】に関する問題
+
+問6. 以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+public class Main {
+    public static void main(String[] args) {
+        int[] nums = new int[3];
+        nums[0] = 5;
+        nums[1] = nums[0] * 2;
+        nums[2] = nums[1] + nums[0];
+        System.out.println(nums[2]);
+    }
+}
+----------
+
+1. 10
+2. 15
+3. 20
+4. 5
+
+正解：2番「15」
+
+【解説】
+実行順序を追うと：
+  nums[0] = 5
+  nums[1] = nums[0] * 2 = 5 * 2 = 10
+  nums[2] = nums[1] + nums[0] = 10 + 5 = 15
+
+System.out.println(nums[2]) → 15 が出力されます。
+
+【ひっかけのポイント】
+nums[2] = nums[1] + nums[0] の時点で nums[0] は 5、nums[1] は 10 であることを
+順番通りに追うことが重要です。「nums[0] * 2 + nums[0]」とも同義です。
+
+---
+
+【分岐】に関する問題
+
+問7. 以下のコードの実行結果として正しいものを選べ。
+ただし、変数scoreには75が代入されているとする。
+
+---Java---
+int score = 75;
+if (score >= 90) {
+    System.out.println("優");
+} else if (score >= 70) {
+    System.out.println("良");
+} else if (score >= 60) {
+    System.out.println("可");
+} else {
+    System.out.println("不可");
+}
+----------
+
+1. 優
+2. 良
+3. 可
+4. 不可
+
+正解：2番「良」
+
+【解説】
+score = 75 の場合：
+  score >= 90 → 75 >= 90 → false（スキップ）
+  score >= 70 → 75 >= 70 → true（「良」を出力して終了）
+
+最初に true になった条件のブロックのみ実行され、
+それ以降の else if・else は実行されません。
+
+【ひっかけのポイント】
+score >= 60 も true ですが、すでに score >= 70 で条件が満たされているため
+実行されません。if-else if は「最初に true になった1つだけ実行」です。
+
+---
+
+【分岐】に関する問題
+
+問8. 以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+public class Main {
+    public static void main(String[] args) {
+        int x = 2;
+        switch (x) {
+            case 1:
+                System.out.println("one");
+            case 2:
+                System.out.println("two");
+            case 3:
+                System.out.println("three");
+                break;
+            case 4:
+                System.out.println("four");
+        }
+    }
+}
+----------
+
+1. two
+2. two three
+3. one two three
+4. two three four
+
+正解：2番「two three」
+
+【解説】
+x = 2 なので case 2: にマッチします。
+  case 2: → "two" を出力
+  （break なし → fall-through）
+  case 3: → "three" を出力
+  （break あり → switch文を抜ける）
+
+break を省略すると、次の case に処理が「落ちて」続けて実行されます（fall-through）。
+
+【ひっかけのポイント】
+case 4: の "four" は出力されません。case 3 の break で止まります。
+「case 2 にマッチしたから two だけ出力される」と思うのは誤りです。
+
+---
+
+【繰り返し】に関する問題
+
+問9. 以下の2つのfor文のうち、より多く繰り返すものとして正しいものを選べ。
+
+A: for (int i = 0; i < 5; i++)
+B: for (int i = 1; i <= 5; i++)
+
+1. Aの方が多い（6回）
+2. Bの方が多い（6回）
+3. AもBも同じ（5回）
+4. AもBも同じ（4回）
+
+正解：3番「AもBも同じ（5回）」
+
+【解説】
+A: for (int i = 0; i < 5; i++)
+  → i = 0, 1, 2, 3, 4（5回繰り返す）
+
+B: for (int i = 1; i <= 5; i++)
+  → i = 1, 2, 3, 4, 5（5回繰り返す）
+
+どちらも5回繰り返します。
+
+【ひっかけのポイント】
+「i < 5 と i <= 5 は違う」ことは正しいですが、
+開始値も異なる（0 と 1）ため、結果的に同じ回数になります。
+i=0 から始めて i<5 は「0以上5未満」= 5回。
+i=1 から始めて i<=5 は「1以上5以下」= 5回。
+
+---
+
+【繰り返し】に関する問題
+
+問10. 以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+public class Main {
+    public static void main(String[] args) {
+        int i = 1;
+        int sum = 0;
+        while (i <= 5) {
+            sum += i;
+            i++;
+        }
+        System.out.println(sum);
+    }
+}
+----------
+
+1. 10
+2. 15
+3. 20
+4. 5
+
+正解：2番「15」
+
+【解説】
+1 + 2 + 3 + 4 + 5 = 15
+
+while ループの実行追跡：
+  i=1: sum = 0 + 1 = 1
+  i=2: sum = 1 + 2 = 3
+  i=3: sum = 3 + 3 = 6
+  i=4: sum = 6 + 4 = 10
+  i=5: sum = 10 + 5 = 15
+  i=6: 6 <= 5 → false → ループ終了
+
+【ひっかけのポイント】
+「i <= 5」なので i=5 のときも実行されます（5回実行）。
+「i < 5」と混同しないよう注意してください。
+---
+
+【クラス】に関する問題
+
+問11. 以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+public class Car {
+    String color = "white";
+    int speed = 0;
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Car car = new Car();
+        car.color = "red";
+        System.out.println(car.color);
+    }
+}
+----------
+
+1. white
+2. red
+3. 0
+4. コンパイルエラーになる
+
+正解：2番「red」
+
+【解説】
+  Car car = new Car();       → Carオブジェクト生成。color = "white"
+  car.color = "red";         → フィールドcolorに "red" を直接代入
+  System.out.println(car.color); → "red" が出力される
+
+【ひっかけのポイント】
+「new Car() した直後はコンストラクタで設定された "white" では？」と思うかもしれませんが、
+その後に car.color = "red" で上書きしているため "red" になります。
+処理の順番をしっかり追うことが大切です。
+
+---
+
+【メソッド】に関する問題
+
+問12. 以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+public class Main {
+    static int add(int a, int b) {
+        return a + b;
+    }
+
+    public static void main(String[] args) {
+        int result = add(3, 4);
+        System.out.println(result * 2);
+    }
+}
+----------
+
+1. 7
+2. 12
+3. 14
+4. コンパイルエラーになる
+
+正解：3番「14」
+
+【解説】
+  add(3, 4) → 3 + 4 = 7（int型で返す）
+  result = 7
+  result * 2 = 7 * 2 = 14
+
+【ひっかけのポイント】
+メソッドの戻り値を変数に受け取り、さらにその変数を使って計算していることに注目。
+「メソッドを呼んだ結果の 7 をそのまま出力する」と思うと 7 と答えてしまいます。
+println の中で「result * 2」しているので 14 になります。
+
+---
+
+【アクセス修飾子】に関する問題
+
+問13. 以下のコードについて、コンパイルエラーが発生する箇所として正しいものを選べ。
+
+---Java---
+// Personクラス（別ファイル）
+public class Person {
+    private String name = "Taro";
+    public int age = 20;
+}
+
+// Mainクラス
+public class Main {
+    public static void main(String[] args) {
+        Person p = new Person();
+        System.out.println(p.age);    // 行A
+        System.out.println(p.name);   // 行B
+    }
+}
+----------
+
+1. 行Aでエラーが発生する
+2. 行Bでエラーが発生する
+3. 行Aと行Bの両方でエラーが発生する
+4. エラーは発生しない
+
+正解：2番「行Bでエラーが発生する」
+
+【解説】
+  p.age  → age は public なので別クラスからアクセス可能（行Aはエラーなし）
+  p.name → name は private なので別クラスからアクセス不可（行Bでコンパイルエラー）
+
+アクセス修飾子の原則：
+  public    → どこからでもアクセス可
+  private   → 同じクラス内からのみアクセス可
+  protected → 同じパッケージ内 or サブクラスからアクセス可
+
+【ひっかけのポイント】
+private フィールドには getter/setter を通じてアクセスするのが正しい方法です。
+直接 p.name と書くとコンパイルエラーになります。
+
+---
+
+【アクセス修飾子】に関する問題
+
+問14. 以下のgetterとsetterのコードとして正しいものを選べ。
+ただし、フィールドは「private String name;」とする。
+
+1. public String getName() { return name; }
+   public void setName(String name) { this.name = name; }
+
+2. public void getName() { return name; }
+   public String setName(String name) { this.name = name; }
+
+3. private String getName() { return name; }
+   private void setName(String name) { this.name = name; }
+
+4. public String getName(String name) { return name; }
+   public void setName() { this.name = name; }
+
+正解：1番
+
+【解説】
+正しい getter/setter の形式：
+  getter: 戻り値の型 getフィールド名() { return フィールド; }
+  setter: void setフィールド名(型 引数) { this.フィールド = 引数; }
+
+各選択肢の誤り：
+  2番: getter の戻り値型が void（returnできない）、setter の戻り値型が String（不正）
+  3番: getter/setter が private（外部からアクセスできない）
+  4番: getter に引数がある（getterは引数なし）、setter に引数がない
+
+【ポイント】
+this.name = name; の this は「このオブジェクトのフィールド」を指します。
+引数名とフィールド名が同じ場合に this で区別します。---
+
+【オーバーロード】に関する問題
+
+問15. 以下のクラスに定義されているメソッドのうち、オーバーロードが成立していないものを含む組み合わせはどれか。
+
+---Java---
+public class Calc {
+    public int sum(int a, int b) { return a + b; }
+    // 以下のメソッドを追加した場合
+}
+----------
+
+1. public double sum(double a, double b) { return a + b; }
+2. public int sum(int a, int b, int c) { return a + b + c; }
+3. public int sum(int x, int y) { return x + y; }
+4. public String sum(String a, String b) { return a + b; }
+
+正解：3番
+
+【解説】
+オーバーロードが成立するには「引数の型・数・順序のいずれかが異なる」必要があります。
+  1番: sum(double, double) → 引数の型が異なる → 成立
+  2番: sum(int, int, int) → 引数の数が異なる → 成立
+  3番: sum(int x, int y) → 引数の型も数も同じ（名前だけ異なる） → 不成立
+  4番: sum(String, String) → 引数の型が異なる → 成立
+
+【ひっかけのポイント】
+引数の「変数名」が違うだけでは、オーバーロードになりません。
+コンパイラは変数名ではなく「型・数・順序」でメソッドを区別します。
+
+---
+
+【オーバーロード】に関する問題
+
+問16. 以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+public class Main {
+    static void show(int n) {
+        System.out.println("int: " + n);
+    }
+    static void show(double d) {
+        System.out.println("double: " + d);
+    }
+    static void show(String s) {
+        System.out.println("String: " + s);
+    }
+
+    public static void main(String[] args) {
+        show(3.14);
+    }
+}
+----------
+
+1. int: 3
+2. int: 3.14
+3. double: 3.14
+4. String: 3.14
+
+正解：3番「double: 3.14」
+
+【解説】
+  show(3.14) → 3.14 は double 型リテラル
+  → show(double d) が呼ばれる
+  → "double: 3.14" が出力される
+
+【ひっかけのポイント】
+3.14 は double 型として扱われます。
+int型の 3 ではないので show(int n) は呼ばれません。
+Javaでは整数リテラルは int、小数リテラルは double がデフォルトです。
+
+---
+
+【コンストラクタ】に関する問題
+
+問17. 以下のコンストラクタの定義として誤っているものを選べ。
+
+1. public Dog() { }
+2. public Dog(String name) { this.name = name; }
+3. public void Dog() { }
+4. public Dog(int age) { this.age = age; }
+
+正解：3番「public void Dog() { }」
+
+【解説】
+コンストラクタの特徴：
+  ・クラス名と同じ名前でなければならない
+  ・戻り値の型を書いてはいけない（void も書かない）
+  ・アクセス修飾子は書ける
+
+選択肢3番は「void」が付いているため、コンストラクタではなく通常のメソッドとして扱われます。
+コンパイルエラーにはなりませんが、コンストラクタとしては機能しません。
+
+【ひっかけのポイント】
+void を付けるとメソッド定義になってしまいます。
+コンストラクタは「戻り値なし」であり、「void なし」です。
+
+---
+
+【コンストラクタ】に関する問題
+
+問18. 以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+public class Counter {
+    int count;
+    Counter() {
+        count = 10;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Counter c = new Counter();
+        System.out.println(c.count);
+    }
+}
+----------
+
+1. 0
+2. 10
+3. null
+4. コンパイルエラーになる
+
+正解：2番「10」
+
+【解説】
+  Counter c = new Counter();
+  → オブジェクト生成時にコンストラクタが実行される
+  → count = 10 が実行される
+  System.out.println(c.count) → 10 が出力される
+
+【ひっかけのポイント】
+int 型フィールドのデフォルト値は 0 ですが、
+コンストラクタで count = 10 と設定しているため 10 になります。
+コンストラクタはオブジェクト生成時に自動的に実行されます。
+
+---
+
+【staticメンバ】に関する問題
+
+問19. 以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+public class Counter {
+    static int count = 0;
+
+    Counter() {
+        count++;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Counter c1 = new Counter();
+        Counter c2 = new Counter();
+        Counter c3 = new Counter();
+        System.out.println(Counter.count);
+    }
+}
+----------
+
+1. 0
+2. 1
+3. 3
+4. コンパイルエラーになる
+
+正解：3番「3」
+
+【解説】
+static 変数 count はクラス全体で1つだけ存在します。
+  new Counter() → コンストラクタで count++ → count = 1
+  new Counter() → コンストラクタで count++ → count = 2
+  new Counter() → コンストラクタで count++ → count = 3
+  Counter.count → 3 が出力される
+
+【ひっかけのポイント】
+インスタンス変数ならオブジェクトごとに独立しますが、
+static 変数はすべてのオブジェクトで共有されます。
+そのため、何回 new してもすべてのカウントが積み上がります。
+
+---
+
+【staticメンバ】に関する問題
+
+問20. 以下のコードについて、コンパイルエラーが発生する箇所として正しいものを選べ。
+
+---Java---
+public class Sample {
+    int instanceVar = 5;
+    static int staticVar = 10;
+
+    static void show() {
+        System.out.println(staticVar);   // 行A
+        System.out.println(instanceVar); // 行B
+    }
+}
+----------
+
+1. 行Aでエラーが発生する
+2. 行Bでエラーが発生する
+3. 行Aと行Bの両方でエラーが発生する
+4. エラーは発生しない
+
+正解：2番「行Bでエラーが発生する」
+
+【解説】
+  行A: System.out.println(staticVar);
+    → static変数への参照 → staticメソッドからアクセス可能 → エラーなし
+
+  行B: System.out.println(instanceVar);
+    → インスタンス変数への参照 → staticメソッドからは直接アクセス不可
+    → コンパイルエラー
+
+【理由】
+static メソッドはオブジェクトが存在しなくても呼び出せます。
+しかしインスタンス変数はオブジェクトが存在して初めて使えるため、
+static メソッドからは「どのオブジェクトの変数か」が特定できず、アクセスできません。
+
+---
+
+【継承】に関する問題
+
+問21. 以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+public class Animal {
+    public void speak() {
+        System.out.println("...");
+    }
+}
+
+public class Dog extends Animal {
+    @Override
+    public void speak() {
+        System.out.println("Woof!");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Animal a = new Dog();
+        a.speak();
+    }
+}
+----------
+
+1. ...
+2. Woof!
+3. ...Woof!
+4. コンパイルエラーになる
+
+正解：2番「Woof!」
+
+【解説】
+  Animal a = new Dog();
+  → 変数の型は Animal だが、実際のオブジェクトは Dog
+  a.speak();
+  → 実際のオブジェクト（Dog）の speak() が実行される
+  → "Woof!" が出力される
+
+これをポリモーフィズム（多態性）といいます。
+変数の型がスーパークラスであっても、実際に生成されたオブジェクトのメソッドが呼ばれます。
+
+【ひっかけのポイント】
+「Animal型の変数だから Animal の speak() が呼ばれる」と思うのは誤りです。
+Javaは実行時に実際のオブジェクトの型を確認して、適切なメソッドを呼び出します。
+
+
+---
+
+【継承】に関する問題
+
+問22. 以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+public class Parent {
+    Parent() {
+        System.out.println("Parent");
+    }
+}
+
+public class Child extends Parent {
+    Child() {
+        System.out.println("Child");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Child c = new Child();
+    }
+}
+----------
+
+1. Child
+2. Parent
+3. Parent Child
+4. Child Parent
+
+正解：3番「Parent Child」
+
+【解説】
+  Child c = new Child();
+  → Child コンストラクタが実行される前に、暗黙的に super() が呼ばれる
+  → Parent コンストラクタ実行 → "Parent" が出力される
+  → Child コンストラクタの残り実行 → "Child" が出力される
+
+継承関係でのコンストラクタ実行順序：
+  スーパークラスのコンストラクタ → サブクラスのコンストラクタ
+
+【ひっかけのポイント】
+「Child を生成するのだから Child が先に出力される」と思いがちですが、
+Javaでは必ず親（スーパークラス）のコンストラクタが先に実行されます。
+Child コンストラクタの1行目には暗黙的に super(); が挿入されています。
+
+---
+
+【インターフェイス】に関する問題
+
+問23. 以下のインターフェイスの定義に関して、コンパイルエラーになるものを選べ。
+
+---Java---
+public interface Shape {
+    // （A）の場所に書くフィールド定義
+}
+----------
+
+1. int SIDES = 4;
+2. public static final double PI = 3.14;
+3. private int area = 0;
+4. String name = "shape";
+
+正解：3番「private int area = 0;」
+
+【解説】
+インターフェイスのフィールドは、暗黙的にすべて
+  public static final（= 定数）
+として扱われます。
+
+  1番: int SIDES = 4; → public static final int SIDES = 4; と同義 → 合法
+  2番: public static final double PI = 3.14; → 明示的に書いているが合法
+  3番: private int area = 0; → インターフェイスで private は使用不可 → コンパイルエラー
+  4番: String name = "shape"; → public static final と同義 → 合法
+
+【ひっかけのポイント】
+インターフェイスのフィールドは必ず public static final です。
+private を付けると定数の共有という役割に矛盾するためエラーになります。
+
+---
+
+【インターフェイス】に関する問題
+
+問24. 以下のコードについて、コンパイルエラーが発生するものを選べ。
+
+---Java---
+public interface Printable {
+    void print();
+}
+
+// 以下の4つのクラス定義のうち、コンパイルエラーになるものを選べ
+----------
+
+1. public class Doc implements Printable {
+       public void print() { System.out.println("doc"); }
+   }
+
+2. public class Photo implements Printable {
+       public void print() { System.out.println("photo"); }
+   }
+
+3. public class Report implements Printable { }
+
+4. public abstract class Form implements Printable { }
+
+正解：3番
+
+【解説】
+インターフェイスの抽象メソッドを実装するクラスは、
+全ての抽象メソッドをオーバーライドする義務があります。
+
+  1番: print() を実装している → 合法
+  2番: print() を実装している → 合法
+  3番: print() を実装していない（abstract 宣言もない） → コンパイルエラー
+  4番: abstract クラスとして宣言 → 未実装のまま継承できる → 合法
+
+【ひっかけのポイント】
+abstract クラス（選択肢4）は抽象クラスなので、
+インターフェイスの抽象メソッドを実装しなくても合法です。
+ただし、その abstract クラスを継承した具象クラスが実装しなければなりません。
+
+---
+
+【パッケージ】に関する問題
+
+問25. 以下のクラスがパッケージ「com.example」に属する場合、ファイルの先頭に記述すべき文として正しいものを選べ。
+
+1. import com.example;
+2. package com.example;
+3. import com.example.Main;
+4. package Main.com.example;
+
+正解：2番「package com.example;」
+
+【解説】
+パッケージを宣言する文法：
+  package パッケージ名;
+
+package 文はソースファイルの先頭（import より前）に記述します。
+
+各選択肢の誤り：
+  1番: import は「使う側」が書く文であり、パッケージ宣言ではない
+  3番: import com.example.Main; → 自クラス名まで含めた import 文（意味が異なる）
+  4番: クラス名を含めた文法は不正
+
+【ひっかけのポイント】
+package と import の違いを混同しないこと。
+  package → このクラスが属するパッケージを宣言する
+  import  → 他のパッケージのクラスを使用可能にする
+
+---
+
+【パッケージ】に関する問題
+
+問26. パッケージ「jp.co.sample.util」にある「StringUtil」クラスをimportする文として正しいものを選べ。
+
+1. import jp.co.sample.util.*;
+2. import StringUtil from jp.co.sample.util;
+3. package jp.co.sample.util.StringUtil;
+4. using jp.co.sample.util.StringUtil;
+
+正解：1番「import jp.co.sample.util.*;」
+
+【解説】
+パッケージ内のクラスをインポートする方法：
+  特定クラスを指定: import jp.co.sample.util.StringUtil;
+  パッケージ全体を指定: import jp.co.sample.util.*;（ワイルドカード）
+
+どちらも正しいですが、選択肢1のワイルドカード形式が正解です。
+
+各選択肢の誤り：
+  2番: from 構文は JavaScript の文法（Java では使えない）
+  3番: package 文はインポートではなくパッケージ宣言
+  4番: using 構文は C# の文法（Java では使えない）
+---
+
+【例外】に関する問題
+
+問27. 以下のコードについて、コンパイルエラーが出ないようにするための修正として正しいものを選べ。
+
+---Java---
+public class Main {
+    public static void main(String[] args) {
+        String line = br.readLine(); // readLine()はIOExceptionをスロー
+    }
+}
+----------
+
+1. mainメソッドの宣言を「public static void main(String[] args) throws IOException」に変更する
+2. mainメソッドの宣言を「public static void main(String[] args) throws Exception」に変更する
+3. 1と2のどちらかを行うか、try-catchブロックでIOExceptionを捕捉する
+4. 何も変更しなくてよい。IOExceptionは非チェック例外なので処理不要
+
+正解：3番
+
+【解説】
+IOException は「チェック例外」であり、必ず処理が必要です。
+処理方法は2通りあります：
+
+方法①: try-catch でキャッチする
+  try {
+      String line = br.readLine();
+  } catch (IOException e) {
+      // 処理
+  }
+
+方法②: throws で呼び出し元に委ねる
+  public static void main(String[] args) throws IOException {
+
+選択肢3は「どちらか」または「try-catch」と書いており、最も正確です。
+
+【ひっかけのポイント】
+IOException は RuntimeException のサブクラスではないため、
+「非チェック例外」ではありません。必ず処理が必要です。
+
+---
+
+【例外】に関する問題
+
+問28. 以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+public class Main {
+    public static void main(String[] args) {
+        try {
+            int[] arr = new int[3];
+            arr[5] = 10;
+            System.out.println("try完了");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("例外発生");
+        } finally {
+            System.out.println("finally実行");
+        }
+    }
+}
+----------
+
+1. try完了
+2. 例外発生
+3. 例外発生 finally実行
+4. finally実行
+
+正解：3番「例外発生 finally実行」
+
+【解説】
+  arr[5] = 10;
+  → arr のサイズは 3（arr[0]〜arr[2]）なので arr[5] は範囲外
+  → ArrayIndexOutOfBoundsException が発生
+  → try ブロックを抜けて catch ブロックへ
+  → "例外発生" が出力される
+  → finally ブロックは必ず実行される
+  → "finally実行" が出力される
+
+finally ブロックは、例外が発生してもしなくても必ず実行されます。
+
+【ひっかけのポイント】
+"try完了" は例外が発生したため出力されません。
+finally は「後片付け」のために使われ、例外の有無に関わらず実行されます。
+
+---
+
+【コレクションフレームワーク】に関する問題
+
+問29. 以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        List<String> list = new ArrayList<>();
+        list.add("Apple");
+        list.add("Banana");
+        list.add("Cherry");
+        list.remove(0);
+        System.out.println(list.get(0));
+    }
+}
+----------
+
+1. Apple
+2. Banana
+3. Cherry
+4. null
+
+正解：2番「Banana」
+
+【解説】
+初期状態：
+  インデックス: 0→"Apple"、1→"Banana"、2→"Cherry"
+
+list.remove(0) → インデックス0の "Apple" を削除
+削除後：
+  インデックス: 0→"Banana"、1→"Cherry"
+
+list.get(0) → "Banana" が出力される
+
+【ひっかけのポイント】
+ArrayList の remove(int index) はインデックスで削除します。
+削除後、残った要素のインデックスは前詰めで詰め直されます。
+「"Apple" を削除したから get(0) は null」ではありません。
+
+---
+
+【コレクションフレームワーク】に関する問題
+
+問30. 以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+import java.util.HashMap;
+import java.util.Map;
+
+public class Main {
+    public static void main(String[] args) {
+        Map<String, Integer> map = new HashMap<>();
+        map.put("A", 1);
+        map.put("B", 2);
+        map.put("A", 99);
+        System.out.println(map.get("A"));
+    }
+}
+----------
+
+1. 1
+2. 2
+3. 99
+4. [1, 99]
+
+正解：3番「99」
+
+【解説】
+  map.put("A", 1);   → キー "A" に値 1 を登録
+  map.put("B", 2);   → キー "B" に値 2 を登録
+  map.put("A", 99);  → キー "A" は既に存在するため、値が 99 に上書きされる
+  map.get("A")       → 99 が出力される
+
+HashMap は同じキーで put() すると、既存の値が上書きされます。
+
+【ひっかけのポイント】
+「"A" に 1 と 99 の両方が入る」という誤解に注意。
+HashMap のキーは一意であり、同じキーで put() すると値が更新されます。
+[1, 99] のようにリストになることはありません。
+
+---
+
+

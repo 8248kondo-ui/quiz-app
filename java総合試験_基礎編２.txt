@@ -1,0 +1,1217 @@
+Java 総合試験問題集　基礎編２
+
+
+問題1　拡張for文（for-each）
+-------------------------------------------------------------------
+以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+int[] nums = {10, 20, 30};
+for (int n : nums) {
+    System.out.print(n + " ");
+}
+----------
+
+1. 10
+2. 10 20 30
+3. 0 1 2
+4. コンパイルエラー
+
+正答: 2
+
+解説:
+拡張for文（for-each文）は配列やコレクションの各要素を
+先頭から順番に取り出してループします。
+
+  for (要素の型 変数名 : 配列名) { ... }
+
+・nums には {10, 20, 30} が入っているため、n に 10, 20, 30 の順で
+  値が入り、それぞれ print で出力されます。
+・System.out.print は改行しないため「10 20 30 」と1行で表示されます。
+
+・選択肢1: 10のみでは不十分。3要素すべて処理されます。
+・選択肢2: 正解。
+・選択肢3: nums[0]～nums[2] ではなく、値そのものが出力されます。
+・選択肢4: 正しい構文のためコンパイルエラーはありません。
+
+
+問題2　拡張for文（要素の変更）
+-------------------------------------------------------------------
+以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+int[] nums = {1, 2, 3};
+for (int n : nums) {
+    n = n * 10;
+}
+System.out.println(nums[0]);
+----------
+
+1. 10
+2. 1
+3. 0
+4. コンパイルエラー
+
+正答: 2
+
+解説:
+拡張for文の変数 n は、配列の要素のコピーを受け取ります。
+n に代入しても配列 nums の中身は変わりません。
+
+---Java---
+for (int n : nums) {
+    n = n * 10;   // nums[0] 自体は変わらない！
+}
+----------
+
+そのため、nums[0] の値は最初に代入された 1 のままです。
+
+【ポイント】
+  配列の要素を変更したい場合は通常のfor文を使う。
+  for (int i = 0; i < nums.length; i++) { nums[i] = nums[i] * 10; }
+
+
+問題3　多次元配列（宣言と初期化）
+-------------------------------------------------------------------
+2行3列の二次元配列を宣言・初期化する記述として正しいものを選べ。
+
+1. int[] matrix = new int[2][3];
+2. int[][] matrix = new int[2][3];
+3. int matrix[2][3] = new int[][];
+4. int[2][3] matrix = new int[][];
+
+正答: 2
+
+解説:
+二次元配列の宣言は型の後に [][] を付けます。
+
+  int[][] 変数名 = new int[行数][列数];
+
+・選択肢1: int[] は一次元配列の宣言であり、new int[2][3] との型が一致しません（コンパイルエラー）。
+・選択肢2: 正解。int[][] matrix = new int[2][3]; が正しい。
+・選択肢3・4: 型と変数名の記述順序や括弧の使い方が誤りです。
+
+【ポイント】
+  int[][] array = new int[行][列];
+  要素数: 行数 × 列数
+
+
+問題4　多次元配列（要素へのアクセス）
+-------------------------------------------------------------------
+以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+int[][] grid = {{1, 2, 3}, {4, 5, 6}};
+System.out.println(grid[1][2]);
+----------
+
+1. 3
+2. 5
+3. 6
+4. コンパイルエラー
+
+正答: 3
+
+解説:
+grid[1][2] は「1行目（0始まり）の2列目（0始まり）」の値を指します。
+
+  {{1, 2, 3},   ← grid[0][0]=1, grid[0][1]=2, grid[0][2]=3
+   {4, 5, 6}}   ← grid[1][0]=4, grid[1][1]=5, grid[1][2]=6
+
+grid[1][2] = 6
+
+・選択肢1: grid[0][2] の値（3）です。
+・選択肢2: grid[1][1] の値（5）です。
+・選択肢3: 正解。grid[1][2] = 6。
+・選択肢4: 正しいアクセスのためコンパイルエラーはありません。
+
+
+問題5　do-while文
+-------------------------------------------------------------------
+以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+int i = 5;
+do {
+    System.out.println(i);
+    i++;
+} while (i < 5);
+----------
+
+1. 何も表示されない
+2. 5
+3. 5 6
+4. 無限ループになる
+
+正答: 2
+
+解説:
+do-while 文は「先に処理を実行してから条件を評価」します。
+
+  int i = 5;
+  do {
+      System.out.println(i);  // ← 先に実行（i=5 を表示）
+      i++;                     // i が 6 になる
+  } while (i < 5);             // 6 < 5 は false → ループ終了
+
+条件が最初から false でも1回は実行されるため、「5」が1回表示されます。
+
+・選択肢1: do-while は1回必ず実行されるため誤りです。
+・選択肢2: 正解。「5」が1回表示される。
+・選択肢3: ループは1回で終了するため、6は表示されません。
+・選択肢4: 6 < 5 は false なので無限ループになりません。
+
+
+問題6　do-while文 と while文の違い
+-------------------------------------------------------------------
+do-while文の特徴として正しいものを選べ。
+
+1. 条件がfalseでも必ず1回はループ内の処理が実行される。
+2. 条件がfalseの場合、ループ内の処理は1度も実行されない。
+3. do-while文はwhileキーワードを使用しない。
+4. do-while文ではbreak文が使用できない。
+
+正答: 1
+
+解説:
+while文とdo-while文の違い:
+
+  while文:     条件を評価 → 真なら実行（最初から偽なら0回）
+  do-while文:  実行 → 条件を評価（必ず最低1回実行される）
+
+・選択肢1: 正解。条件が最初からfalseでも必ず1回ループ内処理が実行されます。
+・選択肢2: while文の特徴であり、do-while の特徴ではありません。
+・選択肢3: do-while文も while キーワードを末尾で使用します。
+・選択肢4: do-while文でも break 文は使用可能です。
+
+
+問題7　三項演算子
+-------------------------------------------------------------------
+以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+int score = 75;
+String result = (score >= 60) ? "合格" : "不合格";
+System.out.println(result);
+----------
+
+1. 合格
+2. 不合格
+3. true
+4. コンパイルエラー
+
+正答: 1
+
+解説:
+三項演算子の構文:
+
+  条件式 ? 真のときの値 : 偽のときの値
+
+  score = 75 → 75 >= 60 は true → "合格" が代入される
+
+・選択肢1: 正解。score(75) >= 60 は true なので「合格」が表示される。
+・選択肢2: 条件が false のときの値。score >= 60 は true なので誤り。
+・選択肢3: true/false はboolean値であり、三項演算子の結果は文字列です。
+・選択肢4: 正しい構文のためコンパイルエラーはありません。
+
+【ポイント】
+  三項演算子は if-else 文の短縮形として使える。
+  String result = score >= 60 ? "合格" : "不合格";
+  ↓ 同義
+  if (score >= 60) { result = "合格"; } else { result = "不合格"; }
+
+
+問題8　三項演算子（ネスト）
+-------------------------------------------------------------------
+以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+int x = 10;
+String msg = (x > 0) ? "正" : (x < 0) ? "負" : "ゼロ";
+System.out.println(msg);
+----------
+
+1. 負
+2. ゼロ
+3. 正
+4. コンパイルエラー
+
+正答: 3
+
+解説:
+三項演算子はネスト（入れ子）にできます。
+
+  x = 10
+  (x > 0) → true → "正" が返る
+
+  (x > 0) ? "正" : (x < 0) ? "負" : "ゼロ"
+  → 最初の条件 (10 > 0) が true なので "正" が確定。
+
+・選択肢1: x < 0 のときに返る値です。
+・選択肢2: x == 0 のときに返る値です。
+・選択肢3: 正解。x > 0 なので "正"。
+・選択肢4: 正しい構文のためコンパイルエラーはありません。
+
+
+問題9　Stringクラス（lengthメソッド）
+-------------------------------------------------------------------
+以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+String s = "Hello";
+System.out.println(s.length());
+----------
+
+1. 4
+2. 5
+3. 6
+4. コンパイルエラー
+
+正答: 2
+
+解説:
+String の length() メソッドは文字列の文字数（長さ）を返します。
+"Hello" は H, e, l, l, o の5文字なので length() は 5 を返します。
+
+・選択肢1: 4 は "Hell" の文字数です。インデックスと混同しないように注意。
+・選択肢2: 正解。"Hello" の文字数は 5。
+・選択肢3: 6 は誤りです。
+・選択肢4: 正しいメソッドのためコンパイルエラーはありません。
+
+【ポイント】
+  配列の要素数は array.length（フィールド）
+  文字列の文字数は string.length()（メソッド・括弧あり）
+
+
+問題10　Stringクラス（substringメソッド）
+-------------------------------------------------------------------
+以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+String s = "Java Programming";
+System.out.println(s.substring(0, 4));
+----------
+
+1. Java
+2. Jav
+3. ava
+4. Java P
+
+正答: 1
+
+解説:
+substring(開始インデックス, 終了インデックス) は
+開始インデックス以上、終了インデックス未満の部分文字列を返します。
+
+  "Java Programming"
+   0123456789...
+
+  substring(0, 4) → インデックス0から3まで → "Java"
+
+・選択肢1: 正解。"Java" が返ります。
+・選択肢2: "Jav" は substring(0, 3) の結果です。
+・選択肢3: "ava" は substring(1, 4) の結果です。
+・選択肢4: "Java P" は substring(0, 6) の結果です。
+
+【ポイント】
+  substring(a, b) → インデックス a 以上 b 未満（b は含まない）
+
+
+問題11　Stringクラス（equalsメソッド）
+-------------------------------------------------------------------
+以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+String a = "Hello";
+String b = "hello";
+System.out.println(a.equals(b));
+System.out.println(a.equalsIgnoreCase(b));
+----------
+
+1. true / true
+2. false / true
+3. false / false
+4. true / false
+
+正答: 2
+
+解説:
+・equals(str) : 大文字・小文字を区別して比較します。
+・equalsIgnoreCase(str) : 大文字・小文字を区別せずに比較します。
+
+  "Hello".equals("hello")           → false（大文字・小文字が異なる）
+  "Hello".equalsIgnoreCase("hello") → true（大文字・小文字を無視）
+
+・選択肢1: equals は大文字・小文字を区別するため false です。
+・選択肢2: 正解。false / true。
+・選択肢3: equalsIgnoreCase は大文字・小文字を無視するため true です。
+・選択肢4: equalsIgnoreCase で false になることはありません。
+
+【ポイント】
+  文字列の比較は必ず equals() を使う（== は参照比較のため使わない）。
+
+
+問題12　Stringクラス（==による比較の注意）
+-------------------------------------------------------------------
+以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+String s1 = new String("Java");
+String s2 = new String("Java");
+System.out.println(s1 == s2);
+System.out.println(s1.equals(s2));
+----------
+
+1. true / true
+2. false / false
+3. false / true
+4. true / false
+
+正答: 3
+
+解説:
+== はオブジェクトの参照（メモリアドレス）を比較します。
+new String() でそれぞれ別のオブジェクトを作ると、
+中身が同じでも別の参照になるため == は false になります。
+
+  s1 == s2 → false（異なるオブジェクト）
+  s1.equals(s2) → true（中身が同じ "Java"）
+
+・選択肢1: == が true になるのはリテラルの文字列プールを使う場合。
+・選択肢2: equals は内容を比較するため true になります。
+・選択肢3: 正解。false / true。
+・選択肢4: equals が false になることはありません。
+
+【ポイント】
+  String の比較には必ず equals() を使う！
+  == は参照の比較であり、内容の比較ではない。
+
+
+問題13　ラッパークラス（Integer.parseInt）
+-------------------------------------------------------------------
+以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+String s = "42";
+int n = Integer.parseInt(s);
+System.out.println(n + 8);
+----------
+
+1. 428
+2. 50
+3. コンパイルエラー
+4. 実行時エラー
+
+正答: 2
+
+解説:
+Integer.parseInt(文字列) は文字列を int 型の数値に変換します。
+
+  String s = "42";
+  int n = Integer.parseInt(s);  // n = 42（数値）
+  System.out.println(n + 8);   // 42 + 8 = 50
+
+・選択肢1: 428 は文字列の連結です。n は int型なので数値の足し算になります。
+・選択肢2: 正解。42 + 8 = 50。
+・選択肢3: Integer.parseInt は正しいメソッドです。
+・選択肢4: "42" は数値に変換できる文字列のため実行時エラーは発生しません。
+
+【ポイント】
+  数値に変換できない文字列（"abc"など）を parseInt するとNumberFormatException が発生します。
+
+
+問題14　ラッパークラス（オートボクシング）
+-------------------------------------------------------------------
+以下のコードの説明として正しいものを選べ。
+
+---Java---
+Integer a = 100;
+int b = a;
+System.out.println(b);
+----------
+
+1. コンパイルエラーが発生する。Integer型はint型に代入できない。
+2. オートボクシング／アンボクシングにより自動的に変換され、100が表示される。
+3. 実行時例外（NullPointerException）が発生する。
+4. 0が表示される。
+
+正答: 2
+
+解説:
+オートボクシング（Auto Boxing）とは、プリミティブ型とラッパークラス型を
+自動的に変換する仕組みです。
+
+  Integer a = 100;   // int → Integer に自動変換（ボクシング）
+  int b = a;         // Integer → int に自動変換（アンボクシング）
+
+・選択肢1: Java 5以降はオートボクシングにより自動変換されるためエラーなし。
+・選択肢2: 正解。自動変換されて 100 が表示される。
+・選択肢3: null ではないため NullPointerException は発生しません。
+・選択肢4: 0 ではなく 100 が表示されます。
+
+【ポイント】
+  ボクシング  : プリミティブ → ラッパークラス（例: int → Integer）
+  アンボクシング: ラッパークラス → プリミティブ（例: Integer → int）
+
+
+問題15　抽象クラス（abstract）の宣言
+-------------------------------------------------------------------
+抽象クラスの説明として正しいものを選べ。
+
+1. 抽象クラスはnewキーワードで直接インスタンスを生成できる。
+2. 抽象クラスはabstractメソッドを必ず1つ以上含まなければならない。
+3. 抽象クラスはabstractキーワードを使って宣言し、直接インスタンス化できない。
+4. 抽象クラスを継承したサブクラスは、抽象メソッドをオーバーライドしなくてよい。
+
+正答: 3
+
+解説:
+抽象クラスの特徴:
+・abstract キーワードで宣言する
+・直接インスタンス化できない（new できない）
+・抽象メソッド（abstract void メソッド名();）を含めることができる
+・抽象メソッドがなくても abstract クラスにはできる
+
+・選択肢1: 抽象クラスは new でインスタンス化できません。
+・選択肢2: 抽象メソッドが1つも無い abstract クラスも作れます。
+・選択肢3: 正解。abstract キーワードで宣言し、直接インスタンス化できない。
+・選択肢4: 抽象クラスを継承した具象クラスは抽象メソッドを必ずオーバーライドしなければなりません（しなければコンパイルエラー）。
+
+
+問題16　抽象クラス（抽象メソッドのオーバーライド）
+-------------------------------------------------------------------
+以下のコードでコンパイルエラーが発生するクラスを選べ。
+
+---Java---
+abstract class Shape {
+    abstract void draw();
+}
+----------
+
+1. class Circle extends Shape { public void draw() { System.out.println("○"); } }
+2. class Triangle extends Shape { }
+3. abstract class Square extends Shape { }
+4. class Star extends Shape { public void draw() { } }
+
+正答: 2
+
+解説:
+抽象クラスを継承した具象クラス（abstractではないクラス）は、
+親クラスのすべての抽象メソッドをオーバーライドしなければなりません。
+
+・選択肢1: draw() を正しく実装しているためエラーなし。
+・選択肢2: 正解。draw() を実装していないためコンパイルエラー。
+・選択肢3: abstract クラスが abstract クラスを継承する場合、
+  抽象メソッドの実装は不要です。エラーなし。
+・選択肢4: 空のメソッドでも実装とみなされるためエラーなし。
+
+
+問題17　finalキーワード（変数）
+-------------------------------------------------------------------
+以下のコードでコンパイルエラーになる行として正しいものを選べ。
+
+---Java---
+final int MAX = 100;  // A
+MAX = 200;            // B
+System.out.println(MAX);
+----------
+
+1. A行（final int MAX = 100;）
+2. B行（MAX = 200;）
+3. A行とB行の両方
+4. エラーは発生しない
+
+正答: 2
+
+解説:
+final 変数は一度値が代入されると変更できません（定数）。
+
+  final int MAX = 100;  // ← 初期化（OK）
+  MAX = 200;            // ← 再代入（コンパイルエラー！）
+
+・選択肢1: 初期化はOKです。
+・選択肢2: 正解。final 変数への再代入はコンパイルエラー。
+・選択肢3: A行はエラーになりません。
+・選択肢4: B行はエラーになります。
+
+【ポイント】
+  final 変数 = 定数（一度代入したら変更不可）
+  命名規約: 定数は全て大文字（例: MAX_VALUE, PI）
+
+
+問題18　finalキーワード（メソッドとクラス）
+-------------------------------------------------------------------
+finalキーワードの説明として正しいものを選べ。
+
+1. finalが付いたクラスはサブクラスを持つことができる。
+2. finalが付いたメソッドはサブクラスでオーバーライドできない。
+3. finalが付いた変数には何度でも値を再代入できる。
+4. finalが付いたクラスはインターフェイスを実装できない。
+
+正答: 2
+
+解説:
+final キーワードの用途:
+
+  final 変数  → 再代入不可（定数）
+  final メソッド → サブクラスでオーバーライド不可
+  final クラス → 継承不可（サブクラスを作れない）
+
+・選択肢1: final クラスはサブクラス（継承）を持てません。
+・選択肢2: 正解。final メソッドはオーバーライドできません。
+・選択肢3: final 変数への再代入はできません。
+・選択肢4: final クラスでもインターフェイスの実装は可能です
+  （例：String クラスは final ですが Serializable 等を実装しています）。
+
+
+問題19　instanceofキーワード
+-------------------------------------------------------------------
+以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+class Animal { }
+class Dog extends Animal { }
+
+// mainメソッド内
+Dog d = new Dog();
+System.out.println(d instanceof Dog);
+System.out.println(d instanceof Animal);
+----------
+
+1. true / false
+2. false / true
+3. true / true
+4. false / false
+
+正答: 3
+
+解説:
+instanceof 演算子はオブジェクトが特定の型のインスタンスかどうかを判定します。
+
+  Dog d = new Dog();
+
+  d instanceof Dog    → Dog のインスタンスか？ → true
+  d instanceof Animal → Animal のインスタンスか？ → true
+  （Dog は Animal を継承しているため、Animal のインスタンスでもある）
+
+・選択肢1: instanceof Animal は継承関係により true になります。
+・選択肢2: instanceof Dog は true です。
+・選択肢3: 正解。どちらも true。
+・選択肢4: どちらも false になることはありません。
+
+【ポイント】
+  サブクラスのインスタンスはスーパークラスの instanceof でも true になる。
+
+
+問題20　instanceofキーワード（nullの場合）
+-------------------------------------------------------------------
+以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+String s = null;
+System.out.println(s instanceof String);
+----------
+
+1. true
+2. false
+3. コンパイルエラー
+4. 実行時例外（NullPointerException）が発生する
+
+正答: 2
+
+解説:
+null に対して instanceof を使うと、型に関わらず false を返します。
+NullPointerException は発生しません。
+
+  String s = null;
+  s instanceof String → false
+
+・選択肢1: null は何の型のインスタンスでもないため true にはなりません。
+・選択肢2: 正解。null instanceof 型 は常に false。
+・選択肢3: コンパイルエラーは発生しません。
+・選択肢4: instanceof は null でも例外を発生させません。
+
+【ポイント】
+  null instanceof 任意の型 → 常に false（例外なし）
+
+
+問題21　superキーワード（スーパークラスのメソッド呼び出し）
+-------------------------------------------------------------------
+以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+class Animal {
+    void speak() { System.out.println("..."); }
+}
+class Dog extends Animal {
+    void speak() {
+        super.speak();
+        System.out.println("ワン");
+    }
+}
+
+// mainメソッド内
+Dog d = new Dog();
+d.speak();
+----------
+
+1. ワン
+2. ...
+3. ...
+   ワン
+4. ワン
+   ...
+
+正答: 3
+
+解説:
+super.メソッド名() でスーパークラスのメソッドを呼び出せます。
+
+  Dog.speak() の中で:
+    1. super.speak() → Animal.speak() が実行 → "..." が表示
+    2. System.out.println("ワン") → "ワン" が表示
+
+よって表示順は「...」→「ワン」。
+
+・選択肢1: "ワン"だけでは super.speak() の出力が抜けています。
+・選択肢2: "..."だけではその後の "ワン" が抜けています。
+・選択肢3: 正解。"..." → "ワン" の順。
+・選択肢4: super.speak() を先に呼んでいるため逆順にはなりません。
+
+
+問題22　superキーワード（コンストラクタ）
+-------------------------------------------------------------------
+以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+class Vehicle {
+    Vehicle(String type) {
+        System.out.println("乗り物: " + type);
+    }
+}
+class Car extends Vehicle {
+    Car() {
+        super("自動車");
+        System.out.println("Carコンストラクタ");
+    }
+}
+
+// mainメソッド内
+Car c = new Car();
+----------
+
+1. Carコンストラクタ
+2. 乗り物: 自動車
+3. 乗り物: 自動車
+   Carコンストラクタ
+4. コンパイルエラー
+
+正答: 3
+
+解説:
+super(引数) はスーパークラスのコンストラクタを呼び出します。
+必ずサブクラスのコンストラクタの最初の文として記述します。
+
+  Car() の実行順:
+    1. super("自動車") → Vehicle("自動車") が実行 → "乗り物: 自動車" 表示
+    2. System.out.println("Carコンストラクタ") → "Carコンストラクタ" 表示
+
+・選択肢1: "Carコンストラクタ" だけでは Vehicle の出力が抜けています。
+・選択肢2: "乗り物: 自動車" だけでは Car の出力が抜けています。
+・選択肢3: 正解。"乗り物: 自動車" → "Carコンストラクタ" の順。
+・選択肢4: super() は正しい使い方のためコンパイルエラーはありません。
+
+
+問題23　Stringクラス（containsメソッド）
+-------------------------------------------------------------------
+以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+String s = "Hello World";
+System.out.println(s.contains("World"));
+System.out.println(s.contains("world"));
+----------
+
+1. true / true
+2. true / false
+3. false / true
+4. false / false
+
+正答: 2
+
+解説:
+contains(CharSequence) メソッドは指定した文字列が含まれているか
+大文字・小文字を区別して判定します。
+
+  "Hello World".contains("World") → true（含まれる）
+  "Hello World".contains("world") → false（大文字・小文字が異なる）
+
+・選択肢1: contains は大文字・小文字を区別するため "world" は false です。
+・選択肢2: 正解。true / false。
+・選択肢3・4: "World" は含まれるため必ず true です。
+
+【ポイント】
+  大文字・小文字を無視して検索したい場合は
+  s.toLowerCase().contains("world") のように変換してから使う。
+
+
+問題24　Stringクラス（replaceメソッド）
+-------------------------------------------------------------------
+以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+String s = "Java is fun";
+String result = s.replace("fun", "great");
+System.out.println(result);
+System.out.println(s);
+----------
+
+1. Java is great / Java is great
+2. Java is great / Java is fun
+3. Java is fun / Java is great
+4. コンパイルエラー
+
+正答: 2
+
+解説:
+replace(置換前, 置換後) は置換した新しいStringを返します。
+元の文字列 s は変更されません（Stringは不変オブジェクト）。
+
+  String s = "Java is fun";
+  String result = s.replace("fun", "great");
+  // result → "Java is great"
+  // s      → "Java is fun"（変わらない）
+
+・選択肢1: s は変更されないため誤りです。
+・選択肢2: 正解。result が変更後、s は元のまま。
+・選択肢3: result と s の内容が逆です。
+・選択肢4: 正しいメソッドのためコンパイルエラーはありません。
+
+【ポイント】
+  Stringは不変（immutable）オブジェクト。
+  文字列を「変更」するメソッドは常に新しいStringを返す。
+
+
+問題25　ラッパークラス（Integer.toString / String.valueOf）
+-------------------------------------------------------------------
+int型の変数numの値を文字列に変換する方法として
+誤っているものを選べ。
+
+---Java---
+int num = 42;
+----------
+
+1. String s = Integer.toString(num);
+2. String s = String.valueOf(num);
+3. String s = "" + num;
+4. String s = (String) num;
+
+正答: 4
+
+解説:
+int 型を String に変換する主な方法:
+
+  ① Integer.toString(num)  → Integerクラスのstaticメソッド
+  ② String.valueOf(num)    → Stringクラスのstaticメソッド
+  ③ "" + num              → 空文字列との連結による暗黙変換
+
+・選択肢1〜3: すべて正しい変換方法です。
+・選択肢4: 正解（誤り）。(String) num はキャスト演算子ですが、
+  int は String のサブクラスではないためキャストはできません。
+  コンパイルエラーが発生します。
+
+【ポイント】
+  int → String の変換:
+    String.valueOf(n)     … 推奨（null安全）
+    Integer.toString(n)   … 同様
+    "" + n                … 簡便だが可読性が下がる場合あり
+    (String) n            … 不可（コンパイルエラー）
+
+
+問題26　StringBuilderクラス（appendメソッド）
+-------------------------------------------------------------------
+以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+StringBuilder sb = new StringBuilder("Hello");
+sb.append(" World");
+sb.append("!");
+System.out.println(sb.toString());
+----------
+
+1. Hello
+2. Hello World
+3. Hello World!
+4. コンパイルエラー
+
+正答: 3
+
+解説:
+StringBuilder は文字列を効率よく組み立てるためのクラスです。
+append() メソッドで末尾に文字列を追加し、toString() で String に変換します。
+
+  StringBuilder sb = new StringBuilder("Hello");
+  sb.append(" World");  // → "Hello World"
+  sb.append("!");       // → "Hello World!"
+  sb.toString()         // → "Hello World!"
+
+・選択肢1: "Hello" のみでは append の結果が反映されていません。
+・選択肢2: "Hello World" は1回目の append のみの結果です。
+・選択肢3: 正解。2回の append の結果 "Hello World!" が表示されます。
+・選択肢4: StringBuilder は java.lang パッケージのためimport不要です。
+
+
+問題27　StringBuilderクラス（String との違い）
+-------------------------------------------------------------------
+StringBuilderクラスの説明として正しいものを選べ。
+
+1. StringBuilderはStringと同様に不変（immutable）オブジェクトである。
+2. StringBuilderは文字列を変更するたびに新しいオブジェクトを生成する。
+3. StringBuilderは可変（mutable）オブジェクトであり、文字列の変更が効率的にできる。
+4. StringBuilderはimport文なしでは使用できない。
+
+正答: 3
+
+解説:
+String と StringBuilder の最大の違いは「不変か可変か」です。
+
+  String（不変・immutable）:
+    ・メソッドを呼ぶたびに新しいオブジェクトが生成される
+    ・ループ内で文字列連結を繰り返すと大量のオブジェクトが作られ非効率
+
+  StringBuilder（可変・mutable）:
+    ・同じオブジェクトの内部バッファを書き換えるため効率的
+    ・ループ内での文字列組み立てに向いている
+
+・選択肢1: String が不変。StringBuilder は可変です。説明が逆。
+・選択肢2: 新しいオブジェクトを生成するのは String の特性です。
+・選択肢3: 正解。StringBuilder は可変で文字列変更が効率的です。
+・選択肢4: StringBuilder は java.lang に含まれるためimport不要です。
+
+【ポイント】
+  ループで文字列を大量に結合する場合は StringBuilder を使う。
+  String で += を繰り返すと性能が悪くなる。
+
+
+問題28　Enumの宣言と使い方
+-------------------------------------------------------------------
+以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+enum Season { SPRING, SUMMER, AUTUMN, WINTER }
+
+// mainメソッド内
+Season s = Season.AUTUMN;
+System.out.println(s);
+System.out.println(s.ordinal());
+----------
+
+1. AUTUMN / 1
+2. AUTUMN / 2
+3. 2 / AUTUMN
+4. コンパイルエラー
+
+正答: 2
+
+解説:
+enum（列挙型）は定数の集合を定義する型です。
+
+  enum Season { SPRING, SUMMER, AUTUMN, WINTER }
+  // 順番: 0番=SPRING, 1番=SUMMER, 2番=AUTUMN, 3番=WINTER
+
+  Season.AUTUMN.ordinal() → 2（0始まりのインデックス）
+  System.out.println(s)   → "AUTUMN"（enum の名前が文字列として出力される）
+
+・選択肢1: AUTUMN の ordinal は 2 であり 1 ではありません。
+・選択肢2: 正解。AUTUMN / 2。
+・選択肢3: 数値が先に出力されることはありません。
+・選択肢4: 正しい構文のためコンパイルエラーはありません。
+
+【ポイント】
+  ordinal() → enumの宣言順インデックス（0始まり）
+  name()    → enumの定数名（文字列）
+  toString()→ name() と同じ（デフォルト動作）
+
+
+問題29　Enumとswitch文
+-------------------------------------------------------------------
+以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+enum Day { MON, TUE, WED }
+
+// mainメソッド内
+Day d = Day.WED;
+switch (d) {
+    case MON:
+        System.out.println("月曜日");
+        break;
+    case WED:
+        System.out.println("水曜日");
+        break;
+    default:
+        System.out.println("その他");
+}
+----------
+
+1. 月曜日
+2. 水曜日
+3. その他
+4. コンパイルエラー
+
+正答: 2
+
+解説:
+switch 文で enum を使う場合、case には「enum名なし」で定数名だけを記述します。
+
+  Day d = Day.WED;
+  switch (d) {
+      case WED: → d が WED なのでこの case にマッチ
+  }
+
+・選択肢1: d は WED なので MON の case は実行されません。
+・選択肢2: 正解。WED にマッチして「水曜日」が表示されます。
+・選択肢3: WED に一致するため default は実行されません。
+・選択肢4: enum の switch 文は正しい構文です。
+
+【ポイント】
+  switch で enum を使う場合は case に「enum名.」は不要。
+  case MON: ← OK  / case Day.MON: ← コンパイルエラー
+
+
+問題30　可変長引数（varargs）
+-------------------------------------------------------------------
+以下のメソッドの説明として正しいものを選べ。
+
+---Java---
+public int sum(int... nums) {
+    int total = 0;
+    for (int n : nums) {
+        total += n;
+    }
+    return total;
+}
+----------
+
+1. このメソッドはint型の引数を必ず3つ渡さなければならない。
+2. このメソッドは引数なしで呼び出すとコンパイルエラーになる。
+3. このメソッドはint型の引数を0個以上の任意の数で呼び出せる。
+4. 可変長引数（...）はJavaには存在しない構文である。
+
+正答: 3
+
+解説:
+可変長引数（varargs）は「...」で表記し、メソッドに任意の個数の引数を渡せます。
+メソッド内では配列として扱われます。
+
+  sum()           → nums = {} （0要素）
+  sum(1, 2)       → nums = {1, 2}
+  sum(1, 2, 3, 4) → nums = {1, 2, 3, 4}
+
+・選択肢1: 引数の個数は任意です。3つに固定されません。
+・選択肢2: 引数なし（0個）でも正常に動作します。total = 0 が返ります。
+・選択肢3: 正解。0個以上の任意の数で呼び出せます。
+・選択肢4: 可変長引数はJavaの正式な構文です（Java 5以降）。
+
+【ポイント】
+  可変長引数は必ずメソッドの最後の引数にする。
+  void method(String s, int... nums) ← OK
+  void method(int... nums, String s) ← コンパイルエラー
+
+
+問題31　ジェネリクス（型パラメータの役割）
+-------------------------------------------------------------------
+以下のコードの説明として正しいものを選べ。
+
+---Java---
+ArrayList<String> list = new ArrayList<>();
+list.add("Java");
+list.add(100);    // ← A
+----------
+
+1. A行でコンパイルエラーが発生する。
+2. A行は正常に実行され、listに"Java"と100が格納される。
+3. A行で実行時例外が発生する。
+4. ジェネリクスを指定すると要素を追加できなくなる。
+
+正答: 1
+
+解説:
+ジェネリクス（型パラメータ）は「このコレクションに入れられる型」を
+コンパイル時に制限します。
+
+  ArrayList<String> list = new ArrayList<>();
+  list.add("Java");  // OK（String型）
+  list.add(100);     // コンパイルエラー（int/Integer型はString型ではない）
+
+・選択肢1: 正解。A行でコンパイルエラーが発生します。
+・選択肢2: ジェネリクスにより型チェックが行われるためエラーになります。
+・選択肢3: エラーはコンパイル時に発生します（実行時ではありません）。
+・選択肢4: ジェネリクスは要素の追加を禁止しません。正しい型なら追加できます。
+
+【ポイント】
+  ジェネリクスにより「型安全性」がコンパイル時に保証されます。
+  実行時のキャストエラーを防ぐ重要な機能です。
+
+
+問題32　ジェネリクス（キャストが不要な理由）
+-------------------------------------------------------------------
+以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+ArrayList<String> list = new ArrayList<>();
+list.add("Hello");
+String s = list.get(0);
+System.out.println(s.length());
+----------
+
+1. コンパイルエラーが発生する。キャストが必要。
+2. 実行時にClassCastExceptionが発生する。
+3. 5
+4. コンパイルエラーが発生する。list.get()はObject型を返す。
+
+正答: 3
+
+解説:
+ジェネリクスを使用すると、get() の戻り値が指定した型で返されるため
+明示的なキャストが不要になります。
+
+  ArrayList<String> list = new ArrayList<>();
+  list.add("Hello");
+  String s = list.get(0);    // キャスト不要で String として取得
+  s.length()                 // "Hello" の文字数 = 5
+
+・選択肢1: ジェネリクスにより String 型で返されるため、キャスト不要です。
+・選択肢2: 型が一致しているため ClassCastException は発生しません。
+・選択肢3: 正解。"Hello".length() = 5 が表示されます。
+・選択肢4: ジェネリクスあり → String 型で返る（Object 型にはなりません）。
+
+【ポイント】
+  ジェネリクスなし: Object o = list.get(0); String s = (String) o;（キャスト必要）
+  ジェネリクスあり: String s = list.get(0);（キャスト不要）
+
+
+問題33　try-with-resources
+-------------------------------------------------------------------
+try-with-resources構文の説明として正しいものを選べ。
+
+1. finally ブロックの代わりであり、例外のキャッチには使用できない。
+2. try()の括弧内で宣言したリソースは、tryブロック終了後に
+   自動的にclose()メソッドが呼ばれる。
+3. try-with-resourcesを使うと、catchブロックは省略できない。
+4. try-with-resourcesはAutoCloseableを実装していないクラスでも使用できる。
+
+正答: 2
+
+解説:
+try-with-resources 構文は、リソース（ファイルや接続など）を
+try ブロック終了時に自動的にクローズする仕組みです。
+
+  try (BufferedReader br = new BufferedReader(...)) {
+      // 処理
+  } catch (IOException e) {
+      // 例外処理
+  }
+  // ← try ブロック終了時に自動で br.close() が呼ばれる
+
+・選択肢1: try-with-resources に catch を追加することも可能です。
+・選択肢2: 正解。try 終了後に自動でclose()が呼ばれます。
+・選択肢3: catch は省略できます（throws で例外を宣言している場合など）。
+・選択肢4: AutoCloseable（またはCloseable）を実装していないクラスは
+  try-with-resources で使えません。
+
+【ポイント】
+  AutoCloseable インターフェイスを実装しているクラスのみ
+  try-with-resources で使用可能。代表例: InputStream, Connection など。
+
+
+問題34　ArrayListのメソッド（remove / contains）
+-------------------------------------------------------------------
+以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+import java.util.ArrayList;
+
+ArrayList<String> list = new ArrayList<>();
+list.add("Java");
+list.add("Python");
+list.add("Ruby");
+list.remove("Python");
+System.out.println(list.contains("Python"));
+System.out.println(list.size());
+----------
+
+1. true / 3
+2. false / 2
+3. true / 2
+4. false / 3
+
+正答: 2
+
+解説:
+ArrayList の主なメソッド:
+  add(要素)         → 末尾に追加
+  remove(要素)      → 指定した値の要素を削除（最初に見つかった1件）
+  contains(要素)    → 要素が含まれるか（boolean）
+  size()            → 現在の要素数
+
+操作の流れ:
+  list = ["Java", "Python", "Ruby"]
+  list.remove("Python") → ["Java", "Ruby"]（"Python" が削除される）
+  list.contains("Python") → false（削除済みのため存在しない）
+  list.size() → 2
+
+・選択肢1: contains は false、size は 2 のため誤りです。
+・選択肢2: 正解。false / 2。
+・選択肢3: contains("Python") は false です。
+・選択肢4: size は 2（削除後）なので 3 は誤りです。
+
+
+問題35　HashMapのメソッド（containsKey / keySet）
+-------------------------------------------------------------------
+以下のコードの実行結果として正しいものを選べ。
+
+---Java---
+import java.util.HashMap;
+
+HashMap<String, Integer> map = new HashMap<>();
+map.put("apple", 100);
+map.put("banana", 200);
+System.out.println(map.containsKey("apple"));
+System.out.println(map.containsKey("grape"));
+System.out.println(map.size());
+----------
+
+1. true / true / 2
+2. true / false / 2
+3. false / true / 2
+4. true / false / 3
+
+正答: 2
+
+解説:
+HashMap の主なメソッド:
+  put(key, value)     → キーと値を追加（キーが重複する場合は上書き）
+  get(key)            → キーに対応する値を取得
+  containsKey(key)    → キーが存在するか（boolean）
+  containsValue(value)→ 値が存在するか（boolean）
+  size()              → エントリ数
+
+操作の流れ:
+  map = {"apple": 100, "banana": 200}
+  map.containsKey("apple") → true（存在する）
+  map.containsKey("grape") → false（存在しない）
+  map.size() → 2（エントリは2件）
+
+・選択肢1: "grape" は存在しないため 2つ目は false です。
+・選択肢2: 正解。true / false / 2。
+・選択肢3: "apple" は存在するため1つ目は true です。
+・選択肢4: エントリ数は 2 なので size は 3 ではありません。
+
+【ポイント】
+  containsKey(key)   → キーの存在確認
+  containsValue(val) → 値の存在確認
+  keySet()           → 全キーの Set を取得
+  values()           → 全値の Collection を取得
+
+

@@ -1,0 +1,504 @@
+SQLテスト問題集
+
+---
+問題1：CREATE USER文
+
+次のうち、ユーザ「user01」をパスワード「pass01」で作成する正しいSQL文はどれか。
+
+- A. MAKE USER user01 PASSWORD pass01;
+- B. CREATE USER user01 IDENTIFIED BY pass01;
+- C. CREATE USER user01 PASSWORD = 'pass01';
+- D. ADD USER user01 IDENTIFIED BY pass01;
+
+解答：B
+
+解説：  
+Oracleでは CREATE USER ユーザ名 IDENTIFIED BY パスワード; が正しい構文です。  
+- A・D は実在しない構文です。  
+- C は他のDBMS（MySQL等）風の書き方であり、Oracleでは誤りです。
+
+---
+問題2：GRANT文
+
+ユーザ「user01」に表「products」に対するSELECT権限を付与するSQL文として正しいものはどれか。
+
+- A. GRANT SELECT TO products ON user01;
+- B. GIVE SELECT ON products TO user01;
+- C. GRANT SELECT ON products TO user01;
+- D. ALLOW SELECT ON products FOR user01;
+
+解答：C
+
+解説： 
+Oracleの権限付与構文は GRANT 権限 ON オブジェクト TO ユーザ; です。  
+- A は TO と ON の順序が逆です。  
+- B・D は実在しない構文（GIVE / ALLOW）です。
+
+---
+問題3：DROP USER文（CASCADE）
+
+ユーザ「user01」と、そのユーザが所有するすべてのオブジェクトを削除するSQL文として正しいものはどれか。
+
+- A. DROP USER user01;
+- B. DELETE USER user01 CASCADE;
+- C. REMOVE USER user01 WITH OBJECTS;
+- D. DROP USER user01 CASCADE;
+
+解答：D
+
+解説：
+ユーザが所持するオブジェクトごと削除するには DROP USER ユーザ名 CASCADE; を使用します。  
+- A は CASCADE がないため、オブジェクトを持つユーザを削除しようとするとエラーになります。  
+- B・C は実在しない構文です。
+
+---
+問題4：NOT NULL制約
+
+列「name」に対してNOT NULL制約を設定する正しい記述はどれか。
+
+- A. name VARCHAR2(50) NULL;
+- B. name VARCHAR2(50) NOT NULL;
+- C. name VARCHAR2(50) REQUIRED;
+- D. name VARCHAR2(50) UNIQUE;
+
+解答：B
+
+解説：
+列定義において NOT NULL を記述することでNULLを禁止できます。  
+- A の NULL は明示的にNULLを許可しており逆の意味です。  
+- C の REQUIRED は実在しません。  
+- D の UNIQUE は一意制約であり、NULLの禁止とは別です。
+
+---
+問題5：ALTER TABLE（列の削除）
+
+表「employees」から列「bonus」を削除するSQL文として正しいものはどれか。
+
+- A. ALTER TABLE employees REMOVE COLUMN bonus;
+- B. ALTER TABLE employees DELETE bonus;
+- C. ALTER TABLE employees DROP COLUMN bonus;
+- D. UPDATE TABLE employees DROP bonus;
+
+解答：C
+
+解説： 
+列を削除するには ALTER TABLE テーブル名 DROP COLUMN 列名; を使用します。  
+- A の REMOVE COLUMN は実在しない構文です。  
+- B の DELETE は行削除用の命令であり列には使えません。  
+- D の UPDATE TABLE は実在しない構文です。
+
+---
+問題6：外部キー制約（表制約の記述）
+
+表「orders」に、「customers」表の「customer_id」を参照する外部キー制約を表制約として記述した正しいSQL文はどれか。
+
+- A. FOREIGN KEY (customer_id) REFERENCES customers;
+- B. CONSTRAINT fk_cust FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+- C. REFERENCES customers(customer_id) FOREIGN KEY (customer_id)`
+- D. customer_id FOREIGN KEY REFERENCES customers(customer_id)
+
+解答：B
+
+解説：
+表制約として外部キーを定義する場合は CONSTRAINT 制約名 FOREIGN KEY (列名) REFERENCES 参照先テーブル(列名) と記述します。  
+- A は CONSTRAINT 名や参照先の列指定が欠けています。  
+- C・D は構文の順序や記述が誤っています。
+
+---
+問題7：WHERE句を含むSELECT文
+
+次のテーブル「emp」がある。
+
+| emp_id | name   | dept_id |
+|--------|--------|---------|
+| 1      | 田中   | 10      |
+| 2      | 鈴木   | 20      |
+| 3      | 佐藤   | 10      |
+
+SELECT name FROM emp WHERE dept_id = 10; の結果として正しいものはどれか。
+
+- A. 田中、鈴木、佐藤の3行が返る
+- B. 鈴木の1行が返る
+- C. 田中、佐藤の2行が返る
+- D. 結果は0行（エラー）
+
+解答：C
+
+解説： 
+WHERE dept_id = 10 の条件に一致するのは田中（dept_id=10）と佐藤（dept_id=10）の2行です。  
+鈴木は dept_id=20 なので対象外です。
+
+---
+問題8：DISTINCTキーワード
+
+次のテーブル「emp」の「dept_id」を重複なく取得するSQL文として正しいものはどれか。
+
+- A. SELECT dept_id FROM emp GROUP DISTINCT;
+- B. SELECT UNIQUE dept_id FROM emp;
+- C. SELECT DISTINCT dept_id FROM emp;
+- D. SELECT dept_id DISTINCT FROM emp;
+
+解答：C
+
+解説： 
+重複を除いて取得するには SELECT DISTINCT 列名 FROM テーブル; を使用します。  
+- B の UNIQUE はOracleでは列制約の用法で、SELECTでの重複除去には使用しません。  
+- D は DISTINCT の配置が誤りです。
+
+---
+問題9：AS（別名指定）
+
+列「salary」を「給与」という別名で取得するSQL文として正しいものはどれか。
+
+- A. SELECT salary NAME 給与 FROM emp;
+- B. SELECT salary AS 給与 FROM emp;
+- C. SELECT salary = 給与 FROM emp;
+- D. SELECT salary RENAME 給与 FROM emp;
+
+解答：B
+
+解説：  
+列に別名を付けるには 列名 AS 別名 または 列名 別名（ASを省略可）と記述します。  
+- A の NAME は実在しない構文です。  
+- C の = は代入演算子であり別名指定には使えません。  
+- D の RENAME は実在しません。
+
+---
+問題10：INSERT文（値の指定数間違い）
+
+次のテーブル「emp」（列：emp_id, name, dept_id の3列）への挿入文で、エラーとなるものはどれか。
+
+- A. INSERT INTO emp VALUES (4, '山田', 30);
+- B. INSERT INTO emp (emp_id, name) VALUES (4, '山田');
+- C. INSERT INTO emp VALUES (4, '山田');
+- D. INSERT INTO emp (emp_id) VALUES (4);
+
+解答：C
+
+解説： 
+列を省略した VALUES 句では、テーブルの全列分の値を指定する必要があります。  
+3列あるのに2値しか指定していないCはエラーになります。  
+- B・D は挿入する列名を明示しているため問題ありません（NOT NULL制約がなければ）。
+
+---
+問題11：UPDATE文（WHERE句を含む）
+
+emp_id が 2 の従業員の dept_id を 30 に更新する正しいSQL文はどれか。
+
+- A. UPDATE emp SET dept_id = 30;
+- B. UPDATE emp SET dept_id = 30 WHERE emp_id = 2;
+- C. MODIFY emp SET dept_id = 30 WHERE emp_id = 2;
+- D. UPDATE emp dept_id = 30 WHERE emp_id = 2;
+
+解答：B
+
+解説：  
+UPDATE テーブル名 SET 列名 = 値 WHERE 条件; が正しい構文です。  
+- A は WHERE句がないため全行が更新されます（正しいSQL文ですが問題で求めるSQL文ではありません）。  
+- C の MODIFY は他のDBMSの構文であり実在しません。  
+- D は SET キーワードが抜けているためエラーです。
+
+---
+問題12：WHERE句なしのDELETE文
+
+次のSQL文を実行した場合の動作として正しいものはどれか。
+
+DELETE FROM emp;
+
+
+- A. 構文エラーが発生する
+- B. emp_id が 1 の行のみ削除される
+- C. 表「emp」のすべての行が削除される
+- D. 表「emp」自体が削除される
+
+解答：C
+
+解説：  
+DELETE FROM テーブル名; はWHERE句がないため、テーブル内のすべての行を削除します。  
+- A は正しい構文であるためエラーにはなりません。  
+- D はテーブル本体を削除する DROP TABLE の動作です。DELETE は行の削除のみです。
+
+
+---
+問題13：COMMIT文の忘れ
+
+トランザクションでUPDATE文を実行後、COMMIT文を実行せずにセッションを終了した場合の動作として正しいものはどれか。
+
+- A. 更新内容は自動的にコミットされる
+- B. 更新内容はロールバックされ、変更が破棄される
+- C. SQLエラーが発生し、データベースが停止する
+- D. 次回ログイン時に更新が再実行される
+
+解答：B
+
+解説： 
+トランザクション中にCOMMITせずにセッションを終了すると、データベースは自動的にROLLBACKを行い、変更は破棄されます。  
+- A は自動コミット設定が有効な場合ですが、通常のOracleセッションでは手動COMMITが必要です。  
+- C・D は実際には起こりません。
+
+---
+問題14：UPDATE文とCOMMITのタイミングによるSELECT結果
+
+セッションAが以下を実行した（まだCOMMITしていない）。セッションBが同じ表を SELECT した場合、セッションBが見るデータとして正しいものはどれか。
+
+-- セッションA
+UPDATE emp SET dept_id = 99 WHERE emp_id = 1;
+-- (COMMITなし)
+
+- A. セッションBは dept_id = 99 の変更済みデータを参照できる
+- B. セッションBはコミット前のデータ（変更前）を参照する
+- C. セッションBはエラーが発生し参照できない
+- D. セッションBのSELECTはロックされ永遠に待機する
+
+解答：B
+
+解説：  
+Oracleは 読み取り一貫性（Read Consistency) を保証しており、コミットされていないデータは他のセッションから参照できません。セッションBはコミット前の元のデータを参照します。  
+- A はコミット前なので誤りです。  
+- D はSELECT文のみではロック待ちになりません（DML文がロックを保持しているが、SELECT自体はMVCC機構により待機しません）。
+
+---
+問題15：SAVEPOINTを含むSQL文の動作
+
+以下のSQL文を実行した場合、最終的に残るデータとして正しいものはどれか。
+
+INSERT INTO emp VALUES (5, '木村', 10);
+SAVEPOINT sp1;
+INSERT INTO emp VALUES (6, '松本', 20);
+ROLLBACK TO SAVEPOINT sp1;
+COMMIT;
+
+
+- A. emp_id = 5 と emp_id = 6 の両行が残る
+- B. emp_id = 5 の行のみ残る
+- C. emp_id = 6 の行のみ残る
+- D. どちらの行も残らない
+
+解答：B
+
+解説：  
+ROLLBACK TO SAVEPOINT sp1; により、SAVEPOINTより後の操作（emp_id=6のINSERT）が取り消されます。  
+その後 COMMIT; により sp1 以前のデータ（emp_id=5のINSERT）が確定します。  
+結果として emp_id=5 の行のみが残ります。
+
+
+---
+問題16：算術演算子（＋の利用）
+
+表「emp」に salary（数値型）列がある。全員の salary に 10000 を加算した値を取得するSQL文として正しいものはどれか。
+
+- A. SELECT salary & 10000 FROM emp;
+- B. SELECT salary ADD 10000 FROM emp;
+- C. SELECT salary + 10000 FROM emp;
+- D. SELECT salary PLUS 10000 FROM emp;
+
+解答：C
+
+解説：
+SQLでは一般的な算術演算子（+, -, *, /）がそのまま使用できます。  
+- salary + 10000 は salary に 10000 を加算した値を返します。  
+- A・B・D は実在しない演算子です。
+
+---
+問題17：述語INのORへの書き換え
+
+次のSQL文と同じ結果を返すSQL文はどれか。
+
+SELECT * FROM emp WHERE dept_id IN (10, 20, 30);
+
+- A. SELECT * FROM emp WHERE dept_id = 10 AND dept_id = 20 AND dept_id = 30;
+- B. SELECT * FROM emp WHERE dept_id = 10 OR dept_id = 20 OR dept_id = 30;
+- C. SELECT * FROM emp WHERE dept_id BETWEEN 10 AND 30;
+- D. SELECT * FROM emp WHERE dept_id != 10 OR dept_id != 20;
+
+解答：B
+
+解説：  
+IN (10, 20, 30) は = 10 OR = 20 OR = 30 と同義です。  
+- A の AND では、1列が同時に複数の値になることはないため常に0行となります。  
+- C の BETWEEN 10 AND 30` は10〜30の範囲すべてを含むため意味が異なります。
+
+---
+問題18：IS NOT NULLとLIKEの条件指定
+
+name列がNULLでなく、かつ「田」で始まる従業員を取得するSQL文として正しいものはどれか。
+
+- A. SELECT * FROM emp WHERE name IS NOT NULL AND name LIKE '田%';
+- B. SELECT * FROM emp WHERE name != NULL AND name = '田%';
+- C. SELECT * FROM emp WHERE name IS NOT NULL OR name LIKE '田%';
+- D. SELECT * FROM emp WHERE name NOT NULL AND name LIKE '%田';
+
+解答：A
+
+解説： 
+NULLの判定には IS NOT NULL を使用し、部分一致には LIKE '田%'（前方一致）を使用します。  
+- B は != NULL が無効（NULLの比較はIS NULLを使う）で、= '田%' はLIKEなしでは文字通りの等値比較です。  
+- C は AND ではなく OR のため条件が緩くなります。  
+- D の NOT NULL は制約構文であり WHERE 句では使えません。
+
+---
+問題19：集約関数 COUNT
+
+表「emp」の全件数を取得するSQL文として正しいものはどれか。
+
+- A. SELECT TOTAL(*) FROM emp;
+- B. SELECT COUNT(1) FROM emp;
+- C. SELECT NUMBER(*) FROM emp;
+- D. SELECT SUM(*) FROM emp;
+
+解答：B
+
+解説： 
+COUNT(*) または COUNT(1) で全行数を取得できます。  
+- A の TOTAL は存在しません。  
+- C の NUMBER は存在しません。  
+- D の SUM(*) は数値列以外には使えず、全行数の取得には使いません。
+
+---
+問題20：集約関数SUM・GROUP BY句
+
+次のSQL文の実行結果として正しい説明はどれか。
+
+SELECT dept_id, SUM(salary) FROM emp GROUP BY dept_id;
+
+- A. 全従業員の給与合計を1行で返す
+- B. 部門ごとに給与合計を集計して返す
+- C. 給与が最も高い従業員を部門ごとに返す
+- D. 構文エラーとなる
+
+解答：B
+
+解説： 
+GROUP BY dept_id により部門単位でグループ化され、各部門の SUM(salary) がそれぞれ返されます。  
+- A は GROUP BY がない場合の動作です。  
+- C は MAX や MIN の説明に近く誤りです。  
+- D は正しい構文であるためエラーにはなりません。
+
+---
+問題21：集約関数・GROUP BY・HAVING句
+
+部門ごとの平均給与が300000以上の部門とその平均給与を取得するSQL文として正しいものはどれか。
+
+- A. SELECT dept_id, AVG(salary) FROM emp WHERE AVG(salary) >= 300000 GROUP BY dept_id;
+- B. SELECT dept_id, AVG(salary) FROM emp GROUP BY dept_id WHERE AVG(salary) >= 300000;
+- C. SELECT dept_id, AVG(salary) FROM emp GROUP BY dept_id HAVING AVG(salary) >= 300000;
+- D. SELECT dept_id, AVG(salary) FROM emp HAVING AVG(salary) >= 300000;
+
+解答：C
+
+解説：
+グループ化後の集約条件には HAVING 句を使用します。WHERE 句では集約関数は使用できません。  
+- A は WHERE 句に AVG() を使っておりエラーになります。  
+- B は WHERE と GROUP BY の順序が逆でエラーになります。  
+- D は GROUP BY がなくエラーになります。
+
+---
+問題22：結合（テーブル指定の記述ミス）
+
+「emp」表と「dept」表を emp.dept_id = dept.dept_id で内部結合するSQL文で、テーブル指定が抜けているためエラーになるものはどれか。
+
+- A. SELECT e.name, d.dept_name FROM emp e INNER JOIN dept d ON e.dept_id = d.dept_id;
+- B. SELECT e.name, d.dept_name FROM emp e, dept d WHERE e.dept_id = d.dept_id;
+- C. SELECT e.name, d.dept_name FROM emp e INNER JOIN ON e.dept_id = d.dept_id;
+- D. SELECT e.name, d.dept_name FROM emp e JOIN dept d ON e.dept_id = d.dept_id;
+
+解答：C
+
+解説：  
+INNER JOIN ON ... と書いた場合、JOIN のあとに結合対象テーブル名（dept d）が必要ですが抜けているためエラーになります。  
+- A・B・D は文法的に正しい記述です。
+
+
+---
+問題23：左外部結合の実行結果（レコード数）
+
+「emp」表（3行）と「dept」表（2行）を LEFT OUTER JOIN した場合、結果のレコード数として正しいものはどれか（empの一部のdept_idがdeptに存在しない場合）。
+
+- A. 結合に成功した行のみ返るため、最大2行
+- B. empのすべての行が返るため、3行
+- C. 両表の組み合わせで最大6行
+- D. dept_idが一致しない行はエラーになる
+
+解答：B
+
+解説： 
+LEFT OUTER JOIN は左テーブル（empの全行）を基準に結合します。dept に一致する行がなくてもNULLとして返されます。よってempの行数分（3行）が必ず返ります。  
+- A は INNER JOIN の特性です。  
+- C は クロス結合の特性です。  
+- D は外部結合においてエラーにはなりません。
+
+---
+問題24：左外部結合の正しいSQL文
+
+「emp」表を基準に「dept」表を左外部結合する正しいSQL文はどれか。
+
+- A. SELECT * FROM emp RIGHT OUTER JOIN dept ON emp.dept_id = dept.dept_id;
+- B. SELECT * FROM emp LEFT OUTER JOIN dept ON emp.dept_id = dept.dept_id;
+- C. SELECT * FROM emp LEFT INNER JOIN dept ON emp.dept_id = dept.dept_id;
+- D. SELECT * FROM emp OUTER JOIN dept ON emp.dept_id = dept.dept_id;
+
+解答：B
+
+解説：  
+LEFT OUTER JOIN はFROM句の左側（emp）を基準とした外部結合です。右テーブル（dept）に一致がなくてもempはすべて残ります。  
+- A の RIGHT OUTER JOIN は dept を基準にするため逆になります。  
+- C の LEFT INNER JOIN は存在しません。  
+- D の OUTER JOIN 単体は構文として不完全です（LEFT または RIGHT が必要）。
+
+
+---
+問題25：サブクエリ（実行結果を得るための記述）
+
+「salary」が全体の平均給与より高い従業員の名前を取得するSQL文として正しいものはどれか。
+
+- A. SELECT name FROM emp WHERE salary > AVG(salary);
+- B. SELECT name FROM emp WHERE salary > (SELECT AVG(salary) FROM emp);
+- C. SELECT name FROM emp HAVING salary > AVG(salary);
+- D. SELECT name FROM emp WHERE salary > (AVG(salary) FROM emp);
+
+解答：B
+
+解説： 
+WHERE 句の条件値にサブクエリを使用するには (SELECT AVG(salary) FROM emp) のように括弧で囲みます。  
+- A は WHERE 句に集約関数を直接使えないためエラーです。  
+- C は HAVING 句は GROUP BY とセットで使うためこの文脈では誤りです。  
+- D は括弧内の構文が誤りです（SELECT句が必要）。
+
+---
+問題26：WHERE句でのスカラ・サブクエリ
+
+次のSQL文でスカラ・サブクエリとして正しく機能するものはどれか。
+
+- A. SELECT name FROM emp WHERE dept_id = (SELECT dept_id FROM dept WHERE dept_name = '営業');
+- B. SELECT name FROM emp WHERE dept_id = (SELECT dept_id FROM dept);
+- C. SELECT name FROM emp WHERE dept_id = (SELECT dept_id, dept_name FROM dept WHERE dept_name = '営業');
+- D. SELECT name FROM emp WHERE dept_id IN (SELECT dept_id FROM dept WHERE dept_name = '営業');（※複数行返る可能性がある）
+
+解答：A
+
+解説：  
+スカラ・サブクエリは「必ず1行1列を返す」サブクエリです。dept_name='営業' の dept_id が1件だけ取得される場合に正しく機能します。  
+- B は dept テーブル全件を返す可能性があり、スカラにならないためエラーになる可能性があります。  
+- C は2列返すためスカラではなくエラーになります。  
+- D は IN を使っており、複数行返る可能性があるためスカラ・サブクエリの文脈では正確ではありません（構文的には正しい別の書き方です）。
+
+---
+問題27：スカラ・サブクエリにならない記述
+
+次のうち、スカラ・サブクエリにならない（スカラ値を返さない）記述はどれか。
+
+- A. (SELECT MAX(salary) FROM emp)
+- B. (SELECT AVG(salary) FROM emp)
+- C. (SELECT salary FROM emp WHERE emp_id = 1)
+- D. (SELECT salary FROM emp WHERE dept_id = 10)
+
+解答：D
+
+解説： 
+スカラ・サブクエリとは「常に1行1列を返す」サブクエリです。  
+- A：MAX は必ず1行返すのでスカラです。  
+- B：AVG も必ず1行返すのでスカラです。  
+- C：emp_id は主キーのため1行しか返らずスカラです。  
+- D：dept_id=10 に属する従業員が複数いる場合、複数行返るためスカラにはなりません。
+
+---
