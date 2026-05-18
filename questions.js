@@ -3951,6 +3951,58 @@ const questionDatabase = [
         "answer": 1,
         "explanation": "HashMap の主なメソッド:\n  put(key, value)     → キーと値を追加（キーが重複する場合は上書き）\n  get(key)            → キーに対応する値を取得\n  containsKey(key)    → キーが存在するか（boolean）\n  containsValue(value)→ 値が存在するか（boolean）\n  size()              → エントリ数\n\n操作の流れ:\n  map = {\"apple\": 100, \"banana\": 200}\n  map.containsKey(\"apple\") → true（存在する）\n  map.containsKey(\"grape\") → false（存在しない）\n  map.size() → 2（エントリは2件）\n\n・選択肢1: \"grape\" は存在しないため 2つ目は false です。\n・選択肢2: 正解。true / false / 2。\n・選択肢3: \"apple\" は存在するため1つ目は true です。\n・選択肢4: エントリ数は 2 なので size は 3 ではありません。\n\n【ポイント】\n  containsKey(key)   → キーの存在確認\n  containsValue(val) → 値の存在確認\n  keySet()           → 全キーの Set を取得\n  values()           → 全値の Collection を取得",
         "category": "総合問題"
+    },
+    {
+        "id": 305,
+        "question": "【リポジトリの使い方】\nSpring Data JPAにおけるリポジトリの使い方として正しいものを選べ。",
+        "options": [
+            "インターフェースに JpaRepository を継承させることで、基本的なCRUD操作が利用できる。",
+            "リポジトリはクラスとして定義し、@Repository アノテーションを付けて使用する。",
+            "リポジトリを利用するには、自分でSQL文をメソッド内に記述する必要がある。",
+            "JpaRepository を継承すると、メソッドをすべて手動でオーバーライドしなければならない。"
+        ],
+        "answer": 0,
+        "explanation": "正解は1番です。\nSpring Data JPAでは、インターフェースに JpaRepository<エンティティ型, ID型> を継承させるだけで、findAll・findById・save・deleteなどの基本的なCRUD操作が自動的に利用できます。クラスではなくインターフェースとして定義し、SQL文の記述も不要です。",
+        "category": "JavaSpring"
+    },
+    {
+        "id": 306,
+        "question": "【全件検索処理】\n以下のコードの説明として正しいものを選べ。\n\n---java---\nList<Item> items = itemRepository.findAll();\nmodel.addAttribute(\"items\", items);",
+        "options": [
+            "全件取得した結果をリクエストスコープに保存し、ビューから参照できるようにする。",
+            "全件取得した結果をセッションスコープに保存し、複数リクエストをまたいで保持する。",
+            "findAll() の結果を直接レスポンスとして返し、ビューには渡さない。",
+            "model.addAttribute はデータベースに新しいレコードを追加するメソッドである。"
+        ],
+        "answer": 0,
+        "explanation": "正解は1番です。\nfindAll() でDBから全件取得したリストを、model.addAttribute(\"items\", items) でリクエストスコープのModelに追加します。これによりThymeleafなどのビューテンプレートから \"items\" という名前でデータを参照できます。セッションスコープには保存されません。",
+        "category": "JavaSpring"
+    },
+    {
+        "id": 307,
+        "question": "【JpaRepositoryの主キー検索メソッド】\nJpaRepository において、主キー（ID）で1件のレコードを検索する際に使用するメソッドとして正しいものを選べ。",
+        "options": [
+            "findById(id) を使用し、結果は Optional 型で返される。",
+            "findAll(id) を使用し、結果はリスト型で返される。",
+            "findByPrimaryKey(id) を使用し、結果はエンティティ型で直接返される。",
+            "getById(id) を使用し、存在しない場合は null が返される。"
+        ],
+        "answer": 0,
+        "explanation": "正解は1番です。\nJpaRepository の主キー検索には findById(id) を使用します。戻り値は Optional<T> 型であり、レコードが存在する場合は Optional.of(entity)、存在しない場合は Optional.empty() が返されます。findAll は全件取得用、findByPrimaryKey は存在しないメソッドです。",
+        "category": "JavaSpring"
+    },
+    {
+        "id": 308,
+        "question": "【saveメソッドの使い方】\nJpaRepository の save メソッドの使い方として正しいものを選べ。",
+        "options": [
+            "新規登録と更新の両方に使用でき、IDが未設定なら INSERT、設定済みなら UPDATE が行われる。",
+            "save メソッドは新規登録専用であり、更新には別途 update メソッドを使用する必要がある。",
+            "save メソッドを呼び出すと、即座にデータベースへ反映され、戻り値は常に void である。",
+            "save メソッドはIDを持つエンティティにのみ使用でき、新規登録には使用できない。"
+        ],
+        "answer": 0,
+        "explanation": "正解は1番です。\nJpaRepository の save(entity) メソッドは新規登録と更新の両方に対応しています。エンティティのIDが null（未設定）の場合は INSERT、IDが既に設定済みの場合は UPDATE が自動的に判断されて実行されます。戻り値は保存されたエンティティ（T型）であり void ではありません。",
+        "category": "JavaSpring"
     }
 ];
 
@@ -4391,6 +4443,16 @@ const dailySets = [
             302,
             303,
             304
+        ]
+    },
+    {
+        "date": "5/18",
+        "title": "JavaSpring確認試験 (5/18)",
+        "questions": [
+            305,
+            306,
+            307,
+            308
         ]
     }
 ];
