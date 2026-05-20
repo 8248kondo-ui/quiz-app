@@ -5238,6 +5238,266 @@ const questionDatabase = [
         "answer": 1,
         "explanation": "正解は2番です。\n複数のフィルタの実行順序を制御する場合は、設定クラス（@Configuration）でFilterRegistrationBeanを使用し、setOrderメソッドに数値を指定して登録します。",
         "category": "JavaSpring"
+    },
+    {
+        "id": 404,
+        "question": "【Bean Validation - フォームクラスの定義】\n以下のコードの説明として正しいものを選べ。\n---Java---\npublic class BodyTempForm {\n@NotNull\n@DecimalMin(\"35.0\")\n@DecimalMax(\"42.0\")\nprivate Double bodyTemp;\n@NotNull\nprivate LocalDate measureDate;\n// getter / setter 省略\n}\n----------",
+        "options": [
+            "bodyTemp フィールドは null を許可しており、35.0〜42.0 の範囲外であればエラーとなる。",
+            "bodyTemp フィールドは null を許可せず、35.0〜42.0 の範囲外であればエラーとなる。",
+            "bodyTemp フィールドは null のみを許可しており、数値が入力された場合はエラーとなる。",
+            "@DecimalMin と @DecimalMax は文字列型にのみ適用でき、Double 型には効果がない。"
+        ],
+        "answer": 1,
+        "explanation": "正解は2番です。\n@NotNullは対象フィールドがnullの場合にエラーとなります。@DecimalMinと@DecimalMaxは数値の最小値・最大値を検証するアノテーションで、Double型にも適用できます。この3つを組み合わせることで「nullNG かつ 35.0〜42.0の範囲内」という条件を設定しています。",
+        "category": "JavaSpring"
+    },
+    {
+        "id": 405,
+        "question": "【Bean Validation - フォームクラスの定義】\n以下のコードの説明として誤っているものを選べ。\n---Java---\n@PostMapping(\"/body_temp/check\")\npublic String check(@Valid BodyTempForm form,\nBindingResult result,\nModel model) {\nif (result.hasErrors()) {\nreturn \"bt_input\";\n}\n// 正常処理\nreturn \"bt_ok\";\n}\n----------",
+        "options": [
+            "@Valid を付与することで、BodyTempForm に定義されたバリデーションアノテーションが有効になる。",
+            "BindingResult はバリデーションのエラー結果を受け取るための引数であり、@Valid の直後に宣言する必要がある。",
+            "result.hasErrors() が true の場合、\"bt_input\" というビューに遷移する。",
+            "@Valid と BindingResult の宣言順序は任意であり、どの引数よりも後ろに置いても動作する。"
+        ],
+        "answer": 3,
+        "explanation": "正解は4番です。\nBindingResultは必ず @Valid/@Validated を付与した引数の「直後」に宣言しなければなりません。他の引数より後ろに置くと、バリデーションエラーが発生した際に例外（BindException）がスローされて正しく動作しません。これはSpring MVCの重要な制約です。",
+        "category": "JavaSpring"
+    },
+    {
+        "id": 406,
+        "question": "【Bean Validation - フォームクラスの定義】\n以下のコードについて、処理の流れとして正しいものを選べ。\nただし、ユーザーが体温に「39.5」、日付に「2024-01-10」を入力して送信したとする。\n---Java---\n@PostMapping(\"/body_temp/check\")\npublic String check(@Valid BodyTempForm form,\nBindingResult result,\nModel model) {\nif (result.hasErrors()) {\nreturn \"bt_input\";\n}\nif (form.getBodyTemp() >= 37.5) {\nreturn \"bt_ng\";\n}\nreturn \"bt_ok\";\n}\n----------",
+        "options": [
+            "バリデーションエラーが発生するため、\"bt_input\" に遷移する。",
+            "バリデーションは通過し、体温が 37.5 以上であるため \"bt_ng\" に遷移する。",
+            "バリデーションは通過し、体温が 37.5 未満であるため \"bt_ok\" に遷移する。",
+            "バリデーションは通過するが、LocalDate 型の変換に失敗するため例外が発生する。"
+        ],
+        "answer": 1,
+        "explanation": "正解は2番です。\n体温「39.5」はフォームクラスの@DecimalMin(35.0)〜@DecimalMax(42.0)の範囲内のため、バリデーションはエラーなしで通過します。その後、39.5 >= 37.5 の条件が true となるため、\"bt_ng\" ビューに遷移します。",
+        "category": "JavaSpring"
+    },
+    {
+        "id": 407,
+        "question": "【Bean Validation - アノテーションの種類】\n以下のフォームクラスのフィールド定義の説明として正しいものを選べ。\n---Java---\npublic class PersonalInfoForm {\n@NotBlank\nprivate String name;\n@Pattern(regexp = \"^[0-9]{3}-[0-9]{4}$\")\nprivate String zipCode;\n@Size(min = 1, max = 100)\nprivate String address;\n}\n----------",
+        "options": [
+            "@NotBlank は null と空文字と空白のみの文字列をエラーとする。String 型以外には使用できない。",
+            "@NotBlank は null のみをエラーとし、空文字（\"\"）は許可する。",
+            "@Pattern は数値型（int, double）に対して使用でき、数値の範囲を正規表現で制限する。",
+            "@Size は数値の最大値・最小値を制限するアノテーションであり、文字列には使用できない。"
+        ],
+        "answer": 0,
+        "explanation": "正解は1番です。\n@NotBlankはnull・空文字（\"\"）・空白のみの文字列（\"  \"）の3パターンをすべてエラーとするアノテーションです。String型専用で、数値型やDate型には使用できません（それらにはnull禁止は@NotNullを使います）。",
+        "category": "JavaSpring"
+    },
+    {
+        "id": 408,
+        "question": "【Bean Validation - アノテーションの種類】\n以下の3つのアノテーションの説明として誤っているものを選べ。",
+        "options": [
+            "@NotNull は対象フィールドが null の場合にエラーとなる。空文字（\"\"）は許可される。",
+            "@NotEmpty は null と空文字（\"\"）の場合にエラーとなる。空白のみの文字列は許可される。",
+            "@NotBlank は null・空文字・空白のみの文字列をすべてエラーとする。",
+            "@NotNull・@NotEmpty・@NotBlank はすべて数値型（Integer）にも適用できるが、同じ動作をする。"
+        ],
+        "answer": 3,
+        "explanation": "正解は4番です。\n@NotNull・@NotEmpty・@NotBlankは異なる動作をします。また、@NotNullはすべての型に使用できますが、@NotEmptyと@NotBlankは文字列（CharSequence）やコレクション向けです。Integerなどの数値型に@NotBlankを付けると正しく動作せず、数値型のnull禁止には@NotNullを使います。",
+        "category": "JavaSpring"
+    },
+    {
+        "id": 409,
+        "question": "【Thymeleaf - エラーメッセージ表示】\n以下の Thymeleaf テンプレートのコードの説明として正しいものを選べ。\n---Thymeleaf---\n<form th:action=\"@{/body_temp/check}\" th:object=\"${bodyTempForm}\" method=\"post\">\n<input type=\"text\" th:field=\"*{bodyTemp}\" />\n<span th:errors=\"*{bodyTemp}\"></span>\n<button type=\"submit\">送信</button>\n</form>\n----------",
+        "options": [
+            "th:errors=\"*{bodyTemp}\" は、bodyTemp フィールドにエラーがある場合、span タグのテキストとしてエラーメッセージを出力する。",
+            "th:errors=\"*{bodyTemp}\" は、bodyTemp フィールドにエラーがある場合、ブラウザのポップアップとしてメッセージを表示する。",
+            "th:errors はすべての入力フィールドのエラーをまとめて span に出力するため、フィールド名の指定は不要である。",
+            "th:errors=\"*{bodyTemp}\" は、エラーメッセージのテキストではなく、bodyTemp フィールドの背景色を赤くする属性である。"
+        ],
+        "answer": 0,
+        "explanation": "正解は1番です。\nth:errors属性は、th:object で指定したフォームオブジェクトのフィールドのエラーメッセージを表示します。*{bodyTemp}のようにフィールドを指定し、エラーがある場合にそのタグのテキストとしてエラーメッセージが挿入されます。エラーがなければそのタグは表示されません。",
+        "category": "JavaSpring"
+    },
+    {
+        "id": 410,
+        "question": "【Thymeleaf - エラーメッセージ表示】\n以下の Thymeleaf のコードで、th:field の説明として正しいものを選べ。\nただし、フォームクラスの name フィールドには \"田中\" が格納されているとする。\n---Thymeleaf---\n<form th:object=\"${personalInfoForm}\" method=\"post\">\n<input type=\"text\" th:field=\"*{name}\" />\n</form>\n----------",
+        "options": [
+            "th:field=\"*{name}\" は、input タグの id・name 属性を \"name\" に設定し、value 属性にフォームの name フィールドの値 \"田中\" を自動的に設定する。",
+            "th:field=\"*{name}\" は、input タグの value 属性のみを \"田中\" に設定し、id・name 属性は別途設定が必要である。",
+            "th:field=\"*{name}\" は、th:object の指定なしでも動作し、セッションスコープから自動的に値を取得する。",
+            "th:field=\"*{name}\" は、フォーム送信後に name フィールドの値を自動的にリセット（空文字）にする属性である。"
+        ],
+        "answer": 0,
+        "explanation": "正解は1番です。\nth:fieldは入力フォームの便利属性で、id属性・name属性・value属性を一括で設定します。th:object で指定したフォームオブジェクトのフィールド名がid/nameに設定され、フィールドの現在値がvalueに設定されます。バリデーションエラー後の再表示時にも入力値が保持される点で特に有用です。",
+        "category": "JavaSpring"
+    },
+    {
+        "id": 411,
+        "question": "【メッセージ出力 - プロパティファイル】\n以下のファイルの内容の説明として正しいものを選べ。\n---ValidationMessages.properties---\njavax.validation.constraints.NotBlank.message=入力必須項目です。\njavax.validation.constraints.Pattern.message={0}には正しい形式で入力してください。\n----------",
+        "options": [
+            "このファイルは Bean Validation のデフォルトエラーメッセージを上書きするためのファイルであり、ファイル名は必ず ValidationMessages.properties でなければならない。",
+            "このファイルは application.properties と同じ役割を持ち、サーバーの起動設定を定義するためのファイルである。",
+            "このファイルに記述したメッセージは、Thymeleaf 側で #{キー名} を使って直接参照することができる。",
+            "@NotBlank と @Pattern のメッセージキーはどちらも自由に命名でき、アノテーション名との一致は不要である。"
+        ],
+        "answer": 0,
+        "explanation": "正解は1番です。\nValidationMessages.propertiesはBean Validationのアノテーション（@NotBlank、@Patternなど）がエラーとなったときのデフォルトメッセージを上書きするファイルです。ファイル名はSpring Bootの規約で固定されており、src/main/resourcesに配置します。このファイルの内容はThymeleafのメッセージ式#{...}では直接参照できません。",
+        "category": "JavaSpring"
+    },
+    {
+        "id": 412,
+        "question": "【メッセージ出力 - プロパティファイル】\n以下の messages.properties の内容と Thymeleaf テンプレートの組み合わせとして、\n画面に表示される文字列として正しいものを選べ。\n---messages.properties---\nlabel.name=氏名\nlabel.zipCode=郵便番号\n----------\n---Thymeleaf---\n<label th:text=\"#{label.zipCode}\"></label>\n----------",
+        "options": [
+            "「label.zipCode」という文字列がそのまま表示される。",
+            "「郵便番号」という文字列が表示される。",
+            "「zipCode」という文字列が表示される。",
+            "「#{label.zipCode}」という文字列がそのまま表示される。"
+        ],
+        "answer": 1,
+        "explanation": "正解は2番です。\nThymeleafでは#{キー名}のメッセージ式を使ってmessages.propertiesの値を参照します。#{label.zipCode}と記述すると、messages.propertiesの「label.zipCode=郵便番号」というエントリが解決され、「郵便番号」という文字が出力されます。",
+        "category": "JavaSpring"
+    },
+    {
+        "id": 413,
+        "question": "【メッセージ出力 - プロパティファイル】\n以下の Thymeleaf の式の使い分けとして正しいものを選べ。",
+        "options": [
+            "${...} はメッセージリソース（プロパティファイル）の値を参照し、#{...} はモデルの変数を参照する。",
+            "#{...} はメッセージリソース（プロパティファイル）の値を参照し、${...} はモデルの変数を参照する。",
+            "@{...} はモデルの変数を参照し、*{...} はURLを生成するために使用する。",
+            "*{...} はメッセージリソースを参照し、@{...} は th:object なしでフォームフィールドを参照する。"
+        ],
+        "answer": 1,
+        "explanation": "正解は2番です。\nThymeleafの式は目的ごとに使い分けます。${...}はモデルやセッションの変数を参照する「変数式」、#{...}はmessages.propertiesなどメッセージリソースを参照する「メッセージ式」、@{...}はURLを生成する「URL式」、*{...}はth:objectで選択されたオブジェクトのフィールドを参照する「選択変数式」です。",
+        "category": "JavaSpring"
+    },
+    {
+        "id": 414,
+        "question": "【フィルタ - HttpFilter の実装】\n以下のフィルタクラスのコードの説明として正しいものを選べ。\n---Java---\n@Component\npublic class URLCheckFilter extends HttpFilter {\n@Override\nprotected void doFilter(HttpServletRequest request,\nHttpServletResponse response,\nFilterChain chain)\nthrows IOException, ServletException {\nString url = request.getRequestURI();\nif (url.endsWith(\"abc\")) {\nresponse.sendRedirect(\"/practice/filter/xyz\");\nreturn;\n}\nchain.doFilter(request, response);\n}\n}\n----------",
+        "options": [
+            "リクエストのURLの末尾が \"abc\" の場合、コントローラに処理を引き渡さずに \"/practice/filter/xyz\" へリダイレクトさせる。",
+            "リクエストのURLの末尾が \"abc\" の場合、コントローラに処理を引き渡した後で \"/practice/filter/xyz\" へリダイレクトさせる。",
+            "@Component を付与しているため、このクラスはフィルタではなくサービスクラスとして動作する。",
+            "chain.doFilter を呼ばなくても、リクエストは自動的に次のフィルタまたはコントローラに転送される。"
+        ],
+        "answer": 0,
+        "explanation": "正解は1番です。\ndoFilterメソッド内でURLを確認し、末尾が\"abc\"の場合はresponse.sendRedirect()でリダイレクトを発行した後にreturnします。returnがあるためchain.doFilter()は呼ばれず、コントローラには処理が渡りません。リダイレクトはサーバーがブラウザに「このURLへ再アクセスして」と指示する処理です（フォワードではない点に注意）。",
+        "category": "JavaSpring"
+    },
+    {
+        "id": 415,
+        "question": "【フィルタ - HttpFilter の実装】\n以下のコードの説明として誤っているものを選べ。\n---Java---\n@Configuration\npublic class FilterConfig {\n@Bean\npublic FilterRegistrationBean<URLCheckFilter> filterA() {\nFilterRegistrationBean<URLCheckFilter> bean =\nnew FilterRegistrationBean<>();\nbean.setFilter(new URLCheckFilter());\nbean.setOrder(1);\nreturn bean;\n}\n@Bean\npublic FilterRegistrationBean<LogFilter> filterB() {\nFilterRegistrationBean<LogFilter> bean =\nnew FilterRegistrationBean<>();\nbean.setFilter(new LogFilter());\nbean.setOrder(2);\nreturn bean;\n}\n}\n----------",
+        "options": [
+            "URLCheckFilter は setOrder(1) が指定されているため、LogFilter より先に実行される。",
+            "FilterRegistrationBean を用いることで、複数フィルタの実行順序を明示的に制御できる。",
+            "@Configuration クラス内でフィルタを定義する場合、@Component をフィルタクラスに付けると二重登録になる可能性がある。",
+            "setOrder の値は文字列で指定する必要があり、数値を直接渡すとコンパイルエラーになる。"
+        ],
+        "answer": 3,
+        "explanation": "正解は4番です。\nFilterRegistrationBeanのsetOrderメソッドの引数はint型（数値）です。bean.setOrder(1) のように整数値を直接渡します。文字列で指定する必要はなく、数値を渡してもコンパイルエラーにはなりません。",
+        "category": "JavaSpring"
+    },
+    {
+        "id": 416,
+        "question": "【Thymeleaf高度活用 - th:each / th:switch / th:if】\n以下のコードで、コントローラが送信したデータをビューで繰り返し表示している部分の説明として正しいものを選べ。\nただし、コントローラで `model.addAttribute(\"items\", itemList)` によって List 型のデータが渡されているとする。\n---Thymeleaf---\n<ul>\n<li th:each=\"item : ${items}\" th:text=\"${item.name}\"></li>\n</ul>\n----------",
+        "options": [
+            "items リストの各要素を item という変数で受け取り、item.name の値を li タグのテキストとして繰り返し出力する。",
+            "items リストの先頭の要素のみを取得し、item.name の値を1行だけ出力する。",
+            "th:each は Map 型にのみ使用できるため、List 型の items に対しては動作しない。",
+            "th:text=\"${item.name}\" は item オブジェクトの name フィールドではなく、item 変数名そのものを出力する。"
+        ],
+        "answer": 0,
+        "explanation": "正解は1番です。\nth:eachはコレクション（List・配列・Mapなど）を反復処理するThymeleafの属性です。\"item : ${items}\"の書き方で、itemsリストの各要素をitem変数に代入しながらタグを繰り返し生成します。th:textでitem.nameの値を設定することで、各要素のname属性値がli要素のテキストとして出力されます。",
+        "category": "JavaSpring"
+    },
+    {
+        "id": 417,
+        "question": "【Thymeleaf高度活用 - th:each / th:switch / th:if】\n以下のコードの説明として正しいものを選べ。\nただし、コントローラから `model.addAttribute(\"fortune\", 1)` でランダムな整数が渡されているとする。\n---Thymeleaf---\n<div th:switch=\"${fortune}\">\n<p th:case=\"1\">大吉</p>\n<p th:case=\"2\">中吉</p>\n<p th:case=\"*\">凶</p>\n</div>\n----------",
+        "options": [
+            "fortune の値が 1 の場合、「大吉」が表示される。th:case=\"*\" は fortune が 1・2 のどちらにも一致しない場合に表示されるデフォルト選択肢である。",
+            "fortune の値が 1 の場合、すべての th:case が評価されるため「大吉」「中吉」「凶」がすべて表示される。",
+            "th:case=\"*\" は fortune の値が null の場合にのみ表示されるケースである。",
+            "th:switch はJavaの switch 文と異なり、文字列型にのみ使用でき、数値型（Integer）には対応していない。"
+        ],
+        "answer": 0,
+        "explanation": "正解は1番です。\nth:switchはJavaのswitch文に相当するThymeleafの属性です。fortuneの値が1のとき、th:case=\"1\"の条件が一致して「大吉」のみが表示されます。th:case=\"*\"はJavaのdefault相当で、他のcaseに一致しない場合のデフォルト表示です。数値型・文字列型ともに使用できます。",
+        "category": "JavaSpring"
+    },
+    {
+        "id": 418,
+        "question": "【Thymeleaf高度活用 - th:each / th:switch / th:if】\n以下のコードの説明として正しいものを選べ。\nただし、コントローラから `model.addAttribute(\"hobbies\", new String[]{\"読書\", \"映画\"})` で配列が渡されているとする。\n---Thymeleaf---\n<div th:if=\"${#arrays.length(hobbies) == 0}\">\n<p>趣味が選択されていません。</p>\n</div>\n<div th:unless=\"${#arrays.length(hobbies) == 0}\">\n<p>選択された趣味の数：<span th:text=\"${#arrays.length(hobbies)}\"></span>件</p>\n</div>\n----------",
+        "options": [
+            "hobbies の要素数が 0 の場合に「趣味が選択されていません。」が表示される。要素数が 0 でない場合は選択件数が表示される。この場合は「2件」と表示される。",
+            "hobbies の要素数が 0 の場合も 0 でない場合も、両方の div が常に表示される。",
+            "th:unless は th:if の逆の条件を評価するのではなく、th:if と同じ条件を評価する。",
+            "#arrays.length() は Thymeleaf の組み込みユーティリティではないため、コンパイルエラーになる。"
+        ],
+        "answer": 0,
+        "explanation": "正解は1番です。\n#arrays.length()はThymeleafの組み込みユーティリティオブジェクトで、配列の長さ（要素数）を返します。th:ifとth:unlessは互いに逆の条件を評価します（th:unlessはth:ifの否定）。hobbiesに2要素あるため「2件」と表示されます。",
+        "category": "JavaSpring"
+    },
+    {
+        "id": 419,
+        "question": "【Thymeleaf高度活用 - th:fragment / th:replace】\n以下のコードの組み合わせの説明として正しいものを選べ。\n---Thymeleaf（layout.html）---\n<header th:fragment=\"commonHeader\">\n<h1>共通ヘッダー</h1>\n</header>\n----------\n---Thymeleaf（first.html）---\n<header th:replace=\"layout :: commonHeader\"></header>\n----------",
+        "options": [
+            "first.html の header タグは、layout.html 内の th:fragment=\"commonHeader\" が定義されたタグ（およびその内容）に丸ごと置き換えられる。",
+            "first.html の header タグは残ったまま、その内側に layout.html の commonHeader の内容が挿入される。",
+            "th:replace は外部ファイルのフラグメントを参照できず、同一ファイル内のフラグメントのみに使用できる。",
+            "th:fragment=\"commonHeader\" が付いた要素はページとして単独でアクセスできるURLが自動生成される。"
+        ],
+        "answer": 0,
+        "explanation": "正解は1番です。\nth:replaceはth:fragmentで定義されたHTML断片を、現在のタグ「ごと」置き換える属性です。first.htmlのheaderタグは完全にlayout.htmlのth:fragment=\"commonHeader\"の内容（headタグを含む）に置き換えられます。th:insertと違い、置き換え先のタグ自体も置き換わります。",
+        "category": "JavaSpring"
+    },
+    {
+        "id": 420,
+        "question": "【Thymeleaf高度活用 - th:fragment / th:replace】\n以下のコードの（　）に入る記述として正しいものを選べ。\n---Thymeleaf（first.html）---\n<!DOCTYPE html>\n<html xmlns:th=\"http://www.thymeleaf.org\">\n<body>\n<div th:replace=\"（　） :: mainContent\">\n<!-- このタグはレイアウトのmainContentに置き換えられる -->\n</div>\n</body>\n</html>\n----------\nただし、参照したいフラグメントは `templates/layout.html` の `th:fragment=\"mainContent\"` に定義されているとする。",
+        "options": [
+            "layout",
+            "layout.html",
+            "/layout",
+            "templates/layout"
+        ],
+        "answer": 0,
+        "explanation": "正解は1番です。\nth:replaceでフラグメントを参照する場合、「テンプレートファイル名 :: フラグメント名」の形式で記述します。ファイル名はtemplates/からの相対パスを拡張子なしで指定します。layout.htmlの場合は\"layout\"と記述し、\"::<フラグメント名>\"の形式で組み合わせます。",
+        "category": "JavaSpring"
+    },
+    {
+        "id": 421,
+        "question": "【総合コード読み取り問題】\n以下のコントローラとビューの組み合わせについて、「送信」ボタンを押した後の処理として正しいものを選べ。\nただし、name フィールドに空文字が入力されたとする。\n---Java（Controller）---\n@PostMapping(\"/personal_info/check\")\npublic String check(@Validated PersonalInfoForm form,\nBindingResult result,\nModel model) {\nif (result.hasErrors()) {\nreturn \"info_input\";\n}\nreturn \"input_ok\";\n}\n----------\n---Java（PersonalInfoForm）---\npublic class PersonalInfoForm {\n@NotBlank\nprivate String name;\n// 省略\n}\n----------",
+        "options": [
+            "@NotBlank により name フィールドが空文字のためエラーとなり、\"info_input\" ビューに遷移する。",
+            "@NotBlank は null のみをエラーとするため、空文字は通過して \"input_ok\" ビューに遷移する。",
+            "BindingResult は @Validated の引数の前に宣言しなければならないため、このコードはエラーになる。",
+            "@Validated の代わりに @Valid を使用しなければバリデーションは動作しない。"
+        ],
+        "answer": 0,
+        "explanation": "正解は1番です。\n@NotBlankは空文字（\"\"）もエラー対象のため、nameフィールドに空文字が入力されるとバリデーションエラーが発生します。result.hasErrors()がtrueとなり、\"info_input\"ビューに遷移します。また、BindingResultは@Validatedの直後に宣言されており正しい記述です。@ValidとSpring独自の@Validatedはどちらも使用できます。",
+        "category": "JavaSpring"
+    },
+    {
+        "id": 422,
+        "question": "【総合コード読み取り問題】\n以下のフィルタのコードについて、`/practice/filter/abc` にアクセスしたときの動作として正しいものを選べ。\n---Java---\n@Component\npublic class URLCheckFilter extends HttpFilter {\n@Override\nprotected void doFilter(HttpServletRequest request,\nHttpServletResponse response,\nFilterChain chain)\nthrows IOException, ServletException {\nString url = request.getRequestURI();\nif (url.endsWith(\"abc\")) {\nresponse.sendRedirect(request.getContextPath() + \"/filter/xyz\");\nreturn;\n}\nchain.doFilter(request, response);\n}\n}\n----------",
+        "options": [
+            "URLが \"abc\" で終わっているため、コントローラに処理が渡らず、ブラウザは \"/filter/xyz\" へ自動的に再リクエストする（リダイレクト）。",
+            "URLが \"abc\" で終わっているため、サーバー内部で \"/filter/xyz\" に対応するコントローラへフォワードされる。",
+            "chain.doFilter が呼ばれないため、リクエストはどこにも転送されずにレスポンスなしで終了する。",
+            "response.sendRedirect の後に return がないため、chain.doFilter も続けて実行される。"
+        ],
+        "answer": 0,
+        "explanation": "正解は1番です。\nURLが\"/practice/filter/abc\"でendsWith(\"abc\")がtrueとなります。response.sendRedirect()はHTTPの302リダイレクトレスポンスをブラウザに返し、ブラウザが自動的に指定URLへ再リクエストします。これはフォワードと異なりサーバー内部の転送ではなく、ブラウザを経由した2回の通信が発生します。",
+        "category": "JavaSpring"
+    },
+    {
+        "id": 423,
+        "question": "【総合コード読み取り問題】\n以下のコードの説明として誤っているものを選べ。\n---Java---\n@Controller\npublic class FortuneController {\n@GetMapping(\"/fortune\")\npublic String showFortune(Model model) {\nint score = (int)(Math.random() * 3) + 1;\nmodel.addAttribute(\"fortune\", score);\nreturn \"fortune\";\n}\n}\n----------\n---Thymeleaf（fortune.html）---\n<div th:switch=\"${fortune}\">\n<p th:case=\"1\">大吉</p>\n<p th:case=\"2\">中吉</p>\n<p th:case=\"3\">凶</p>\n</div>\n----------",
+        "options": [
+            "/fortune にアクセスするたびに Math.random() が実行されるため、大吉・中吉・凶がランダムに切り替わる。",
+            "model.addAttribute(\"fortune\", score) によって、fortune という名前でスコアがリクエストスコープに保存され、ビューから参照できる。",
+            "th:switch=\"${fortune}\" の fortune の値に応じて、対応する th:case の p タグだけが表示される。",
+            "score の値は 0・1・2 のいずれかになるため、th:case=\"1\"〜\"3\" はすべて一致せず、何も表示されないケースが存在する。"
+        ],
+        "answer": 3,
+        "explanation": "正解は4番です。\nMath.random()は0.0以上1.0未満の小数を返します。*3すると0.0〜2.999...になり、(int)でキャストすると0・1・2のいずれかになります。そこに+1をすることで最終的に1・2・3のいずれかの値になります。th:case=\"1\"〜\"3\"は必ずいずれかに一致するため「何も表示されないケース」は存在しません。4番の説明は誤りです。",
+        "category": "JavaSpring"
     }
 ];
 
@@ -5867,6 +6127,32 @@ const dailySets = [
             401,
             402,
             403
+        ]
+    },
+    {
+        "date": "P06-11",
+        "title": "Spring Practice06〜11 確認試験",
+        "questions": [
+            404,
+            405,
+            406,
+            407,
+            408,
+            409,
+            410,
+            411,
+            412,
+            413,
+            414,
+            415,
+            416,
+            417,
+            418,
+            419,
+            420,
+            421,
+            422,
+            423
         ]
     }
 ];
