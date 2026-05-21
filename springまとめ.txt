@@ -1,0 +1,415 @@
+# Spring Framework 完全解説
+
+SpringはJavaでWebアプリや業務システムを開発するための「フレームワーク」です。現在の業務系Javaアプリ開発の事実上の標準となっており、Springを学ぶことはJava開発者にとって必須です。
+
+この教科書では「SpringってなんでJavaだけじゃダメなの？」という疑問から始めて、実際の書き方まで丁寧に解説します！
+
+---
+
+## 第1部：Springとは何か？なぜ必要か？
+
+### 1. フレームワークとは？
+
+フレームワークとは「アプリ開発でよく使う共通の機能をあらかじめ用意した『骨組み』」のことです。
+
+**たとえ話**: 家を建てる時を想像してください。
+- 柱・壁・屋根の骨組み（フレームワーク）はあらかじめ用意されている
+- 開発者はその中に「どんな部屋にするか」「どんな内装にするか」を追加するだけ
+
+これにより、毎回ゼロから柱や屋根を作る必要がなくなります。
+
+よく使う機能（DBアクセス・ログイン認証・エラー処理など）をフレームワークが担当するので、開発者は「このアプリ独自の処理」だけを書けばいいのです。
+
+### 2. DI（依存性の注入）とは？— Springが解決した最大の問題
+
+これがSpringの根幹です。ちょっと難しい概念ですが、たとえ話で理解しましょう。
+
+**問題の例**:
+従来のJavaでは、クラスAがクラスBの機能を使いたい時、A自身がBを `new` で作る必要がありました。
+
+```java
+// ❌ 従来の書き方（密結合）
+// OrderService（注文処理）が MailService（メール送信）に直接依存している
+public class OrderService {
+    // OrderServiceの中でMailServiceを自分で生成している
+    private MailService mailService = new MailService();
+    
+    public void order(Item item) {
+        // 注文処理...
+        mailService.send("注文完了メールを送信"); // メール送信
+    }
+}
+```
+
+この書き方の問題点:
+- テストしたい時に「本物のメール送信」が走ってしまう（テスト用のメール送信クラスに差し替えられない）
+- MailServiceの仕様が変わったら、OrderService内も修正が必要
+
+**Springによる解決（DI）**:
+「Bのインスタンスを作るのはSpringがやる。AにはSpringがBを渡してあげる（注入する）」という仕組みです。
+
+```java
+// ✅ SpringのDIを使った書き方（疎結合）
+@Service  // ← このクラスをSpringに管理してもらう宣言
+public class OrderService {
+    private final MailService mailService;
+    
+    // コンストラクタの引数にMailServiceを書くだけで、
+    // SpringがMailServiceのインスタンスを自動生成して渡してくれる！
+    // これが「依存性の注入（DI: Dependency Injection）」
+    public OrderService(MailService mailService) {
+        this.mailService = mailService;
+    }
+}
+```
+
+これにより:
+- テスト時はMailServiceを「メール送信しない偽物クラス（モック）」に差し替えられる
+- クラス同士の依存関係が緩くなる（疎結合）
+
+**IoC（制御の反転）とは**:
+「オブジェクトを誰が作るか」の制御が「開発者側」から「Springフレームワーク側」に移った（反転した）という考え方です。DIはIoCを実現する手段の一つです。
+
+### 3. Springの主要モジュール一覧
+
+Springは単体のライブラリではなく、様々な機能がセットになった巨大なエコシステムです。
+
+| モジュール | 役割 | 初心者は？ |
+|---|---|---|
+| **Spring Core** | DIコンテナ。Springの核心部分 | まずここを理解する |
+| **Spring Boot** | 設定の自動化。「すぐ動かせる」魔法のツール | 最初はBootから入る |
+| **Spring MVC** | WebアプリのHTTPリクエスト処理 | Webアプリ開発に必須 |
+| **Spring Data JPA** | DB操作を劇的にシンプルにする | SQL書く量が激減する |
+| **Spring Security** | ログイン認証・権限管理 | セキュリティ機能全般 |
+
+---
+
+## 第2部：Spring Boot（現代のSpring開発の入口）
+
+### 1. Spring Bootとは？
+
+従来のSpringは `applicationContext.xml` という設定ファイルに大量の設定を書く必要があり「設定地獄」と揶揄されていました。
+
+Spring Bootは3つのアイデアでこれを解決しました:
+
+・**自動設定（Auto Configuration）**: 追加したライブラリを見て、必要な設定を自動でやってくれます。
+  → Webライブラリを追加したら、Tomcat（Webサーバー）の設定も自動で完了！
+
+・**スターター（Starter）**: 関連ライブラリを1つにまとめたパッケージ。
+  → `spring-boot-starter-web` を1つ追加するだけで、Web開発に必要な10以上のライブラリが入る！
+
+・**組み込みサーバー**: TomcatがアプリにBaked-inされており、別途インストール不要。
+  → `java -jar myapp.jar` 1コマンドでサーバーが起動する！
+
+### 2. pom.xml（Mavenでの依存関係管理）
+
+`pom.xml` に「このアプリで使うライブラリ（依存関係）」を記述します。Mavenというビルドツールが自動的にインターネットからダウンロードしてきます。
+
+```xml
+<dependencies>
+    <!-- Web開発に必要なすべてが入るスターター（TomcatもJSONも全部！）-->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    
+    <!-- DB操作をJavaオブジェクトとして行うJPAのスターター -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+    
+    <!-- ログイン認証・権限管理のスターター -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+</dependencies>
+```
+
+---
+
+## 第3部：Springアノテーション詳解
+
+Springでは `@（アットマーク）` で始まる「アノテーション」を使ってクラスの役割や設定を伝えます。
+
+### 1. コンポーネントスキャンとBean登録
+
+以下のアノテーションが付いたクラスは、SpringのDIコンテナ（ApplicationContext）に「Bean」として自動登録され、必要な場所にDIで注入できるようになります。
+
+**Bean**: Springが管理するオブジェクトのこと。Springが生成・破棄・管理してくれます。
+
+| アノテーション | 意味と使い方 |
+|---|---|
+| `@Component` | 汎用的なSpring管理クラス（どれにも当てはまらない場合） |
+| `@Service` | ビジネスロジックを担うクラス（注文処理・計算ロジックなど） |
+| `@Repository` | DB操作を担うクラス（DB例外を自動的にSpring例外に変換する機能もある） |
+| `@Controller` | HTTPリクエストを受け付けてHTMLを返すクラス |
+| `@RestController` | HTTPリクエストを受け付けてJSON/XMLを返すクラス（APIサーバー用）|
+
+### 2. DIのアノテーション
+
+コンストラクタが1つだけの場合は `@Autowired` を省略できます（現代の推奨スタイル）。
+
+```java
+@Service  // このクラスをSpring BeanとしてDIコンテナに登録する
+public class UserService {
+    private final UserRepository userRepository;
+    
+    // コンストラクタインジェクション（最も推奨される注入方法）
+    // @Autowiredは省略OK（コンストラクタが1つの場合）
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;  // SpringがUserRepositoryを注入してくれる
+    }
+}
+```
+
+---
+
+## 第4部：Spring MVC（WebアプリのHTTPリクエスト処理）
+
+### 1. MVCパターンとは？
+
+WebアプリをModel・View・Controllerの3つの役割に分けて整理する設計パターンです。
+
+・**Model**: データとビジネスロジックを担当（`@Service`, `@Repository`, Entityクラス）
+・**View**: ユーザーへの表示を担当（HTMLテンプレート。ThymeleafなどのHTMLファイル）
+・**Controller**: HTTPリクエストを受け取り、ModelとViewを繋ぐ橋渡し役（`@Controller`）
+
+**たとえ話**: レストランで考えると...
+- お客様（ブラウザ）が「ハンバーグ定食を下さい」と注文する（HTTPリクエスト）
+- ウェイター（Controller）が注文を受ける
+- シェフ（Service/Repository）が料理を作る（DBからデータ取得）
+- ウェイター（Controller）が料理をお客様のテーブルに運ぶ（HTMLレスポンス）
+
+### 2. SpringのMVCリクエスト処理の流れ（完全版）
+
+ブラウザから `GET /users` というリクエストが来た時、Springの内部で以下の順番で処理されます。
+
+1. **ブラウザ → DispatcherServlet**: すべてのHTTPリクエストはまず「DispatcherServlet（玄関番）」が受け取ります。
+2. **DispatcherServlet → HandlerMapping**: 「このURL(/users)はどのControllerが担当？」と地図（マッピング情報）を調べます。
+3. **DispatcherServlet → Controller**: 担当のControllerメソッドを呼び出します。
+4. **Controller → Service → Repository → DB**: ビジネスロジックを実行してデータを取得。
+5. **Controller → DispatcherServlet**: 処理結果のModel（データ）とView名（テンプレートのパス）を返します。
+6. **DispatcherServlet → ViewResolver**: View名から実際のHTMLファイルを特定。
+7. **ViewResolver → View（Thymeleaf）**: テンプレートエンジンがModelのデータをHTMLに埋め込みます。
+8. **View → ブラウザ**: 完成したHTMLがブラウザに返ります。
+
+### 3. コントローラーの実装例
+
+```java
+@Controller               // このクラスがControllerであることを宣言
+@RequestMapping("/users") // このクラス全体のURLの基底パス（プレフィックス）
+public class UserController {
+
+    private final UserService userService;
+    
+    public UserController(UserService userService) {
+        this.userService = userService; // DIでUserServiceが注入される
+    }
+
+    // GET /users にアクセスした時に呼ばれるメソッド
+    @GetMapping  // HTTPのGETリクエストにマッピング
+    public String index(Model model) {
+        List<User> users = userService.findAll();       // データ取得
+        model.addAttribute("users", users);             // Viewに渡すデータをModelに入れる
+        return "user/index"; // templates/user/index.html を表示する（View名を返す）
+    }
+    
+    // GET /users/123 のようにURLに値が含まれる場合
+    @GetMapping("/{id}")
+    public String detail(@PathVariable Long id, Model model) {
+        // @PathVariable: URLの {id} 部分の値をパラメータとして受け取る
+        User user = userService.findById(id);
+        model.addAttribute("user", user);
+        return "user/detail";
+    }
+    
+    // POST /users にフォームデータが送信された時
+    @PostMapping
+    public String create(@ModelAttribute UserForm form) {
+        // @ModelAttribute: フォームのinput要素のnameと一致するフィールドに自動でデータをセット
+        userService.save(form);
+        return "redirect:/users"; // 登録後は一覧ページへリダイレクト
+    }
+}
+```
+
+### 4. RESTful API（@RestController）
+
+スマホアプリやJavaScriptフロントエンドと連携するためのJSONを返すAPIを作る場合は `@RestController` を使います。
+
+```java
+@RestController              // @Controller + @ResponseBody のセット（JSON自動変換）
+@RequestMapping("/api/v1/users")
+public class UserApiController {
+
+    private final UserService userService;
+    
+    public UserApiController(UserService userService) {
+        this.userService = userService;
+    }
+    
+    // GET /api/v1/users → ユーザー一覧をJSON形式で返す
+    @GetMapping
+    public List<User> findAll() {
+        return userService.findAll(); // JavaオブジェクトのListが自動でJSONに変換される
+    }
+    
+    // GET /api/v1/users/1 → 特定のユーザーをJSON形式で返す
+    @GetMapping("/{id}")
+    public ResponseEntity<User> findById(@PathVariable Long id) {
+        // ResponseEntityでHTTPステータスコードも一緒に指定できる
+        return userService.findById(id)
+            .map(user -> ResponseEntity.ok(user))           // 見つかった: 200 OK
+            .orElse(ResponseEntity.notFound().build());     // 見つからない: 404 Not Found
+    }
+    
+    // POST /api/v1/users → JSONでユーザーを受け取って登録
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED) // 成功時に 201 Created を返す
+    public User create(@RequestBody UserDto dto) {
+        // @RequestBody: リクエストボディのJSONをJavaオブジェクトに自動変換
+        return userService.create(dto);
+    }
+}
+```
+
+---
+
+## 第5部：Spring Data JPA（DB操作を劇的に簡単に）
+
+### 1. JPAとO/Rマッピングとは？
+
+JPA（Java Persistence API）は、Javaのオブジェクトとデータベースのテーブルを「自動的に紐付ける（マッピングする）」仕組みです。
+
+**たとえ話**: 「User Javaクラス」の1つのインスタンスが、「usersテーブル」の1行に対応します。
+Javaでオブジェクトを操作するだけで、裏でSQLが自動実行されます。SQLをほとんど書く必要がなくなります！
+
+### 2. Entityクラス（テーブルの設計をJavaクラスで表現）
+
+```java
+@Entity           // このクラスがDBテーブルと対応することをJPAに宣言
+@Table(name = "users")  // 対応するテーブル名を指定（省略時はクラス名小文字）
+public class User {
+
+    @Id           // このフィールドが主キー（Primary Key）であることを宣言
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  // 自動連番（AUTO INCREMENT）
+    private Long id;
+    
+    @Column(name = "user_name", nullable = false, length = 50)
+    // name: DBのカラム名, nullable: NULLを許可するか, length: 最大文字数
+    private String userName;
+    
+    @Column(unique = true, nullable = false)  // unique: 値の重複不可
+    private String email;
+    
+    @CreationTimestamp  // INSERT時に自動で現在時刻をセット
+    private LocalDateTime createdAt;
+    
+    // getter / setter / コンストラクタ は省略（実際は必要）
+}
+```
+
+### 3. Repositoryインターフェース（最大の特徴！）
+
+**Spring Data JPAの魔法**: `JpaRepository` を継承するだけで、基本的な操作（保存・検索・更新・削除）が自動で使えます！
+
+```java
+// JpaRepository<エンティティの型, 主キーの型> を継承するだけ
+public interface UserRepository extends JpaRepository<User, Long> {
+    
+    // ★メソッド名のルールに従って書くだけで、SpringがSQLを自動生成！
+    // findBy = WHERE句, フィールド名を続けるだけでOK
+    List<User> findByUserName(String userName);      // WHERE user_name = ?
+    List<User> findByEmailContaining(String keyword); // WHERE email LIKE '%?%'
+    Optional<User> findByEmail(String email);         // WHERE email = ?（1件）
+    
+    // 独自SQLを書きたい場合は @Query で指定できる
+    @Query("SELECT u FROM User u WHERE u.createdAt > :date")
+    List<User> findRecentUsers(@Param("date") LocalDateTime date);
+}
+```
+
+```java
+// Serviceクラスでの使用例
+@Service
+public class UserService {
+    private final UserRepository userRepository;
+    
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+    
+    // IDでユーザーを1件取得（存在しない場合はエラーを投げる）
+    public User findById(Long id) {
+        return userRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("ユーザーが見つかりません: " + id));
+    }
+    
+    // ユーザーを保存（IDがなければINSERT、あればUPDATE）
+    public User save(UserDto dto) {
+        User user = new User();
+        user.setUserName(dto.getUserName());
+        user.setEmail(dto.getEmail());
+        return userRepository.save(user);
+    }
+    
+    // ユーザーを削除
+    public void delete(Long id) {
+        userRepository.deleteById(id);
+    }
+}
+```
+
+---
+
+## 第6部：Spring Security（認証と認可）
+
+### 1. 認証と認可の違い（超重要）
+
+・**認証（Authentication）**: 「あなたは誰ですか？」を確認すること。ログイン処理が相当します。
+  → IDとパスワードを確認して「田中さんですね」と識別する
+・**認可（Authorization）**: 「田中さんはこの機能を使っていいですか？」を制御すること。
+  → 一般ユーザーは管理画面にアクセスできない、管理者だけが削除できる、など
+
+### 2. Spring Securityの設定（モダンスタイル）
+
+```java
+@Configuration      // このクラスがSpringの設定クラスであることを宣言
+@EnableWebSecurity  // Spring Securityを有効化
+public class SecurityConfig {
+
+    @Bean  // このメソッドの戻り値をSpring Beanとして登録する
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            // URLごとのアクセス制御を設定
+            .authorizeHttpRequests(auth -> auth
+                // これらのURLは誰でもアクセスOK（ログイン不要）
+                .requestMatchers("/", "/login", "/css/**", "/js/**").permitAll()
+                // /admin/ から始まるURLはADMINロールを持つユーザーだけアクセス可
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                // それ以外のURLはログインが必要
+                .anyRequest().authenticated()
+            )
+            // ログイン設定
+            .formLogin(form -> form
+                .loginPage("/login")           // ログインページのURL（カスタマイズ）
+                .defaultSuccessUrl("/home")    // ログイン成功後のリダイレクト先
+            )
+            // ログアウト設定
+            .logout(logout -> logout
+                .logoutSuccessUrl("/login?logout") // ログアウト後のリダイレクト先
+            );
+        return http.build();
+    }
+    
+    // パスワードのハッシュ化設定
+    // 絶対に平文（生のテキスト）でパスワードをDBに保存してはいけない！
+    // BCryptは現時点で最も安全とされるハッシュアルゴリズムの一つ
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+}
+```

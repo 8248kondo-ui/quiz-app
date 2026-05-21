@@ -20,7 +20,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const completeTitle = document.getElementById('complete-title');
     const completeDesc = document.getElementById('complete-desc');
     
+    const landingView = document.getElementById('landing-view');
+    const learnView = document.getElementById('learn-view');
+    
     const navHome = document.getElementById('nav-home');
+    const navQuiz = document.getElementById('nav-quiz');
+    const navLearn = document.getElementById('nav-learn');
+    const logoBtn = document.getElementById('logo-btn');
+    
+    const landingBtnQuiz = document.getElementById('landing-btn-quiz');
+    const landingBtnLearn = document.getElementById('landing-btn-learn');
+
     const dailyList = document.getElementById('daily-list');
     
     const calendarMonthTitle = document.getElementById('calendar-month-title');
@@ -53,13 +63,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const restartBtn = document.getElementById('restart-btn');
     const reviewWrongBtn = document.getElementById('review-wrong-btn');
     
+    const learnSubjects = document.querySelectorAll('.subject-tab');
+    const learnChaptersList = document.getElementById('learn-chapters-list');
+    const learnChapterTitle = document.getElementById('learn-chapter-title');
+    const learnChapterBody = document.getElementById('learn-chapter-body');
+    
+    const learnProgressText = document.getElementById('learn-progress-text');
+    const learnProgressFill = document.getElementById('learn-progress-fill');
+    const learnChapterActions = document.getElementById('learn-chapter-actions');
+    const markReadBtn = document.getElementById('mark-read-btn');
+    const learnNavigation = document.getElementById('learn-navigation');
+    const prevChapterBtn = document.getElementById('prev-chapter-btn');
+    const nextChapterBtn = document.getElementById('next-chapter-btn');
+    const learnQuizActionContainer = document.getElementById('learn-quiz-action-container');
+    const jumpToQuizBtn = document.getElementById('jump-to-quiz-btn');
+    
     const backToHomeBtns = document.querySelectorAll('.back-to-home-btn');
 
     // 初期化
     renderHome();
+    switchView('landing');
 
     // イベントリスナー
-    navHome.addEventListener('click', () => switchView('home'));
+    navHome.addEventListener('click', () => switchView('landing'));
+    logoBtn.addEventListener('click', () => switchView('landing'));
+    navQuiz.addEventListener('click', () => switchView('home'));
+    navLearn.addEventListener('click', () => switchView('learn'));
+    
+    landingBtnQuiz.addEventListener('click', () => switchView('home'));
+    landingBtnLearn.addEventListener('click', () => switchView('learn'));
+    
     backToHomeBtns.forEach(btn => btn.addEventListener('click', () => switchView('home')));
     
     if (prevMonthBtn) {
@@ -116,19 +149,179 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    function switchView(viewName) {
-        [homeView, quizView, archiveView, completeView].forEach(view => view.classList.add('hidden'));
-        navHome.classList.remove('active');
+    // 学習画面（Learn View）のロジック
+    let currentLearnSubject = 'Spring';
+    let currentChapterIndex = 0;
+    let readChapters = JSON.parse(localStorage.getItem('quizMasterReadChapters') || '{}');
+    
+    // Jump to quiz button logic
+    if (jumpToQuizBtn) {
+        jumpToQuizBtn.addEventListener('click', () => {
+            switchView('home');
+            // Select the tab corresponding to the subject if it exists
+            const catTab = Array.from(document.querySelectorAll('.cat-tab')).find(tab => tab.getAttribute('data-cat') === currentLearnSubject);
+            if (catTab) {
+                tabBtnCategory.click();
+                catTab.click();
+            }
+        });
+    }
 
-        if (viewName === 'home') {
-            homeView.classList.remove('hidden');
-            navHome.classList.add('active');
+    learnSubjects.forEach(tab => {
+        tab.addEventListener('click', () => {
+            learnSubjects.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            currentLearnSubject = tab.getAttribute('data-subject');
+            currentChapterIndex = 0;
+            renderLearnChapters();
+        });
+    });
+
+    function renderLearnChapters() {
+        if (!window.learnDatabase) return;
+        
+        const chapters = window.learnDatabase[currentLearnSubject] || [];
+        learnChaptersList.innerHTML = '';
+        
+        if (chapters.length === 0) {
+            learnChaptersList.innerHTML = '<p class="tab-description">準備中...</p>';
+            learnChapterTitle.textContent = `${currentLearnSubject} の解説`;
+            learnChapterBody.innerHTML = '<p class="placeholder-text">この単元の解説は現在準備中です。</p>';
+            if(learnChapterActions) learnChapterActions.classList.add('hidden');
+            if(learnNavigation) learnNavigation.classList.add('hidden');
+            if(learnQuizActionContainer) learnQuizActionContainer.classList.add('hidden');
+            if(learnProgressText) learnProgressText.textContent = '0%';
+            if(learnProgressFill) learnProgressFill.style.width = '0%';
+            return;
+        }
+
+        let readCount = 0;
+        chapters.forEach(c => {
+            if (readChapters[`${currentLearnSubject}_${c.id}`]) readCount++;
+        });
+        const progress = Math.round((readCount / chapters.length) * 100);
+        if(learnProgressText) learnProgressText.textContent = `${progress}%`;
+        if(learnProgressFill) learnProgressFill.style.width = `${progress}%`;
+
+        chapters.forEach((chapter, index) => {
+            const btn = document.createElement('button');
+            btn.className = 'chapter-btn';
+            
+            const isRead = readChapters[`${currentLearnSubject}_${chapter.id}`];
+            if (isRead) btn.classList.add('read');
+            
+            btn.innerHTML = `<span>${chapter.title}</span><span class="check-icon">✅</span>`;
+            
+            if (index === currentChapterIndex) {
+                btn.classList.add('active');
+                renderLearnContent(chapter, index, chapters.length);
+            }
+            
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.chapter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentChapterIndex = index;
+                renderLearnContent(chapter, index, chapters.length);
+            });
+            
+            learnChaptersList.appendChild(btn);
+        });
+    }
+
+    function renderLearnContent(chapter, index, totalLength) {
+        learnChapterTitle.textContent = chapter.title;
+        
+        let htmlContent = chapter.content
+            .replace(/</g, '&lt;').replace(/>/g, '&gt;')
+            // コードブロック
+            .replace(/```[a-z]*\r?\n([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
+            // インラインコード
+            .replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>')
+            // 見出し
+            .replace(/^###\s+(.*)$/gm, '<h3>$1</h3>')
+            .replace(/^##\s+(.*)$/gm, '<h2>$1</h2>')
+            // リスト
+            .replace(/^・(.*)$/gm, '<ul><li>$1</li></ul>')
+            .replace(/<\/ul>\r?\n<ul>/g, '\n') // 隣接するリストを結合
+            // 古いアスキーアート表対応
+            .replace(/(┌[\s\S]*?└[─]*┘)/g, '<pre>$1</pre>')
+            // 改行
+            .replace(/\n\n/g, '</p><p>')
+            .replace(/\n/g, '<br>');
+            
+        learnChapterBody.innerHTML = `<p>${htmlContent}</p>`;
+        
+        if(learnChapterActions) learnChapterActions.classList.remove('hidden');
+        if(learnNavigation) learnNavigation.classList.remove('hidden');
+        
+        const chapterKey = `${currentLearnSubject}_${chapter.id}`;
+        if (readChapters[chapterKey]) {
+            markReadBtn.textContent = '✅ 読了済み';
+            markReadBtn.classList.add('completed');
+            markReadBtn.onclick = null;
+        } else {
+            markReadBtn.textContent = '✅ この章を読み終えた';
+            markReadBtn.classList.remove('completed');
+            markReadBtn.onclick = () => {
+                readChapters[chapterKey] = true;
+                localStorage.setItem('quizMasterReadChapters', JSON.stringify(readChapters));
+                renderLearnChapters();
+            };
+        }
+        
+        if (index === 0) {
+            prevChapterBtn.disabled = true;
+            prevChapterBtn.onclick = null;
+        } else {
+            prevChapterBtn.disabled = false;
+            prevChapterBtn.onclick = () => {
+                currentChapterIndex = index - 1;
+                renderLearnChapters();
+            };
+        }
+        
+        if (index === totalLength - 1) {
+            nextChapterBtn.disabled = true;
+            nextChapterBtn.onclick = null;
+            if(learnQuizActionContainer) learnQuizActionContainer.classList.remove('hidden');
+        } else {
+            nextChapterBtn.disabled = false;
+            if(learnQuizActionContainer) learnQuizActionContainer.classList.add('hidden');
+            nextChapterBtn.onclick = () => {
+                currentChapterIndex = index + 1;
+                renderLearnChapters();
+            };
+        }
+    }
+
+    function switchView(viewName) {
+        [landingView, homeView, quizView, archiveView, completeView, learnView].forEach(view => {
+            if(view) view.classList.add('hidden');
+        });
+        [navHome, navQuiz, navLearn].forEach(btn => {
+            if(btn) btn.classList.remove('active');
+        });
+
+        if (viewName === 'landing') {
+            if(landingView) landingView.classList.remove('hidden');
+            if(navHome) navHome.classList.add('active');
+        } else if (viewName === 'home') {
+            if(homeView) homeView.classList.remove('hidden');
+            if(navQuiz) navQuiz.classList.add('active');
+        } else if (viewName === 'learn') {
+            if(learnView) learnView.classList.remove('hidden');
+            if(navLearn) navLearn.classList.add('active');
+            // 学習画面を開いた時に目次を描画
+            renderLearnChapters();
         } else if (viewName === 'quiz') {
-            quizView.classList.remove('hidden');
+            if(quizView) quizView.classList.remove('hidden');
+            if(navQuiz) navQuiz.classList.add('active');
         } else if (viewName === 'archive') {
-            archiveView.classList.remove('hidden');
+            if(archiveView) archiveView.classList.remove('hidden');
+            if(navQuiz) navQuiz.classList.add('active');
         } else if (viewName === 'complete') {
-            completeView.classList.remove('hidden');
+            if(completeView) completeView.classList.remove('hidden');
+            if(navQuiz) navQuiz.classList.add('active');
         }
     }
 

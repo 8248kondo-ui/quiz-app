@@ -1,0 +1,606 @@
+# Java 完全解説
+
+JavaはSun Microsystems（現Oracle）が開発したオブジェクト指向プログラミング言語です。「Write Once, Run Anywhere（一度書けばどこでも動く）」を理念として設計されており、現在もWebアプリ・スマートフォンアプリ（Android）・大規模システムなど幅広い分野で活躍しています。
+
+この教科書では「プログラミング初めてさん」でも理解できるよう、たとえ話を使いながら丁寧に解説していきます！
+
+---
+
+## 第1部：Javaの特徴と基礎知識
+
+### 1. Javaの主な特徴
+
+Javaがなぜこれほど人気なのか、主な特徴を見ていきましょう。
+
+・**プラットフォーム独立性（どのOSでも動く！）**
+Javaで書いたプログラムをコンパイル（コンピュータが理解できる形に変換すること）すると、「バイトコード」という中間の形式（.classファイル）が作られます。このバイトコードを「JVM（Java仮想マシン）」が各OS向けに解釈して動かすため、Windows・Mac・Linuxで同じコードがそのまま動きます。
+→ **たとえると**: 「英語で書いた料理レシピを、それぞれの国の料理人が自国の言葉で読んで料理する」イメージです。
+
+・**静的型付け言語（コンパイル時にエラーを発見）**
+変数を使う前に「この箱には数字しか入りません」という「型」を宣言します。コンパイルの段階で型の間違いを検出してくれるので、実行前にバグを発見できます。
+
+・**ガベージコレクション（メモリを自動でお掃除）**
+不要になったメモリを自動的に解放してくれる仕組みです。C言語では開発者が自分でメモリを管理する必要があり、管理ミスがバグや障害の原因になっていましたが、Javaはこれを自動化しました。
+
+・**完全なオブジェクト指向**
+現実世界の「モノ（オブジェクト）」をプログラムで表現する考え方を、徹底的に取り入れています。
+
+### 2. 開発に必要なもの（JDKとJRE）
+
+Javaを始める前に、必要なソフトウェアを理解しておきましょう。
+
+・**JVM（Java Virtual Machine）**: バイトコードを実際のマシンコードに変換して実行する「仮想マシン」です。Javaプログラムを動かすために必ず必要な核心部分です。
+・**JRE（Java Runtime Environment）**: 「実行環境」。JVMと、プログラムを動かすための標準ライブラリが入っています。Javaアプリを「使うだけ」の人が入れるものです。
+・**JDK（Java Development Kit）**: 「開発キット」。JREに加えて、コンパイラ（javac）やデバッグツールなど「開発用」のツールが全部入ったセットです。**プログラムを書く人はJDKをインストールします。**
+
+まとめると: JDK ⊃ JRE ⊃ JVM（大きい方が小さい方を含む）
+
+### 3. Javaプログラムの基本構造
+
+すべてのJavaプログラムは、少なくとも1つの「クラス」を持ちます。プログラムは `main` メソッドから実行が始まります（＝エントリーポイント）。
+
+```java
+// クラス名はファイル名と一致させる必要があります（例: HelloWorld.java）
+public class HelloWorld {
+    // 「public static void main(String[] args)」はJavaのお約束の書き方。
+    // これがプログラムのスタート地点です。
+    public static void main(String[] args) {
+        // 画面に文字を表示するおまじない
+        System.out.println("こんにちは、Javaの世界へ！");
+    }
+}
+```
+
+`System.out.println()` は「コンソール（黒い画面）に文字を出力して改行する」という命令です。最初に必ず覚えるおまじないです。
+
+---
+
+## 第2部：変数とデータ型
+
+変数とは「データを入れる箱」のことです。Javaでは箱を作るときに、「何を入れる箱か（型）」を必ず宣言します。
+
+### 1. プリミティブ型（基本データ型）
+
+Javaには8種類の「基本の型」があります。これらは「値そのもの」を直接箱に格納します。
+
+| 型名 | 説明 | サイズ | 使用例 |
+|---|---|---|---|
+| `int` | 整数（最もよく使う！） | 32bit | `int age = 25;` |
+| `long` | 非常に大きな整数 | 64bit | `long pop = 7800000000L;` |
+| `double` | 小数点のある数（最もよく使う！） | 64bit | `double price = 99.99;` |
+| `float` | 小さめの小数点数 | 32bit | `float f = 3.14f;` |
+| `char` | 1文字だけ（シングルクォートで囲む） | 16bit | `char c = 'A';` |
+| `boolean` | true（真）か false（偽）の2択 | — | `boolean flag = true;` |
+| `byte` | 非常に小さな整数（-128〜127） | 8bit | `byte b = 100;` |
+| `short` | 小さな整数 | 16bit | `short s = 1000;` |
+
+> **初心者向けポイント**: 最初は `int`（整数）・`double`（小数）・`boolean`（真偽値）・`String`（文字列）の4つを覚えれば大丈夫！残りは必要になった時に覚えましょう。
+
+### 2. 参照型（Stringなど）
+
+プリミティブ型以外のデータは「参照型」と呼ばれます。値そのものではなく、メモリ上にある「オブジェクトの住所（参照）」を格納します。
+
+最も頻繁に使う参照型は `String`（文字列）です。
+
+```java
+// 文字列（String）の使い方
+String name = "田中";  // ダブルクォートで囲む
+String greeting = "こんにちは、" + name + "さん！"; // +で文字を繋げる
+System.out.println(greeting); // こんにちは、田中さん！
+
+// 配列の使い方
+// 同じ型のデータを一列に並べた「箱の列車」
+int[] scores = {85, 92, 78, 95, 88};
+System.out.println(scores[0]); // 85（番号は0から始まる！）
+System.out.println(scores.length); // 5（配列の長さ）
+```
+
+> **注意**: 配列の番号（インデックス）は **0から** 始まります。5つの要素があれば、[0]〜[4]でアクセスします。
+
+### 3. 型変換（キャスト）
+
+異なる型の値を別の型に変換することを「キャスト」といいます。
+
+```java
+// 自動変換（小さい → 大きい型は自動でOK）
+int num = 100;
+long l = num; // int は long よりサイズが小さいので自動変換できる
+
+// 明示的キャスト（大きい → 小さい型は手動で指定する必要がある）
+// データが失われる可能性があるため、(型名)と明示する
+double d = 9.99;
+int i = (int) d; // 小数点以下は容赦なく切り捨て！
+System.out.println(i); // 9（四捨五入ではなく切り捨て）
+```
+
+---
+
+## 第3部：制御構文
+
+プログラムは普通「上から下」へ実行されますが、条件によって処理を分けたり、同じ処理を繰り返したりする仕組みが「制御構文」です。
+
+### 1. 条件分岐（if-else）
+
+「もし〇〇なら△△する、そうでなければ□□する」という処理です。
+
+```java
+int score = 75;
+
+if (score >= 90) {
+    // scoreが90以上の時だけここが実行される
+    System.out.println("優");
+} else if (score >= 70) {
+    // scoreが90未満 かつ 70以上の時に実行される
+    System.out.println("良"); // ← scoreが75なのでここが実行される
+} else if (score >= 60) {
+    System.out.println("可");
+} else {
+    // 上のどれにも当てはまらない時
+    System.out.println("不可");
+}
+```
+
+### 2. switch文
+
+特定の値に応じて複数の処理を分岐させる時に使います。`if-else` よりもすっきり書けます。
+
+```java
+int dayOfWeek = 3;
+
+switch (dayOfWeek) {
+    case 1:
+        System.out.println("月曜日");
+        break; // ← breakを忘れると次のcaseに「落ちて」しまう！必須！
+    case 2:
+        System.out.println("火曜日");
+        break;
+    case 3:
+        System.out.println("水曜日"); // ← dayOfWeekが3なのでここが実行される
+        break;
+    default:
+        // どのcaseにも一致しなかった時（elseのような役割）
+        System.out.println("その他の曜日");
+        break;
+}
+```
+
+### 3. ループ処理
+
+同じ処理を何度も繰り返すための仕組みです。
+
+```java
+// for文（繰り返す回数が最初から決まっている時に便利）
+// 書き方: for (初期値; 継続条件; 更新処理)
+for (int i = 0; i < 5; i++) {
+    System.out.println(i); // 0, 1, 2, 3, 4 と表示される
+}
+
+// 拡張for文（配列やリストの全要素を順番に処理したい時に最適）
+String[] fruits = {"りんご", "ばなな", "みかん"};
+for (String fruit : fruits) {
+    // fruitsの中から1つずつ取り出して fruit という変数に入れて処理
+    System.out.println(fruit);
+}
+
+// while文（条件が真（true）の間ずっと繰り返す）
+int count = 0;
+while (count < 3) {
+    System.out.println("カウント: " + count);
+    count++; // count = count + 1 の短縮形。これを書き忘れると無限ループ！
+}
+```
+
+---
+
+## 第4部：メソッド（処理のまとまり）
+
+メソッドとは「特定の処理に名前をつけてまとめたもの」です。同じ処理を何度も書く必要がなくなり、コードが読みやすくなります。
+（プログラミングの世界では「同じコードを繰り返さない」ことをDRY原則（Don't Repeat Yourself）と呼びます。）
+
+### 1. メソッドの定義と呼び出し
+
+```java
+public class Calculator {
+    
+    // メソッドの書き方:
+    // アクセス修飾子 static 戻り値の型 メソッド名(引数の型 引数名, ...) { 処理 }
+    
+    // 2つの整数を足して、結果を返すメソッド
+    public static int add(int a, int b) {
+        return a + b; // returnで結果を返す
+    }
+    
+    // 値を返さないメソッドは戻り値の型を「void（ボイド）」にする
+    public static void printResult(int result) {
+        System.out.println("計算結果: " + result);
+    }
+
+    public static void main(String[] args) {
+        // メソッドを呼び出す（使う）
+        int result = add(10, 20); // addメソッドに10と20を渡す → 30が返ってくる
+        printResult(result);      // 計算結果: 30 と表示される
+    }
+}
+```
+
+### 2. メソッドのオーバーロード
+
+同じクラス内で、**同じ名前でも引数の型・数が違う**メソッドを複数定義できます。Javaが引数を見て自動的にどのメソッドを呼ぶか判断してくれます。
+
+```java
+// int同士の足し算
+public static int add(int a, int b) {
+    return a + b;
+}
+// double同士の足し算（同じ名前！）
+public static double add(double a, double b) {
+    return a + b;
+}
+// 3つのintの足し算（同じ名前！引数の数が違う）
+public static int add(int a, int b, int c) {
+    return a + b + c;
+}
+
+// 呼び出し側は引数の型・数でJavaが自動で判断してくれる
+add(1, 2);       // int版が呼ばれる
+add(1.5, 2.5);   // double版が呼ばれる
+add(1, 2, 3);    // 3引数版が呼ばれる
+```
+
+---
+
+## 第5部：オブジェクト指向（設計の心臓部）
+
+Javaを学ぶ上で最も重要かつ、最初に難しく感じる概念です。でも、たとえ話を使えば必ず理解できます！
+
+### 1. クラスとオブジェクト
+
+・**クラス（設計図）**: 「どんな属性と動作を持つか」を定義したものです。家の設計図のようなもの。
+・**オブジェクト（インスタンス）**: 設計図を元に `new` キーワードで実際に作った「実体」です。設計図から実際に建てた家のようなもの。
+
+**たとえ話**: 「車」というクラス（設計図）があれば、そこから「田中さんの赤い車」「鈴木さんの青い車」という複数のオブジェクト（実体）を作れます。
+
+```java
+// 【設計図】Carクラスの定義
+public class Car {
+    // 属性（フィールド）：この車が持つデータ
+    String color;  // 色
+    int speed;     // 現在の速度
+    
+    // コンストラクタ：newで車を作る時に最初に呼ばれる「初期設定」の処理
+    // this.color は「このインスタンスのcolorフィールド」を指す
+    public Car(String color, int speed) {
+        this.color = color;
+        this.speed = speed;
+    }
+    
+    // 動作（メソッド）：この車ができること
+    public void accelerate(int amount) {
+        this.speed += amount; // this.speed = this.speed + amount
+        System.out.println(color + "の車が加速！現在" + speed + "km/h");
+    }
+}
+```
+
+```java
+// 【実体作成】設計図を元に「実際の車オブジェクト」を作る
+Car myCar = new Car("赤", 0);  // 赤色・速度0の車を生成
+myCar.accelerate(60);          // 出力: 赤の車が加速！現在60km/h
+
+Car anotherCar = new Car("青", 30); // 別の車オブジェクトを生成（独立している）
+```
+
+### 2. アクセス修飾子（カプセル化）
+
+カプセル化とは「クラスの内部データを直接外から触れないようにして、決められた方法（メソッド）でしかアクセスできないようにする」ことです。
+薬のカプセル（中身を直接触れず、カプセルごと飲む）のイメージです。
+
+| 修飾子 | 同じクラス内 | 同じパッケージ内 | 子クラス | すべてのクラス |
+|---|---|---|---|---|
+| `private` | ✅ | ❌ | ❌ | ❌ |
+| （なし）| ✅ | ✅ | ❌ | ❌ |
+| `protected` | ✅ | ✅ | ✅ | ❌ |
+| `public` | ✅ | ✅ | ✅ | ✅ |
+
+フィールドは `private` にして、外部からは専用のゲッター（値を取得する）・セッター（値を設定する）メソッドを通じてアクセスするのが基本です。
+
+```java
+public class Person {
+    private String name; // private: 外部から直接 person.name = "..." はできない
+    private int age;
+
+    // ゲッター（値を「読み取る」ためのメソッド）
+    public String getName() {
+        return name;
+    }
+    
+    // セッター（値を「設定する」ためのメソッド。入力チェックも追加できる）
+    public void setAge(int age) {
+        if (age < 0) {
+            // 0未満の年齢は不正なので、エラーを投げる
+            throw new IllegalArgumentException("年齢は0以上でなければなりません");
+        }
+        this.age = age;
+    }
+}
+```
+
+### 3. 継承（is-aの関係）
+
+既存のクラス（親クラス・スーパークラス）の機能を**引き継いで**、新しいクラス（子クラス・サブクラス）を作る仕組みです。
+
+**たとえ話**: 「動物（Animal）」クラスがあり、「犬（Dog）」「猫（Cat）」はどちらも動物なので、Animal共通の「食事する（eat）」という機能を引き継ぎつつ、それぞれ独自の「鳴き方（makeSound）」を持ちます。
+
+```java
+// 【親クラス】共通の機能をまとめる
+public class Animal {
+    protected String name; // protectedにして子クラスからもアクセス可能に
+
+    public Animal(String name) {
+        this.name = name;
+    }
+    
+    // すべての動物が持つ共通の機能
+    public void eat() {
+        System.out.println(name + "が食事中...");
+    }
+    
+    // 子クラスで上書きされることを想定したメソッド
+    public void makeSound() {
+        System.out.println("...");
+    }
+}
+
+// 【子クラス】extends で親クラスを継承する
+public class Dog extends Animal {
+    
+    public Dog(String name) {
+        super(name); // 親クラス(Animal)のコンストラクタを呼び出す。必ず最初に書く。
+    }
+    
+    // @Override: 親クラスのmakeSoundを「上書き」することを宣言
+    // これをオーバーライドと呼ぶ
+    @Override
+    public void makeSound() {
+        System.out.println(name + "がワンワン！"); // 犬専用の鳴き方
+    }
+    
+    // 犬だけが持つオリジナルのメソッド
+    public void fetch() {
+        System.out.println(name + "がボールを持ってきた！");
+    }
+}
+```
+
+```java
+Dog dog = new Dog("ポチ");
+dog.eat();       // 親クラスから受け継いだ: ポチが食事中...
+dog.makeSound(); // オーバーライドされた: ポチがワンワン！
+dog.fetch();     // 犬だけの機能: ポチがボールを持ってきた！
+```
+
+### 4. ポリモーフィズム（多態性）
+
+「同じメソッド名を呼んでも、実際のオブジェクトの種類によって違う動作をする」という概念です。
+継承とオーバーライドによって実現されます。
+
+```java
+// 親クラスの型変数に、子クラスのオブジェクトを入れることができる
+Animal myAnimal = new Dog("ポチ");
+myAnimal.makeSound(); // 「ポチがワンワン！」と出力される（DogのmakeSoundが呼ばれる）
+
+// これの何が便利かというと、配列で一括管理できること！
+Animal[] animals = {new Dog("ポチ"), new Dog("タロ")};
+for (Animal a : animals) {
+    a.makeSound(); // それぞれのクラスに応じたmakeSoundが自動で呼ばれる
+}
+```
+
+### 5. 抽象クラスとインターフェース
+
+これらは「クラスが守るべきルール（契約）」を定義するための仕組みです。
+
+**抽象クラス（abstract class）**:
+「自分自身のインスタンスは作れないクラス」です。必ず継承して使います。
+「動物（Animal）」を実体化して「動物というオブジェクト」を作るのは変ですよね？継承して「犬」「猫」にするのが正しい使い方です。
+
+```java
+// abstract クラスは直接 new できない
+public abstract class Shape {
+    String color;
+
+    // abstract メソッド：子クラスで必ず実装しなければならない（中身を書かない）
+    public abstract double calculateArea();
+    
+    // 通常のメソッドも持てる（子クラスで共通して使える）
+    public void displayColor() {
+        System.out.println("色: " + color);
+    }
+}
+
+// abstractメソッドを「必ず」実装する必要がある
+public class Circle extends Shape {
+    double radius;
+    
+    @Override
+    public double calculateArea() {
+        return Math.PI * radius * radius; // π * 半径の2乗
+    }
+}
+```
+
+**インターフェース（interface）**:
+「このクラスは〇〇ができる」という「能力・機能の契約書」です。
+クラスは複数のインターフェースを「実装（implements）」できます（抽象クラスは1つしか継承できない）。
+
+```java
+public interface Flyable {
+    void fly(); // 「飛べる」という能力の定義（実装は各クラスに任せる）
+}
+public interface Swimmable {
+    void swim(); // 「泳げる」という能力の定義
+}
+
+// アヒルは「飛べて」かつ「泳げる」
+public class Duck extends Bird implements Flyable, Swimmable {
+    @Override
+    public void fly() { System.out.println("アヒルが低空飛行！"); }
+    @Override
+    public void swim() { System.out.println("アヒルが水上を泳いでいる！"); }
+}
+```
+
+---
+
+## 第6部：コレクションフレームワーク
+
+配列よりもずっと柔軟にデータをまとめて管理するための仕組みです。
+配列はサイズが最初から固定されていますが、コレクションはサイズが動的に変わります。
+
+### 1. List（順序あり、重複OK）
+
+最もよく使うコレクションです。要素に「順番」があり、同じ値を複数入れることができます。
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+// 書き方: List<入れる型> 変数名 = new ArrayList<>();
+List<String> fruits = new ArrayList<>();
+
+// 要素を末尾に追加
+fruits.add("りんご");
+fruits.add("ばなな");
+fruits.add("りんご"); // 重複もOK
+
+System.out.println(fruits.size()); // 要素数: 3
+System.out.println(fruits.get(1)); // 2番目（インデックス1）の要素: ばなな
+
+// 要素の削除（値を指定）
+fruits.remove("ばなな");
+
+// 拡張for文で全要素を処理（最もよく使う！）
+for (String fruit : fruits) {
+    System.out.println(fruit);
+}
+```
+
+### 2. Map（キーと値のペアで管理）
+
+「辞書」のように、**キー（Key）**で**値（Value）**を検索できるコレクションです。同じキーは重複不可。
+
+```java
+import java.util.HashMap;
+import java.util.Map;
+
+// Map<キーの型, 値の型>
+Map<String, Integer> scoreMap = new HashMap<>();
+
+// put(キー, 値) でデータを登録
+scoreMap.put("田中", 85);
+scoreMap.put("鈴木", 92);
+scoreMap.put("佐藤", 78);
+
+// get(キー) で値を取得
+System.out.println(scoreMap.get("鈴木")); // 92
+
+// キーが存在するか確認
+System.out.println(scoreMap.containsKey("田中")); // true
+
+// キーと値のセットを繰り返す
+for (Map.Entry<String, Integer> entry : scoreMap.entrySet()) {
+    System.out.println(entry.getKey() + ": " + entry.getValue() + "点");
+}
+```
+
+### 3. Set（順序なし、重複NG）
+
+重複を一切許さないコレクション。「すでにその要素が存在するか？」の確認が高速です。
+
+```java
+import java.util.HashSet;
+import java.util.Set;
+
+Set<String> names = new HashSet<>();
+names.add("田中");
+names.add("鈴木");
+names.add("田中"); // 重複は自動的に無視される！
+
+System.out.println(names.size()); // 2（田中が重複しているため）
+System.out.println(names.contains("鈴木")); // true
+```
+
+---
+
+## 第7部：例外処理とモダンJava
+
+### 1. 例外処理（try-catch-finally）
+
+「例外（Exception）」とは、プログラムの実行中に発生する「予期しないエラー」のことです。
+例外が発生するとプログラムが強制終了してしまいますが、`try-catch` で捕まえて適切に対処できます。
+
+```java
+try {
+    // 例外が起きるかもしれない処理をここに書く
+    int result = 10 / 0; // ゼロ除算！ArithmeticExceptionが発生！
+    System.out.println("この行は実行されない");
+} catch (ArithmeticException e) {
+    // 例外を「キャッチ（捕捉）」して対処する
+    // e.getMessage() で例外のメッセージを取得できる
+    System.out.println("エラーが起きました: " + e.getMessage()); // / by zero
+} finally {
+    // tryやcatchが終わった後、例外が発生してもしなくても「必ず」実行される
+    // ファイルを閉じるなどの後処理に使う
+    System.out.println("処理を終了します。");
+}
+```
+
+**例外の種類**:
+・**チェック例外（Exceptionのサブクラス）**: ファイルが見つからない（IOException）など、コンパイラが「必ずtry-catchしなさい」と強制するもの。
+・**非チェック例外（RuntimeExceptionのサブクラス）**: プログラムのバグが原因（NullPointerException=nullに対してメソッドを呼ぶ、ArrayIndexOutOfBoundsException=配列の範囲外アクセスなど）。
+
+### 2. モダンJava（Java 8以降）
+
+**ラムダ式（Lambda Expression）**:
+「関数（メソッド）を値として扱う」ための短縮記法です。`(引数) -> { 処理 }` と書きます。
+コレクションの操作で非常によく使います。
+
+```java
+// 従来の書き方（匿名クラス）：長い！
+Collections.sort(fruits, new Comparator<String>() {
+    @Override
+    public int compare(String a, String b) {
+        return a.compareTo(b);
+    }
+});
+
+// ラムダ式を使った書き方：スッキリ！同じ意味
+Collections.sort(fruits, (a, b) -> a.compareTo(b));
+```
+
+**Stream API**:
+コレクションの要素を「流れ作業（パイプライン）」のように連続して処理する機能です。
+
+```java
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+// 偶数だけ取り出して → 2倍にして → 合計する という処理を1つの流れで書ける！
+int sum = numbers.stream()
+    .filter(n -> n % 2 == 0)     // 絞り込み（偶数だけ）
+    .map(n -> n * 2)              // 変換（2倍に）
+    .reduce(0, Integer::sum);     // 集約（すべて足す）
+    
+System.out.println(sum); // 60 ← (2+4+6+8+10) × 2 = 60
+```
+
+**Optional（オプショナル）**:
+最も頄繁なバグの一つ `NullPointerException` を防ぐための「値があるかもしれないコンテナ」です。
+
+```java
+// Optional<型>: 値が入っているかもしれないし、空（empty）かもしれない箱
+Optional<String> opt = Optional.ofNullable(getUserById(123)); // nullかもしれない
+
+// orElse: 値があればその値を、なければ代わりの値を返す
+String userName = opt.orElse("ゲスト");
+System.out.println(userName); // nullだったら「ゲスト」と表示される
+```

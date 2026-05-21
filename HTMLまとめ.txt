@@ -1,0 +1,598 @@
+# HTML / CSS 完全解説
+
+HTMLとCSSは、Webページを作るための最も基本的な2つの技術です。この2つを理解することが、すべてのWeb開発の出発点になります。
+
+難しく考える必要はありません。「HTMLは骨格、CSSは服を着せる」というイメージで読み進めてください！
+
+---
+
+## 1. HTMLって何？（役割と基礎）
+
+HTML（HyperText Markup Language）は、Webページの「構造と内容（テキスト・画像・リンクなど）」を定義するための言語です。
+
+重要なポイント: HTMLは「プログラミング言語」ではなく「マークアップ言語」です。
+プログラミング言語は「計算や処理を行う」ものですが、HTMLは「これはタイトルです」「これは段落です」という「意味・構造のラベル貼り」をする言語です。
+
+**Webページの3層構造**:
+・**HTML**: 家の骨組みと間取り（構造とコンテンツ）
+・**CSS**: 壁紙・床材・照明などのインテリア（デザインと見た目）
+・**JavaScript**: 自動ドアや照明のスイッチ（動きと機能）
+
+### HTMLの「タグ」とは？
+
+HTMLは `<タグ名>` と `</タグ名>` で内容を囲む形式です。
+`<p>これは段落です</p>` のように書くと、ブラウザが「これは段落だ」と理解して表示します。
+
+### HTMLファイルの基本骨格（必ず覚えること）
+
+```html
+<!DOCTYPE html>
+<!-- ↑「これはHTML5で書いています」という宣言。必ず1行目に書く。 -->
+
+<html lang="ja">
+<!-- ↑ すべてのHTMLを包む最上位の要素。lang="ja"で日本語ページと宣言。 -->
+
+<head>
+<!-- ↑ ページの「設定情報」を書く場所。ブラウザには表示されない。 -->
+
+    <meta charset="UTF-8">
+    <!-- ↑ 文字コードの指定。これがないと日本語が文字化けする！必須！ -->
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ↑ スマホ対応の宣言。これがないとスマホで表示が崩れる。-->
+    
+    <meta name="description" content="このページの説明文（Googleの検索結果にも表示される）">
+    <!-- ↑ SEO対策。検索エンジンにページの内容を伝える。 -->
+    
+    <title>ページのタイトル</title>
+    <!-- ↑ ブラウザのタブや、Googleの検索結果に表示されるタイトル。 -->
+    
+    <link rel="stylesheet" href="style.css">
+    <!-- ↑ 外部CSSファイルを読み込む。href属性でCSSファイルのパスを指定。 -->
+
+</head>
+
+<body>
+<!-- ↑ ページに実際に表示される内容をここに書く。 -->
+
+    <h1>ページのメイン見出し</h1>
+    <p>段落テキスト。pタグはParagraph（段落）の意味。</p>
+
+</body>
+</html>
+```
+
+---
+
+## 2. 共通する骨組み（セマンティックHTML）
+
+### 1. なぜ「セマンティックHTML」が重要か？
+
+「セマンティック（semantic）」は「意味的な」という英語です。
+
+昔のWebサイトでは、すべてのコンテンツを `<div>` タグで囲んで区切るだけでした。
+```html
+<!-- ❌ 昔のやり方（divだらけ） -->
+<div id="header">...</div>
+<div id="nav">...</div>
+<div id="main">...</div>
+<div id="footer">...</div>
+```
+
+今は**意味を持ったタグ**を使うことが推奨されています。その理由は3つ。
+
+・**SEO（検索エンジン最適化）向上**: GoogleなどがページのHTMLを読む時、`<nav>` タグを見て「ここはナビゲーションだ」と正確に理解できます。
+・**アクセシビリティ向上**: 目の不自由なユーザーが使うスクリーンリーダー（音声読み上げソフト）が、ページ構造を正しく読み上げられます。
+・**コードの読みやすさ向上**: チームでの開発時に、HTMLを見ただけでページ構造が分かります。
+
+### 2. 主要なセマンティックタグ
+
+```html
+<body>
+    <!-- header: ページまたはセクションの上部（ロゴ、タイトル、ナビゲーションを入れることが多い）-->
+    <header>
+        <!-- nav: 主要なナビゲーションリンクをまとめる専用タグ -->
+        <nav>
+            <ul>
+                <li><a href="/home">ホーム</a></li>
+                <li><a href="/about">会社概要</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <!-- main: そのページの「メインコンテンツ」。1ページに1つだけ使う -->
+    <main>
+        <!-- article: それ単体で意味が完結するコンテンツ（ブログ記事・ニュース記事）-->
+        <article>
+            <h1>記事タイトル</h1>
+            <p>記事の本文...</p>
+        </article>
+        
+        <!-- section: テーマでまとめられたコンテンツのかたまり。必ず見出しを持つ -->
+        <section>
+            <h2>サービス紹介</h2>
+            <p>私たちのサービスは...</p>
+        </section>
+        
+        <!-- aside: メインに関連するサイドコンテンツ（広告、関連リンク、注釈など）-->
+        <aside>
+            <h2>関連記事</h2>
+        </aside>
+    </main>
+    
+    <!-- footer: ページの下部（著作権表示、会社情報、お問い合わせリンクなど）-->
+    <footer>
+        <p>© 2026 QuizMaster. All Rights Reserved.</p>
+    </footer>
+</body>
+```
+
+### 3. よく使うHTML要素の完全ガイド
+
+**見出し（h1〜h6）**:
+```html
+<h1>ページのメインタイトル（1ページに必ず1つだけ！SEOの核心）</h1>
+<h2>大きなセクションの見出し（複数使ってOK）</h2>
+<h3>小さなセクションの見出し</h3>
+<!-- h4, h5, h6 とさらに細かくできる。数字が大きいほど小さな見出し -->
+```
+
+> **重要**: h1〜h6は「見た目の大きさ」ではなく「文書の構造（階層）」を表すものです。
+> 大きく表示したいからといって h1 を乱用すると SEO に悪影響が出ます。
+
+**リンクと画像**:
+```html
+<!-- aタグ（Anchorの略）: クリックすると別のページへ移動するリンク -->
+<a href="https://www.google.com">Googleへ行く</a>
+<a href="https://www.google.com" target="_blank">Googleを新しいタブで開く</a>
+<!-- target="_blank" で新しいタブ/ウィンドウで開く -->
+
+<a href="/about">サイト内の別ページ（相対パス）</a>
+<a href="#section2">同じページ内の id="section2" の場所へジャンプ</a>
+
+<!-- imgタグ: 画像を表示する（閉じタグが不要な「空要素」）-->
+<!-- alt属性は必須！画像が表示できない時や、スクリーンリーダーが読み上げる -->
+<img src="images/photo.jpg" alt="社員の集合写真" width="400" height="300">
+```
+
+**リスト**:
+```html
+<!-- ul（Unordered List）: 順序のない箇条書きリスト（デフォルトで「・」マーク）-->
+<ul>
+    <li>りんご</li>   <!-- li（List Item）: リストの各項目 -->
+    <li>ばなな</li>
+    <li>みかん</li>
+</ul>
+
+<!-- ol（Ordered List）: 順序のある番号付きリスト -->
+<ol>
+    <li>水を沸かす</li>
+    <li>麺を入れる</li>
+    <li>3分待つ</li>
+</ol>
+```
+
+**テーブル（表）**:
+```html
+<table>
+    <thead>  <!-- テーブルのヘッダー部分（見出し行）-->
+        <tr>  <!-- tr = Table Row（行）-->
+            <th>名前</th>   <!-- th = Table Header（太字・中央揃えになる）-->
+            <th>点数</th>
+        </tr>
+    </thead>
+    <tbody>  <!-- テーブルのデータ部分 -->
+        <tr>
+            <td>田中</td>   <!-- td = Table Data（データセル）-->
+            <td>85</td>
+        </tr>
+        <tr>
+            <td>鈴木</td>
+            <td>92</td>
+        </tr>
+    </tbody>
+</table>
+```
+
+**フォーム（入力フォーム）**:
+```html
+<form action="/submit" method="post">
+    <!-- text: 1行テキスト入力 -->
+    <input type="text" name="userName" placeholder="名前を入力">
+    
+    <!-- email: メールアドレス専用（形式チェックあり）-->
+    <input type="email" name="email" placeholder="example@mail.com">
+    
+    <!-- password: 入力内容が*で隠れる -->
+    <input type="password" name="password">
+    
+    <!-- checkbox: チェックボックス（複数選択可）-->
+    <input type="checkbox" name="agree" value="yes"> 利用規約に同意する
+    
+    <!-- select: ドロップダウン選択 -->
+    <select name="department">
+        <option value="dev">開発部</option>
+        <option value="sales">営業部</option>
+    </select>
+    
+    <!-- textarea: 複数行テキスト入力 -->
+    <textarea name="comment" rows="4" cols="50">ここにコメントを入力</textarea>
+    
+    <!-- submit: フォームを送信するボタン -->
+    <button type="submit">送信する</button>
+</form>
+```
+
+---
+
+## 3. CSSの基礎（デザインと装飾）
+
+CSS（Cascading Style Sheets）は、HTMLの要素に「色・サイズ・レイアウト・アニメーション」などの見た目を与える言語です。
+
+### 1. CSSの書き方
+
+```css
+/* 基本構文: セレクター { プロパティ: 値; } */
+/* セレクター = 「どの要素に適用するか」の指定 */
+/* プロパティ = 「何を変えるか」 */
+/* 値 = 「どう変えるか」 */
+
+h1 {
+    color: #333333;         /* 文字色（#は16進数カラーコード）*/
+    font-size: 32px;        /* 文字サイズ（pxはピクセル単位）*/
+    font-weight: bold;      /* 文字の太さ（bold=太字, normal=通常）*/
+    text-align: center;     /* テキストの水平配置（center, left, right）*/
+    margin-bottom: 20px;    /* 下側の外側余白 */
+}
+```
+
+### 2. CSSセレクターの種類（どの要素に適用するかの指定方法）
+
+```css
+/* ①要素セレクター: タグ名を指定。そのタグ全てに適用される */
+p { color: gray; line-height: 1.8; }
+
+/* ②クラスセレクター: class属性の値を .で指定。最もよく使う！ */
+/* <div class="card"> に対応 */
+.card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* ③IDセレクター: id属性の値を #で指定。1ページに1つの要素だけに使う */
+/* <header id="main-header"> に対応 */
+#main-header { position: fixed; top: 0; width: 100%; }
+
+/* ④子孫セレクター: スペースで区切ると、その中にある要素を指定 */
+/* .nav の中にある a タグ全てに適用 */
+.nav a { text-decoration: none; color: white; }
+
+/* ⑤擬似クラス（:）: ある状態の時だけ適用 */
+/* :hover = マウスが乗った時 */
+.btn:hover { background-color: darkblue; transform: scale(1.05); }
+/* :nth-child(n) = 何番目の要素か指定 */
+li:nth-child(odd) { background: #f5f5f5; }  /* 奇数番目のliに */
+/* :first-child, :last-child = 最初/最後の子要素 */
+li:first-child { border-top: none; }
+```
+
+### 3. ボックスモデル（CSSの最重要概念！）
+
+HTMLの**すべての要素は「長方形の箱（ボックス）」**として扱われます。この箱は外側から順に以下の4つの層で構成されます。
+
+```
+┌─────────────────────────────────┐
+│           margin（外側の余白）    │  ← 他の要素との隙間
+│  ┌───────────────────────────┐  │
+│  │       border（枠線）        │  │  ← ボックスの枠
+│  │  ┌─────────────────────┐  │  │
+│  │  │   padding（内側の余白）│  │  │  ← コンテンツとborderの間の隙間
+│  │  │  ┌───────────────┐  │  │  │
+│  │  │  │  content（内容） │  │  │  │  ← テキストや画像などの実際の内容
+│  │  │  └───────────────┘  │  │  │
+│  │  └─────────────────────┘  │  │
+│  └───────────────────────────┘  │
+└─────────────────────────────────┘
+```
+
+```css
+.box {
+    /* コンテンツエリアのサイズ */
+    width: 300px;
+    height: 150px;
+    
+    /* padding: コンテンツとborderの間の余白（内側）*/
+    padding: 20px;           /* 上下左右すべて20px */
+    padding: 10px 20px;      /* 上下10px、左右20px */
+    padding: 5px 10px 15px 20px; /* 上5px 右10px 下15px 左20px（時計回り）*/
+    
+    /* border: 枠線（太さ スタイル 色）*/
+    border: 2px solid #333;      /* 実線 */
+    border: 1px dashed gray;     /* 破線 */
+    border: none;                /* なし */
+    border-radius: 8px;          /* 角を丸くする */
+    
+    /* margin: 他の要素との外側の余白 */
+    margin: 30px;                /* 上下左右30px */
+    margin: 0 auto;              /* 上下0px、左右auto→水平中央揃え！*/
+    
+    /* box-sizing: widthの計算方法を変える（推奨設定） */
+    /* content-box（デフォルト）: width = コンテンツのみの幅（paddingとborderは別途加算される）*/
+    /* border-box: width = padding + border + コンテンツの合計幅（直感的！）*/
+    box-sizing: border-box; /* これを全要素に設定するのが現代の標準スタイル */
+}
+
+/* 全要素にbox-borderを適用するリセットCSS */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+```
+
+---
+
+## 4. CSSレイアウト（Flexbox）
+
+### 1. Flexboxとは？
+
+要素を「横一列」または「縦一列」に並べるための、現代Web開発で最もよく使うレイアウトシステムです。
+
+**たとえ話**: Flexboxは「電車の車両」のようなイメージ。
+- 親要素（コンテナ）が「電車全体」
+- 子要素（アイテム）が「各車両」
+- 親要素に `display: flex` を書くだけで、子要素を自由に並べ替えられます。
+
+```css
+/* 親要素に display:flex を1行追加するだけで使える！ */
+.container {
+    display: flex;
+    
+    /* flex-direction: 並べる方向を指定 */
+    flex-direction: row;           /* →横に並べる（デフォルト）*/
+    flex-direction: row-reverse;   /* ←横に逆順で並べる */
+    flex-direction: column;        /* ↓縦に並べる */
+    flex-direction: column-reverse; /* ↑縦に逆順で並べる */
+    
+    /* justify-content: 主軸（並び方向）の揃え方 */
+    justify-content: flex-start;    /* 左（or上）端揃え（デフォルト）*/
+    justify-content: flex-end;      /* 右（or下）端揃え */
+    justify-content: center;        /* 中央揃え */
+    justify-content: space-between; /* 両端揃え（要素間を均等に空ける）*/
+    justify-content: space-around;  /* 各要素の両側を均等に空ける */
+    
+    /* align-items: 交差軸（並び方向と直角）の揃え方 */
+    align-items: stretch;   /* 伸ばして高さを揃える（デフォルト）*/
+    align-items: center;    /* 垂直（交差軸）中央揃え ← よく使う！*/
+    align-items: flex-start;/* 交差軸の始点揃え */
+    align-items: flex-end;  /* 交差軸の終点揃え */
+    
+    /* flex-wrap: 折り返しの設定 */
+    flex-wrap: nowrap;  /* 折り返しなし（デフォルト）*/
+    flex-wrap: wrap;    /* 入り切らない時に次の行へ折り返す */
+    
+    /* gap: アイテム間の隙間（marginを個別に設定する手間が省ける！）*/
+    gap: 20px;          /* 行間・列間ともに20px */
+    gap: 10px 20px;     /* 行間10px、列間20px */
+}
+
+/* 子要素（アイテム）での設定 */
+.item {
+    flex: 1;            /* 残りのスペースを均等に分け合う */
+    flex: 0 0 200px;    /* 幅を200pxに固定（伸び縮みしない）*/
+    align-self: center; /* 自分だけ垂直中央揃えにする（align-itemsを上書き）*/
+}
+```
+
+**実践例（よく使うレイアウトパターン）**:
+```css
+/* ① ナビゲーションバー: ロゴ左 + リンク右 */
+.navbar {
+    display: flex;
+    justify-content: space-between; /* ロゴと右側のリンクを両端に配置 */
+    align-items: center;            /* 垂直方向に中央揃え */
+    padding: 0 40px;
+    height: 60px;
+}
+
+/* ② カード一覧: 均等幅で横に並べて折り返す */
+.card-grid {
+    display: flex;
+    flex-wrap: wrap;    /* 画面幅に合わせて折り返す */
+    gap: 20px;
+}
+.card {
+    flex: 1 1 300px;   /* 最低幅300px、それ以上は均等に拡大 */
+}
+
+/* ③ 要素の完全中央揃え（水平 + 垂直）*/
+.centered-box {
+    display: flex;
+    justify-content: center; /* 水平中央 */
+    align-items: center;     /* 垂直中央 */
+    height: 100vh;           /* ビューポート全体の高さ */
+}
+```
+
+---
+
+## 5. CSSレイアウト（CSS Grid）
+
+### 1. CSS Gridとは？
+
+Flexboxが「1次元（横または縦の一方向）」なのに対し、CSS Gridは「2次元（縦と横を同時に）」を制御できるレイアウトシステムです。
+
+**使い分け**:
+- **Flexbox**: ナビゲーションバー、ボタン並べ、1方向のレイアウトに最適
+- **CSS Grid**: ページ全体のレイアウト、カード一覧（行列の格子状）に最適
+
+```css
+.grid-container {
+    display: grid;
+    
+    /* grid-template-columns: 列のサイズを定義 */
+    grid-template-columns: 200px 1fr 1fr;
+    /* → 1列目:200px固定 / 2列目と3列目:残りを均等に分割 */
+    /* 1fr = fraction（分数）。「残りのスペースの何割か」を指定する単位 */
+    
+    /* repeat()で繰り返しを短く書ける */
+    grid-template-columns: repeat(3, 1fr); /* 均等な3列 */
+    grid-template-columns: repeat(4, 1fr); /* 均等な4列 */
+    
+    /* auto-fill + minmax: 画面幅に応じて自動で列数が変わる最強のレスポンシブ！ */
+    /* 「最低250px、最大1frのカラムを、入るだけ並べる」という意味 */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    
+    /* 行のサイズ（省略すると内容の高さに自動で合わせる）*/
+    grid-template-rows: auto;
+    
+    gap: 20px; /* セル間のすべての隙間 */
+}
+```
+
+---
+
+## 6. レスポンシブWebデザイン（スマホ対応）
+
+### 1. メディアクエリ（@media）
+
+「ブラウザの画面幅が〇〇px以上の時だけ、このCSSを適用する」という条件分岐です。これにより、1つのHTMLファイルでスマホ・タブレット・PCに対応できます。
+
+```css
+/* Mobile First（スマホ優先）設計: まずスマホのスタイルを書く */
+.container {
+    padding: 15px;
+}
+.card-grid {
+    display: flex;
+    flex-direction: column; /* スマホは縦1列 */
+    gap: 15px;
+}
+
+/* 768px以上の画面（タブレット）の時に追加/上書きするCSS */
+@media (min-width: 768px) {
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;     /* 水平中央揃え */
+        padding: 30px;
+    }
+    .card-grid {
+        flex-direction: row; /* タブレットは横並び */
+        flex-wrap: wrap;
+    }
+}
+
+/* 1024px以上の画面（PC）の時に追加/上書きするCSS */
+@media (min-width: 1024px) {
+    .card-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* PCは3列グリッド */
+    }
+}
+```
+
+---
+
+## 7. CSSアニメーション（動きをつける）
+
+### 1. transition（ホバーや状態変化の滑らかなアニメーション）
+
+要素の「状態が変化する時」をなめらかにアニメーションさせます。
+
+```css
+.button {
+    background-color: blue;
+    color: white;
+    padding: 10px 24px;
+    border-radius: 6px;
+    
+    /* transition: どのプロパティを アニメーション時間 どんな速度曲線で変化させるか */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    /* ease: ゆっくり始まり→加速→ゆっくり終わる（最もよく使う）*/
+    /* ease-in: ゆっくり始まる, ease-out: ゆっくり終わる, linear: 一定速度 */
+}
+
+/* :hover: マウスが乗った時のスタイル */
+.button:hover {
+    background-color: darkblue; /* 0.3秒かけて色が変わる */
+    transform: scale(1.05);     /* 0.2秒かけて5%拡大する */
+}
+```
+
+### 2. @keyframes（より複雑なアニメーション）
+
+アニメーションの「キーとなる時点（フレーム）」のスタイルを定義することで、複雑な動きを作れます。
+
+```css
+/* アニメーションの動き定義: 左からスライドインする */
+@keyframes slideInFromLeft {
+    from {                              /* 開始時点 */
+        transform: translateX(-100%);  /* 画面左の外からスタート */
+        opacity: 0;                    /* 透明 */
+    }
+    to {                               /* 終了時点 */
+        transform: translateX(0);      /* 元の位置 */
+        opacity: 1;                    /* 不透明 */
+    }
+}
+
+/* 脈動するアニメーション */
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }   /* 開始・終了時: 通常サイズ */
+    50%       { transform: scale(1.1); } /* 中間: 10%拡大 */
+}
+
+/* アニメーションを要素に適用する */
+.card {
+    /* animation: アニメーション名 時間 速度曲線 繰り返し回数; */
+    animation: slideInFromLeft 0.5s ease forwards;
+    /* forwards: アニメーション終了後、最後のスタイルを維持する */
+}
+
+.icon {
+    animation: pulse 1.5s ease-in-out infinite; /* infinite: 無限ループ */
+}
+```
+
+---
+
+## 8. CSS変数とカスタムプロパティ
+
+サイト全体のカラーパレットやサイズなどを「変数」として一元管理できます。
+変数を1箇所変えるだけで、サイト全体のデザインが一瞬で変わります！
+
+```css
+/* :root はHTML全体に適用される最上位セレクター */
+/* ここでCSS変数を定義する（変数名は --で始める）*/
+:root {
+    --primary-color:   #6366f1;  /* メインカラー（紫系） */
+    --secondary-color: #ec4899;  /* アクセントカラー（ピンク系） */
+    --text-color:      #f0f0f0;  /* テキスト色 */
+    --bg-color:        #0f0f23;  /* 背景色 */
+    --border-radius:   8px;      /* ボタン・カードの角丸サイズ */
+    --spacing-sm:      8px;      /* 小さい余白 */
+    --spacing-md:      16px;     /* 中くらいの余白 */
+    --spacing-lg:      32px;     /* 大きい余白 */
+}
+
+/* var(--変数名) で変数の値を参照できる */
+.button {
+    background: var(--primary-color);   /* #6366f1 が適用される */
+    color: var(--text-color);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius);
+}
+
+.card {
+    background: var(--bg-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-md);
+}
+
+/* ダークモードの切り替えも変数1箇所を変えるだけで実現できる */
+@media (prefers-color-scheme: light) {
+    :root {
+        --text-color: #333333;   /* ライトモード時は黒文字に */
+        --bg-color: #ffffff;     /* ライトモード時は白背景に */
+    }
+}
+```

@@ -20,16 +20,37 @@
 
     <header>
         <div class="container header-content">
-            <h1 class="logo">Quiz<span>Master</span></h1>
+            <h1 class="logo" id="logo-btn" style="cursor: pointer;">Quiz<span>Master</span></h1>
             <nav>
-                <button id="nav-home" class="nav-btn active">ホーム</button>
+                <button id="nav-home" class="nav-btn active">トップ</button>
+                <button id="nav-quiz" class="nav-btn">問題</button>
+                <button id="nav-learn" class="nav-btn">解説</button>
             </nav>
         </div>
     </header>
 
     <main class="container">
-        <!-- ホーム画面 -->
-        <section id="home-view" class="view active">
+        <!-- 初期画面 (ランディング) -->
+        <section id="landing-view" class="view active">
+            <div class="landing-container">
+                <h2 class="landing-title">学習モードを選択</h2>
+                <div class="landing-options">
+                    <button id="landing-btn-quiz" class="landing-btn card">
+                        <div class="landing-icon">✏️</div>
+                        <h3>問題を解く (Quiz)</h3>
+                        <p>カレンダーや単元からクイズに挑戦し、実力を試します</p>
+                    </button>
+                    <button id="landing-btn-learn" class="landing-btn card">
+                        <div class="landing-icon">📖</div>
+                        <h3>解説を読む (Learn)</h3>
+                        <p>各単元のドキュメントを読み、知識を体系的に深めます</p>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ホーム画面（クイズ選択） -->
+        <section id="home-view" class="view hidden">
             <div class="home-header">
                 <h2>コースを選択</h2>
                 <div class="view-tabs">
@@ -129,7 +150,7 @@
         <!-- 完了画面 -->
         <section id="complete-view" class="view hidden">
             <div class="quiz-header-top">
-                <button class="secondary-btn back-to-home-btn">← ホームに戻る</button>
+                <button class="secondary-btn back-to-home-btn">← 問題一覧に戻る</button>
             </div>
             <div class="card complete-card">
                 <div id="complete-icon" class="celebration-icon">🏆</div>
@@ -137,6 +158,64 @@
                 <p id="complete-desc">この日の課題をクリアしました。明日も頑張りましょう！</p>
                 <button id="restart-btn" class="primary-btn">もう一度挑戦する</button>
                 <button id="review-wrong-btn" class="secondary-btn hidden" style="margin-top: 15px;">間違えた問題の解説を見る</button>
+            </div>
+        </section>
+
+        <!-- 学習画面 (解説) -->
+        <section id="learn-view" class="view hidden">
+            <div class="learn-container">
+                <!-- 左サイドバー -->
+                <aside class="learn-sidebar card">
+                    <div class="learn-subjects">
+                        <button class="subject-tab active" data-subject="Spring">Spring</button>
+                        <button class="subject-tab" data-subject="Java">Java</button>
+                        <button class="subject-tab" data-subject="Oracle">Oracle</button>
+                        <button class="subject-tab" data-subject="JavaScript">JavaScript</button>
+                        <button class="subject-tab" data-subject="HTML/CSS">HTML/CSS</button>
+                    </div>
+                    
+                    <div class="learn-progress-container">
+                        <div class="progress-header">
+                            <span class="progress-label">学習進捗</span>
+                            <span id="learn-progress-text">0%</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill" id="learn-progress-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="learn-chapters-container">
+                        <h3 class="sidebar-title">目次</h3>
+                        <div class="learn-chapters" id="learn-chapters-list">
+                            <!-- JSで動的に章のリストを生成します -->
+                            <p class="tab-description">準備中...</p>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- 右メインコンテンツ -->
+                <article class="learn-content card" id="learn-main-content">
+                    <h2 id="learn-chapter-title">章を選択してください</h2>
+                    <div id="learn-chapter-body" class="markdown-body">
+                        <p class="placeholder-text">左側の目次から学習したいトピックを選んでください。</p>
+                    </div>
+                    
+                    <!-- アクションエリア -->
+                    <div class="learn-chapter-actions hidden" id="learn-chapter-actions">
+                        <button id="mark-read-btn" class="primary-btn read-btn">✅ この章を読み終えた</button>
+                    </div>
+                    
+                    <!-- ナビゲーション -->
+                    <div class="learn-navigation hidden" id="learn-navigation">
+                        <button id="prev-chapter-btn" class="nav-btn-outline">＜ 前の章へ</button>
+                        <button id="next-chapter-btn" class="nav-btn-outline">次の章へ ＞</button>
+                    </div>
+                    
+                    <!-- クイズへジャンプ -->
+                    <div class="learn-quiz-action hidden" id="learn-quiz-action-container">
+                        <button id="jump-to-quiz-btn" class="primary-btn pulse-anim">✏️ この単元のクイズに挑戦する</button>
+                    </div>
+                </article>
             </div>
         </section>
     </main>
@@ -149,6 +228,7 @@
 
     <!-- Scripts -->
     <script src="questions.js"></script>
+    <script src="learn_data.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

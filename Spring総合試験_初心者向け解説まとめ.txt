@@ -1,0 +1,1089 @@
+================================================================
+  総合試験 Spring ― 解説まとめ
+================================================================
+※このファイルは、試験範囲の21トピックを「なぜそうなるのか」
+  「どう使うのか」まで含めて丁寧に解説したものです。
+================================================================
+
+
+────────────────────────────────────────────────────────
+1. @RequestMapping
+────────────────────────────────────────────────────────
+
+【そもそもの仕組みを理解しよう】
+
+Webアプリでは、ユーザーがブラウザのURL欄にアドレスを入力したり
+ボタンをクリックしたりすると、サーバーに「リクエスト（要求）」が
+届きます。
+
+サーバー側（Springアプリ）は、そのURLを見て「どのメソッドを実行
+すればいいか」を判断する必要があります。
+その「URLとメソッドの対応表」を作るのが @RequestMapping です。
+
+【基本の書き方】
+
+  @RequestMapping(path = "/hello")
+  public String helloPage() {
+      return "hello";
+  }
+
+  ↑ このメソッドは、"/hello" というパスにアクセスがあったときに
+    自動的に呼ばれます。
+
+【ポイント解説】
+
+① "path=" は省略できる
+  @RequestMapping("/hello") と書いても同じ意味です。
+
+② 戻り値の String は HTML ファイル名
+  return "hello"; と書くと、「hello.html を表示してください」
+  という意味になります。
+  ファイル名の末尾 .html は書きません。
+
+③ コンテキストパスの置き換え
+  パス名の先頭の "/" は、application.properties に設定した
+  context-path に自動的に置き換えられます。
+
+  例）context-path = /myapp のとき、
+      @RequestMapping("/hello") → 実際のURL = /myapp/hello
+
+  これにより、アプリ全体のパス管理がまとめて行えます。
+
+【よくある間違い】
+
+  × return "hello.html";   ← .html を書いてしまう（不要）
+  ○ return "hello";
+
+  × @RequestMapping("hello")  ← 先頭の / を忘れる
+  ○ @RequestMapping("/hello")
+
+
+────────────────────────────────────────────────────────
+2. application.properties
+────────────────────────────────────────────────────────
+
+【このファイルの役割は？】
+
+application.properties は、Springアプリ全体の「設定ファイル」です。
+アプリを動かす上で必要な設定をここに書いておくと、起動時に自動的
+に読み込まれます。
+
+Javaのコードを変えずに設定だけを変えたいときに大変便利です。
+
+【主な設定項目】
+
+┌──────────────────────────────────────────────────────┐
+│ 設定項目                 │ 書き方の例                     │
+├──────────────────────────────────────────────────────┤
+│ コンテキストパス         │ server.servlet.context-path=/myapp │
+│ ポート番号               │ server.port=8080               │
+│ Thymeleafキャッシュ無効  │ spring.thymeleaf.cache=false   │
+└──────────────────────────────────────────────────────┘
+
+【URLの構成】
+
+  http://ホスト名:ポート番号/コンテキストパス/各パス
+
+  例）
+    ホスト名    : localhost
+    ポート番号  : 8080
+    コンテキストパス: /myapp
+    各パス      : /hello
+  
+  → http://localhost:8080/myapp/hello
+
+【ポート番号について】
+  ポート番号は4桁の数値（通常 8080 を使う）です。
+  Webブラウザのデフォルトは80番ですが、Springのデフォルトは8080番です。
+  同じポートで複数のアプリを同時に起動しようとするとエラーになります。
+
+【よくある間違い・注意点】
+
+  ファイル名の typo に注意！
+  正しくは application.properties（proparties ではありません）
+
+  ※ 試験の資料では「proparties」と書かれている場合もありますが、
+    実際の正しいファイル名は「properties」です。
+
+
+────────────────────────────────────────────────────────
+3. Thymeleaf 属性
+────────────────────────────────────────────────────────
+
+【Thymeleafとは何か？】
+
+Thymeleaf（タイムリーフ）は、Javaで使われるテンプレートエンジンです。
+HTML の中に Java の変数や処理結果を埋め込んで、動的なページを作れます。
+
+通常のHTMLタグに th:属性 を追加するだけで使えるのが特徴です。
+
+【使うために必要な設定 ― 2か所】
+
+  [1] application.properties に追加
+      spring.thymeleaf.cache=false
+      （開発中はキャッシュ（古い内容を使い回す機能）を無効にする）
+
+  [2] HTMLファイルの <html> タグを変更
+      <html xmlns:th="http://www.thymeleaf.org">
+      （Thymeleafの名前空間を宣言することで th: 属性が使えるようになる）
+
+【よく使う th: 属性】
+
+  th:text  … タグの中身のテキストをJavaの変数で置き換える
+  th:each  … リスト（一覧データ）を繰り返し表示する
+  th:if    … 条件が true のときだけ表示する
+  th:href  … リンク先URLをThymeleafで動的に設定する
+  th:src   … 画像のsrcをThymeleafで動的に設定する
+
+【th:each と th:text の組み合わせ例】
+
+  例）fruits という名前のリストの各要素を表示したい場合
+
+  <table>
+    <tr th:each="fruit : ${fruits}">
+      <td th:text="${fruit.name}"></td>
+      <td th:text="${fruit.price}"></td>
+    </tr>
+  </table>
+
+  解説：
+  - ${fruits} … スコープ（後述）から "fruits" という名前のデータを取得
+  - th:each="fruit : ${fruits}" … リストを1件ずつ fruit という変数に入れながら繰り返す
+  - ${fruit.name} … 各 fruit オブジェクトの name フィールドの値を出力
+
+【${ } の読み方】
+  ${ } は「この名前のデータをスコープから取り出す」という意味です。
+  th:text="${変数名}" と書くと、そのタグのテキストが変数の値に置き換わります。
+
+
+────────────────────────────────────────────────────────
+4. フォームで送信ボタンを押したときのURL（GET と POST）
+────────────────────────────────────────────────────────
+
+【Webフォームの基本】
+
+HTMLの <form> タグを使うと、ユーザーの入力内容をサーバーに送信できます。
+送信方法には「GET」と「POST」の2種類があります。
+
+【GETとPOSTの違い】
+
+┌────────────────────────────────────────────────────┐
+│         │  GET              │  POST              │
+├────────────────────────────────────────────────────┤
+│データの│URLの末尾に付く    │URLに付かない       │
+│場所    │（誰でも見える）   │（本文の中に隠れる）│
+├────────────────────────────────────────────────────┤
+│用途    │検索・閲覧系       │ログイン・登録系    │
+├────────────────────────────────────────────────────┤
+│特徴    │ブックマーク可能   │パスワード等に安全  │
+└────────────────────────────────────────────────────┘
+
+【GET の例】
+
+  <form th:action="@{/search}" method="get">
+    <input type="text" name="fruit">
+    <button type="submit">検索</button>
+  </form>
+
+  「りんご」と入力して送信すると…
+  → URL が http://localhost:8080/myapp/search?fruit=りんご になる
+
+  このようにURLに "?キー名=値" の形で付け加えられます。
+  複数の入力があると "?fruit=りんご&color=赤" のように & で繋がります。
+
+【POST の例】
+
+  <form th:action="@{/login}" method="post">
+    <input type="text"     name="userId">
+    <input type="password" name="password">
+    <button type="submit">ログイン</button>
+  </form>
+
+  送信してもURLには何も付かない → パスワードが外から見えない
+
+
+【@{} の意味】
+  th:action="@{/search}" の @{} は、Thymeleafのリンク式です。
+  コンテキストパスを自動で補完してくれるため、パスの先頭に
+  コンテキストパスを手書きする必要がなくなります。
+
+
+────────────────────────────────────────────────────────
+5. フォームで入力した値を受け取るメソッド（@GetMapping / @PostMapping）
+────────────────────────────────────────────────────────
+
+【@RequestMapping に送信方法を指定する】
+
+コントローラ側では、GETかPOSTかを明示的に指定できます。
+
+  // GET専用メソッド（長い書き方）
+  @RequestMapping(value = "/search", method = RequestMethod.GET)
+  public String search() { ... }
+
+  // POST専用メソッド（長い書き方）
+  @RequestMapping(value = "/login", method = RequestMethod.POST)
+  public String login() { ... }
+
+【省略形：@GetMapping / @PostMapping】
+
+  // GET専用（短い書き方）
+  @GetMapping("/search")
+  public String search() { ... }
+
+  // POST専用（短い書き方）
+  @PostMapping("/login")
+  public String login() { ... }
+
+  実務では @GetMapping / @PostMapping を使うのが一般的です。
+
+【重要：送信方法と受信方法の一致】
+
+  フォームが method="post" なのに、コントローラが @GetMapping だと
+  エラーになります！（405 Method Not Allowed）
+
+  ┌──────────────────────────────────────┐
+  │ フォーム側 method= │ コントローラ側    │
+  ├──────────────────────────────────────┤
+  │ "get"              │ @GetMapping       │ ← ○ OK
+  │ "post"             │ @PostMapping      │ ← ○ OK
+  │ "post"             │ @GetMapping       │ ← × エラー！
+  └──────────────────────────────────────┘
+
+【何も指定しないと GET になる】
+
+  @RequestMapping("/top")    ← method の指定なし
+  public String topPage() { ... }
+
+  この場合、GET リクエストのみ受け付けます。
+  POST で送るフォームに対応したいときは必ず @PostMapping を明示してください。
+
+
+────────────────────────────────────────────────────────
+6. フォームクラス
+────────────────────────────────────────────────────────
+
+【なぜフォームクラスが必要か？】
+
+<form> から送信された値は、コントローラのメソッドで受け取れます。
+シンプルな入力項目なら引数で直接受け取ることもできますが、
+入力項目が多い場合やバリデーション（入力チェック）をしたい場合は、
+専用の「フォームクラス」を作るのが定石です。
+
+フォームから送信された値 → フォームクラスに格納 → エンティティにコピー → DB保存
+という流れで処理します。
+
+【フォームクラスの作り方】
+
+  // フォームクラス（アノテーション不要）
+  public class FruitForm {
+
+      // <input name="fruitName"> に対応
+      private String fruitName;
+
+      // <input name="price"> に対応
+      private Integer price;
+
+      // getter / setter は必須（Springが値をセットするため）
+      public String getFruitName() { return fruitName; }
+      public void setFruitName(String fruitName) { this.fruitName = fruitName; }
+      public Integer getPrice() { return price; }
+      public void setPrice(Integer price) { this.price = price; }
+  }
+
+【フォームクラスのルール】
+
+  ① クラス自体にアノテーションを付ける必要はない
+     （ただし入力チェック用のアノテーションはフィールドに付ける）
+  ② フィールド名と <input> の name 属性を一致させる
+  ③ getter / setter を必ず定義する（Lombokを使うと自動生成できる）
+  ④ フィールドの型はエンティティと同じ型にする
+
+【コントローラでの受け取り方】
+
+  @PostMapping("/fruit/add")
+  public String addFruit(FruitForm fruitForm) {
+      // fruitForm.getFruitName() で入力値を取得できる
+      ...
+  }
+
+  引数に フォームクラス型 を書くだけで、Springが自動で値をセットしてくれます。
+
+
+────────────────────────────────────────────────────────
+7. セッションスコープのメソッド定義（HttpSession）
+────────────────────────────────────────────────────────
+
+【スコープとは何か？】
+
+「スコープ」とは、データが生きている（保持される）期間・範囲のことです。
+
+┌──────────────────────────────────────────────────────────┐
+│ スコープの種類  │ 保持期間                   │ 用途例            │
+├──────────────────────────────────────────────────────────┤
+│ リクエストスコープ│ 1回のリクエスト（画面遷移）│ 検索結果の一時保存 │
+│ セッションスコープ│ ブラウザを閉じるまで       │ ログイン情報の保持 │
+│ アプリケーションスコープ│ サーバーが動いている間 │ 全ユーザー共通設定 │
+└──────────────────────────────────────────────────────────┘
+
+【セッションスコープの使い方 ― HttpSession クラス】
+
+セッションスコープを使うには HttpSession クラスを利用します。
+まず import が必要です。
+
+  import jakarta.servlet.http.HttpSession;
+  // または（古いSpring）
+  import javax.servlet.http.HttpSession;
+
+【コントローラでの使い方（引数として受け取る方法）】
+
+  @GetMapping("/mypage")
+  public String myPage(HttpSession session) {
+      // session オブジェクトを使ってデータの保存・取得ができる
+      return "mypage";
+  }
+
+  引数に HttpSession を書くと、Springが自動でセッションオブジェクトを
+  渡してくれます。
+
+【コントローラでの使い方（フィールドとして注入する方法）】
+
+  @Autowired
+  private HttpSession session;
+
+  これをフィールドに書いておくと、メソッド内で直接 session を使えます。
+
+
+────────────────────────────────────────────────────────
+8. セッションスコープに値を保存する（setAttribute）
+────────────────────────────────────────────────────────
+
+【値を保存する：setAttribute()】
+
+  session.setAttribute("キー名", 保存したい値);
+
+  例）ログインしたユーザー情報を保存したい場合
+  
+  User loginUser = userRepository.findById(userId);
+  session.setAttribute("loginUser", loginUser);
+
+  → "loginUser" というキー名でセッションに保存される
+
+【値を取り出す：getAttribute()】
+
+  User user = (User) session.getAttribute("loginUser");
+
+  注意：取り出した値は Object 型で返ってくるため、
+       必要に応じてキャスト（型変換）してください。
+
+【セッションを削除する：invalidate()】
+
+  session.invalidate();   // ログアウト時などに使う
+
+【リクエストスコープとの違い：キー名が必須！】
+
+  リクエストスコープ (Model) の場合は、Springが自動でキー名を
+  決めてくれることがあります。
+
+  しかし セッションスコープ (HttpSession) では、
+  setAttribute の第一引数（キー名）を必ず自分で指定する必要があります。
+
+  NG 例：
+    session.setAttribute(loginUser);  ← コンパイルエラー！
+
+  OK 例：
+    session.setAttribute("loginUser", loginUser);  ← キー名を明示
+
+
+────────────────────────────────────────────────────────
+9. Thymeleafでセッションスコープの値を出力する
+────────────────────────────────────────────────────────
+
+【セッションの値を画面に出す方法】
+
+  ${session.キー名}
+
+  例）"loginUser" というキーで保存したUserオブジェクトのnameフィールドを表示
+
+  <span th:text="${session.loginUser.name}"></span>
+
+  例）"all" というキーで保存したリストを表示
+
+  <span th:text="${session.all}"></span>
+
+【リクエストスコープとの比較】
+
+  リクエストスコープの値（model.addAttribute で追加したもの）
+  → ${キー名} で直接アクセス
+
+  セッションスコープの値（session.setAttribute で追加したもの）
+  → ${session.キー名} のように先頭に "session." を付ける
+
+【注意：フィールドに続けてアクセスする場合】
+
+  ${session.loginUser} → loginUserオブジェクト全体
+  ${session.loginUser.name} → loginUserのnameフィールドの値
+  ${session.loginUser.email} → loginUserのemailフィールドの値
+
+  オブジェクトのフィールドには "." でつなげてアクセスします。
+
+
+────────────────────────────────────────────────────────
+10. シーケンスを利用するためのアノテーション
+────────────────────────────────────────────────────────
+
+【シーケンスとは何か？】
+
+データベースでは、レコード（行）を登録するたびに一意の番号（主キー）を
+自動的に割り振りたい場合があります。
+
+この「自動採番」の仕組みの1つが「シーケンス（SEQUENCE）」です。
+Oracle DB でよく使われます。（MySQLでは AUTO_INCREMENT が多い）
+
+【3つのアノテーションの役割】
+
+エンティティの主キーフィールドに以下の3つをセットで付けます：
+
+  @Id
+  @GeneratedValue(
+      strategy   = GenerationType.SEQUENCE,
+      generator  = "fruit_id_seq_gen"   ← 任意のジェネレータ名
+  )
+  @SequenceGenerator(
+      name           = "fruit_id_seq_gen",  ← ↑と同じ名前で統一
+      sequenceName   = "fruit_id_seq",      ← DBのシーケンス名
+      allocationSize = 1                    ← 1件ずつ増やす
+  )
+  private Integer fruitId;
+
+【各アノテーションの意味】
+
+  @Id
+  → このフィールドがテーブルの主キー（PRIMARY KEY）に対応することを示す。
+
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "...")
+  → フィールドの値を自動生成する。
+    strategy でシーケンスを使うことを指定。
+    generator で使用するシーケンスジェネレータ名を指定。
+
+  @SequenceGenerator(name = "...", sequenceName = "...", allocationSize = 1)
+  → シーケンスジェネレータの詳細設定。
+    name は @GeneratedValue の generator と同じ名前にする。
+    sequenceName はデータベースで作成したシーケンスの名前。
+    allocationSize は1件ずつ増やす場合は 1 を指定。
+
+【ジェネレータ名の命名ルール】
+  名前は自由ですが、DBのシーケンス名と対応させるとわかりやすいです。
+  例）
+    DBシーケンス名   : fruit_id_seq
+    ジェネレータ名   : fruit_id_seq_gen  （_gen を付けると区別しやすい）
+
+
+────────────────────────────────────────────────────────
+11. エンティティを使ってデータベースに登録する（save メソッド）
+────────────────────────────────────────────────────────
+
+【DB登録の全体の流れ】
+
+  [1] フォームクラスで入力値を受け取る
+  [2] 新しいエンティティオブジェクトを作成する
+  [3] フォームクラスの値をエンティティにコピーする（BeanUtils.copyProperties）
+  [4] repository.save() でDBに保存する
+  [5] 必要に応じてBeanクラスに値をコピーして画面に渡す
+
+【全体のコード例（FruitsSeason エンティティの場合）】
+
+  @PostMapping("/fruits/add/complete")
+  public String complete(FruitsSeasonForm fruitsForm, Model model) {
+
+      // [2] 新しいエンティティを作成（主キーはシーケンスが自動付与）
+      FruitsSeason fruitsSeason = new FruitsSeason();
+
+      // [3] フォームクラスからエンティティに値をコピー
+      //     第3引数は「コピーしないフィールド名」（主キーは自動設定のため除外）
+      BeanUtils.copyProperties(fruitsForm, fruitsSeason, "fruitId");
+
+      // [4] DBに保存
+      fruitsSeason = repository.save(fruitsSeason);
+
+      // [5] 表示用のBeanを作成してリクエストスコープに入れる
+      FruitsSeasonBean fruitsBean = new FruitsSeasonBean();
+      BeanUtils.copyProperties(fruitsSeason, fruitsBean, "fruitId");
+      model.addAttribute("fruits", fruitsBean);
+
+      return "practice05/05/fruit_detail";
+  }
+
+【BeanUtils.copyProperties とは？】
+
+  BeanUtils.copyProperties(コピー元, コピー先, "除外フィールド名");
+
+  同じ名前・型のフィールドを一括コピーしてくれる便利なメソッドです。
+  第3引数で指定したフィールドはコピーしません。
+  主キーは自動生成されるため、コピーしないようにします。
+
+【repository.save() の特徴】
+
+  - 主キーが未設定（null）のとき → INSERT（新規登録）
+  - 主キーが設定済みのとき     → UPDATE（更新）
+  - 戻り値はDBに保存された後のエンティティ（自動生成された主キーも含む）
+
+
+────────────────────────────────────────────────────────
+12. 外部参照元のエンティティの定義（@ManyToOne / @JoinColumn）
+────────────────────────────────────────────────────────
+
+【外部参照（リレーション）とは何か？】
+
+データベースでは、別のテーブルの情報を「外部キー」で参照する仕組みがあります。
+例）商品テーブルが、地域テーブルを参照している場合
+
+  商品テーブル
+  ┌────────┬──────────┬──────────┐
+  │item_id │item_name │area_id   │ ← 地域テーブルのIDを参照
+  └────────┴──────────┴──────────┘
+
+  地域テーブル
+  ┌────────┬──────────┐
+  │area_id │area_name │
+  └────────┴──────────┘
+
+JPAを使うと、この参照関係をJavaのオブジェクトとして扱えます。
+
+【アノテーションの書き方】
+
+  @ManyToOne
+  @JoinColumn(name = "area_id", referencedColumnName = "areaId")
+  private Area area;
+
+【各アノテーションの意味】
+
+  @ManyToOne
+  → 「多対1」の関係を示す。
+    多くの商品レコードが、1つの地域を参照しているイメージ。
+
+  @JoinColumn
+  → 外部キーの列を指定する。
+    name = "area_id"         → 商品テーブル側の外部キー列名（DBの列名）
+    referencedColumnName = "areaId" → 地域テーブル側の参照先フィールド名（Javaのフィールド名）
+
+  private Area area;
+  → フィールドの型は参照先のエンティティクラス（Area）にする。
+
+【こうするとできること】
+
+  Item item = itemRepository.findById(1);
+  System.out.println(item.getArea().getAreaName()); // 地域名が取れる！
+
+  SQLのJOINを自分で書かなくても、JPA が自動でJOIN処理してくれます。
+
+
+────────────────────────────────────────────────────────
+13. JPQLのSELECT句
+────────────────────────────────────────────────────────
+
+【JPQLとは何か？】
+
+JPQL（Java Persistence Query Language）は、
+SQLに似ているが「テーブル名」ではなく「エンティティ名（クラス名）」で
+記述するクエリ言語です。
+
+SQL  →  テーブル名・列名を使う（DB依存）
+JPQL →  エンティティ名・フィールド名を使う（DB非依存）
+
+【SQLとJPQLの比較】
+
+  SQL  : SELECT * FROM item WHERE item_id = 1
+  JPQL : SELECT i FROM Item i WHERE i.itemId = 1
+                                              ↑ エンティティ名
+                      ↑ 別名（エイリアス）が必須
+
+【JPQLのSELECT構文（全フィールド取得）】
+
+  SELECT 別名 FROM エンティティ名 別名 WHERE 条件
+
+  例）Itemエンティティの全フィールドを取得
+  SELECT i FROM Item i
+
+  ※ SQLの "SELECT *" に相当する。JPQLでは * は使えない。
+  ※ エンティティの別名（i）が必須。
+
+【JPQLのSELECT構文（特定フィールドのみ取得）】
+
+  SELECT new エンティティ名(別名.フィールド名, ...) FROM エンティティ名 別名
+
+  例）id と name だけ取得
+  SELECT new Item(i.id, i.name) FROM Item i
+
+  new を使って取得するフィールドを明示します。
+  このとき、取得するフィールドに対応するコンストラクタが必要です。
+
+
+────────────────────────────────────────────────────────
+14. JPQLをリポジトリで定義する（@Query / @Param）
+────────────────────────────────────────────────────────
+
+【@Query の使い方】
+
+リポジトリインターフェースのメソッドに直接JPQLを定義できます。
+
+  @Query("SELECT i FROM Item i WHERE i.id = :id")
+  Item findByItemId(@Param("id") Integer id);
+
+【バインドパラメータとは？】
+
+クエリの中に直接値を書くのではなく、「:パラメータ名」で場所を示し、
+メソッドの引数の値を後から代入（バインド）する仕組みです。
+
+  クエリ中    : :id    ← ここに値が入る
+  引数の指定  : @Param("id") Integer id
+
+  @Param("id") → クエリの :id の部分に、このメソッド引数の値を代入してね、という意味
+
+【複数のパラメータを使う例】
+
+  @Query("SELECT i FROM Item i WHERE i.category = :cat AND i.price <= :maxPrice")
+  List<Item> findByCategoryAndMaxPrice(
+      @Param("cat")      String category,
+      @Param("maxPrice") Integer maxPrice
+  );
+
+【メソッド名の自由度】
+
+  標準の JpaRepository のメソッド（findAll, findById など）と異なり、
+  @Query を使うとメソッド名を自由につけられます。
+  ただし、わかりやすい名前にするのが大切です。
+
+
+────────────────────────────────────────────────────────
+15. JPQLで特定の列だけを取得する（SELECT new 構文）
+────────────────────────────────────────────────────────
+
+【なぜ特定の列だけ取得するのか？】
+
+全フィールドを取得すると余計なデータも取ってきてしまう場合があります。
+特に大きなテーブルでは、必要な列だけ取得することでパフォーマンスが向上します。
+
+【SELECT new 構文】
+
+  SELECT new エンティティ名(別名.フィールド名, 別名.フィールド名, ...)
+  FROM エンティティ名 別名
+
+  例）id と name だけを取得する
+  SELECT new Item(i.id, i.name) FROM Item i
+
+【コンストラクタが必要】
+
+  SELECT new Item(i.id, i.name) と書いた場合、
+  Item クラスに (Integer id, String name) を受け取るコンストラクタが
+  定義されていなければなりません。
+
+  public class Item {
+      private Integer id;
+      private String  name;
+
+      // このコンストラクタが必要
+      public Item(Integer id, String name) {
+          this.id   = id;
+          this.name = name;
+      }
+  }
+
+【フィールドは複数指定可能】
+
+  SELECT new Item(i.id, i.name, i.price, i.category)
+  FROM Item i WHERE i.price > 1000
+
+
+────────────────────────────────────────────────────────
+16. 形式チェック（バリデーション / 入力チェック）
+────────────────────────────────────────────────────────
+
+【入力チェックとは何か？】
+
+ユーザーがフォームに入力した値が正しい形式かどうかを確認することです。
+例えば「名前は必須」「年齢は数値のみ」などのルールをチェックします。
+
+Spring では Bean Validation という仕組みを利用します。
+
+【よく使うアノテーション】
+
+┌───────────────────────────────────────────────────────────────┐
+│ アノテーション       │ 意味                                   │
+├───────────────────────────────────────────────────────────────┤
+│ @NotNull            │ null であってはいけない                 │
+│ @NotBlank           │ null でも空文字でもスペースのみでも× │
+│ @NotEmpty           │ null でも空文字でもいけない            │
+│ @Size(min=1,max=20) │ 文字数の範囲チェック                   │
+│ @Min(1)             │ 最小値チェック（数値型）               │
+│ @Max(100)           │ 最大値チェック（数値型）               │
+│ @Email              │ メールアドレス形式かチェック            │
+│ @Pattern(regexp="") │ 正規表現でのフォーマットチェック       │
+└───────────────────────────────────────────────────────────────┘
+
+【フォームクラスへの書き方】
+
+  public class UserForm {
+
+      @NotBlank          // null・空文字・スペースのみはNG
+      private String userName;
+
+      @NotNull           // null はNG（Integerは数値未入力でnullになる）
+      @Min(0)
+      private Integer age;
+
+      private String memo;  // チェックなし（任意入力）
+  }
+
+【@NotNull についての注意】
+
+  String 型   → @NotNull だけでは空文字が通ってしまう。@NotBlank を使う方がよい。
+  int 型       → プリミティブ型は null にならないため @NotNull は不要。
+  Integer 型   → 数値未入力の場合は自動で null チェックが行われる場合がある。
+
+【コントローラでのチェック実行方法】
+
+  @PostMapping("/user/add")
+  public String addUser(@Validated UserForm userForm, BindingResult result) {
+      if (result.hasErrors()) {
+          // エラーがある場合は入力画面に戻る
+          return "user/input";
+      }
+      // チェックOKなら処理続行
+      ...
+  }
+
+  @Validated     → 入力チェックを実行する
+  BindingResult  → チェック結果（エラー情報）を受け取る
+  result.hasErrors() → エラーがあれば true
+
+
+────────────────────────────────────────────────────────
+17. メッセージリソース
+────────────────────────────────────────────────────────
+
+【メッセージリソースとは何か？】
+
+エラーメッセージや画面ラベルなどの文言を、Javaコードや
+HTMLに直接書くのではなく、プロパティファイルにまとめて管理する仕組みです。
+
+メリット：
+  - 文言の変更時にプログラムを修正しなくて良い
+  - 多言語対応（i18n）が容易になる
+
+【使用するファイル】
+
+  [1] ValidationMessages.properties
+      → Bean Validation アノテーションのエラーメッセージを定義
+
+  [2] messages.properties
+      → 画面ラベルや任意のメッセージを定義
+
+【ValidationMessages.properties の書き方】
+
+  jakarta.validation.constraints.NotBlank.message=この項目は必須入力です。
+  jakarta.validation.constraints.NotNull.message=値を入力してください。
+  jakarta.validation.constraints.Size.message={min}文字以上{max}文字以内で入力してください。
+
+  左辺（キー）   : 完全修飾クラス名.message の形式
+  右辺（値）     : 表示したいエラーメッセージ
+
+【messages.properties の書き方】
+
+  error.login=ユーザーIDまたはパスワードが違います。
+  title.top=トップページ
+  button.submit=送信する
+
+  キー = 値 の形式で1行1メッセージ
+
+【Thymeleafからメッセージを参照する方法】
+
+  #{メッセージリソースのキー}
+
+  例）
+  <p th:text="#{error.login}"></p>
+  <button th:text="#{button.submit}"></button>
+
+
+────────────────────────────────────────────────────────
+18. 入力項目名を埋め込むメッセージリソース（プレースホルダ）
+────────────────────────────────────────────────────────
+
+【プレースホルダとは？】
+
+メッセージの中に変数を埋め込むための仕組みです。
+{0}, {1}, ... のように {} で囲んだ数字を使います。
+
+{0} はそのバリデーションが適用されているフィールドの名前に置き換えられます。
+
+【ValidationMessages.properties での使い方】
+
+  jakarta.validation.constraints.NotBlank.message={0}は必須入力です。
+
+  もし "name" というフィールドに @NotBlank を付けていた場合、
+  エラーメッセージは「nameは必須入力です。」になります。
+
+【フィールド名を日本語にする（messages.properties との組み合わせ）】
+
+  messages.properties に以下を追加：
+  name=お名前
+  password=パスワード
+  email=メールアドレス
+
+  するとエラーメッセージは「お名前は必須入力です。」になります！
+
+【プレースホルダの一覧（Size アノテーションの例）】
+
+  jakarta.validation.constraints.Size.message=
+      {0}は{min}文字以上{max}文字以内で入力してください。
+
+  {0}   → フィールド名
+  {min} → @Size の min 属性の値
+  {max} → @Size の max 属性の値
+
+  例）@Size(min=3, max=20) が付いた userName フィールドの場合：
+  「ユーザー名は3文字以上20文字以内で入力してください。」
+
+
+────────────────────────────────────────────────────────
+19. th:each（リストを繰り返し表示する）
+────────────────────────────────────────────────────────
+
+【th:each の使い方】
+
+Javaの for-each 文と同じ考え方で、リスト（配列）の中身を
+1件ずつ取り出しながら繰り返し HTML を出力します。
+
+【基本構文】
+
+  <タグ th:each="変数名 : ${スコープ名}">
+    <子タグ th:text="${変数名.フィールド名}"></子タグ>
+  </タグ>
+
+【テーブルに一覧表示する例】
+
+  スコープに "all" という名前で保存されている fruits のリストを表示する場合：
+
+  <table>
+    <tr th:each="fruit : ${all}">
+      <td th:text="${fruit.name}"></td>
+      <td th:text="${fruit.price}"></td>
+    </tr>
+  </table>
+
+  処理の流れ：
+  1. ${all} からリストを取得
+  2. リストの各要素を fruit という変数に入れる
+  3. <tr> タグをリストの件数分だけ繰り返す
+  4. 各行に fruit.name と fruit.price を表示
+
+【ループカウンタを使う（応用）】
+
+  th:each には特殊な変数（ステータス変数）を使えます：
+
+  <tr th:each="fruit, stat : ${all}">
+    <td th:text="${stat.index}"></td>   <!-- 0始まりの番号 -->
+    <td th:text="${stat.count}"></td>   <!-- 1始まりの番号 -->
+    <td th:text="${fruit.name}"></td>
+  </tr>
+
+【注意事項】
+
+  ・th:each は <tr>/<li>/<option> などの繰り返すタグ自体に付ける
+  ・フィールド名はスコープに保存したクラスが持っているものでなければならない
+  ・リストが空の場合は <tr> が1つも出力されない（ループ0回）
+
+
+────────────────────────────────────────────────────────
+20. リンク式 @{ } でパラメータ値を含める
+────────────────────────────────────────────────────────
+
+【リンク式とは？】
+
+Thymeleafでリンク（URL）を生成するときは @{ } を使います。
+コンテキストパスを自動で補完してくれるため、便利です。
+
+【基本形】
+
+  <a th:href="@{/item/list}">一覧へ</a>
+
+  → コンテキストパスが /myapp なら、/myapp/item/list になる
+
+【パスにID等の値を含める方法 ― 2通りある】
+
+  [方法1] 文字列結合（+ で繋げる）
+
+    <a th:href="@{/item/detail/} + ${item.itemId}">詳細</a>
+    → /item/detail/123 のようなURLになる
+
+  [方法2] パスパラメータ形式（{}で囲む）
+
+    <a th:href="@{/item/detail/{id}(id=${item.itemId})}">詳細</a>
+    → {}内の変数名と ()内の変数名が一致する
+
+  [方法3] クエリパラメータ形式（GETのパラメータとして付加）
+
+    <a th:href="@{/item/detail(id=${item.itemId})}">詳細</a>
+    → /item/detail?id=123 のようなURLになる
+
+【複数のパラメータを付ける場合】
+
+  <a th:href="@{/item/list(page=${page}, size=${size})}">次のページ</a>
+  → /item/list?page=2&size=10 のようになる
+
+【実用例：編集ボタン】
+
+  コントローラのパス "/admin/menuitem/modify/{menuitemId}" に対して
+
+  <a th:href="@{/admin/menuitem/modify/} + ${menuitem.menuitemId}">編集</a>
+
+  → menuitemId = 5 なら /admin/menuitem/modify/5 というURLになる
+
+
+────────────────────────────────────────────────────────
+21. 個別画面をレイアウトテンプレートに埋め込む（th:replace）
+────────────────────────────────────────────────────────
+
+【レイアウトテンプレートとは何か？】
+
+Webアプリでは、ヘッダーやフッター、サイドバーなどが全ページ共通です。
+これらを毎ページに書くと、修正のたびに全ページ直さなければなりません。
+
+そこで「レイアウトテンプレート」として共通部分を1つのHTMLファイルにまとめ、
+各ページはテンプレートに「はめ込む」形で作ります。
+
+【3種類のHTMLファイル】
+
+  [1] レイアウトテンプレート（layout.html）
+      → ヘッダー、フッター、ナビなど共通部分 + 個別コンテンツの「穴」がある
+
+  [2] 共通部品（_header.html など）
+      → ヘッダーなど、複数ページで使う共通HTMLの断片
+
+  [3] 個別部品（top.html、list.html など）
+      → 各ページのコンテンツ。レイアウトテンプレートを使って組み込む
+
+【th:replace の使い方】
+
+レイアウトテンプレート側で「置き換え可能な穴」を作ります：
+
+  <!-- layout.html（レイアウトテンプレート）-->
+  <html>
+    <body>
+      <header>共通ヘッダー</header>
+
+      <!-- ここに個別コンテンツが入る -->
+      <article th:replace="${body}"></article>
+
+      <footer>共通フッター</footer>
+    </body>
+  </html>
+
+個別部品側では、レイアウトテンプレートを使って自分のコンテンツを定義します：
+
+  <!-- top.html（個別部品）-->
+  <html th:replace="~{layout :: layout(body=~{::article})}">
+    <article>
+      <h1>トップページ</h1>
+      <p>ようこそ！</p>
+    </article>
+  </html>
+
+【th:replace のポイント】
+
+  th:replace  → そのタグ自体を、指定した内容で「完全に置き換える」
+  th:insert   → そのタグの中に、指定した内容を「挿入する」（タグ自体は残る）
+
+  Thymeleaf Layout Dialect を使う場合は書き方が変わることがあります。
+  使用するバージョンや設定によって詳細を確認してください。
+
+【このアプローチのメリット】
+
+  ・ヘッダーやフッターを1か所で管理できる
+  ・デザイン変更時にレイアウトテンプレートだけ直せばよい
+  ・ページ数が増えても保守性が高い
+
+
+================================================================
+  まとめ ― 試験直前チェックポイント
+================================================================
+
+【1章】@RequestMapping
+□ path= は省略可
+□ 戻り値の String がビュー名（.html 不要）
+□ パス先頭の / はコンテキストパスに置換される
+
+【2章】application.properties
+□ server.servlet.context-path= でコンテキストパス設定
+□ server.port= でポート番号設定
+□ spring.thymeleaf.cache=false でキャッシュ無効化
+
+【3章】Thymeleaf
+□ <html xmlns:th="..."> の宣言が必須
+□ th:text で値の出力、th:each でリストの繰り返し
+□ ${} でスコープからデータを取得
+
+【4章】GET と POST
+□ GET → URLにデータが付く、検索・閲覧向け
+□ POST → URLに付かない、登録・ログイン向け
+
+【5章】@GetMapping / @PostMapping
+□ フォームの method と コントローラのアノテーションを一致させる
+□ method 未指定は GET になる
+
+【6章】フォームクラス
+□ フォームクラスにはアノテーション不要（クラス自体に）
+□ フィールド名と <input> の name を合わせる
+□ getter / setter が必須
+
+【7・8章】セッションスコープ
+□ HttpSession を import してメソッド引数に追加
+□ setAttribute("キー名", 値) でキー名が必須
+□ invalidate() でセッション破棄
+
+【9章】Thymeleafでセッション参照
+□ ${session.キー名} でアクセス
+□ ${session.キー名.フィールド名} でフィールドにアクセス
+
+【10章】シーケンスアノテーション
+□ @Id → 主キーを示す
+□ @GeneratedValue → 自動生成の設定
+□ @SequenceGenerator → シーケンスの詳細設定
+□ name と generator の名前を統一させる
+
+【11章】DB保存
+□ new エンティティ() → オブジェクト作成
+□ BeanUtils.copyProperties(元, 先, "除外フィールド") → コピー
+□ repository.save(エンティティ) → DB保存
+
+【12章】外部参照
+□ @ManyToOne → 多対1の関係
+□ @JoinColumn(name="DBの列名", referencedColumnName="Javaフィールド名")
+
+【13・14・15章】JPQL
+□ テーブル名でなくエンティティ名を使う
+□ 別名（エイリアス）が必須
+□ @Query + @Param でパラメータバインド
+□ 特定列取得は SELECT new エンティティ名(...)
+
+【16章】バリデーション
+□ フォームクラスのフィールドにアノテーションを付ける
+□ コントローラ引数に @Validated と BindingResult を追加
+
+【17・18章】メッセージリソース
+□ ValidationMessages.properties → Bean Validation のエラーメッセージ
+□ messages.properties → 画面ラベルや汎用メッセージ
+□ {0} でフィールド名の埋め込みが可能
+
+【19章】th:each
+□ th:each="変数名 : ${リスト名}" で繰り返し
+□ th:text="${変数名.フィールド名}" で各値を表示
+
+【20章】リンク式 @{}
+□ @{パス} でコンテキストパスを自動補完
+□ @{/path/} + ${param} または @{/path/{id}(id=${param})} でパラメータ付きURL
+
+【21章】レイアウトテンプレート
+□ th:replace で指定範囲を完全置換
+□ 共通レイアウト + 個別コンテンツの「はめ込み」構造
+
+================================================================
