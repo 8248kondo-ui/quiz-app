@@ -4391,7 +4391,7 @@ const questionDatabase = [
             "method属性を省略しているため、このメソッドは実行されない。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。@RequestMappingはコントローラクラスのメソッド（またはクラス）に付与し、指定したURLからのリクエストと処理メソッドを紐づけるためのアノテーションです。",
         "category": "総合問題"
     },
     {
@@ -4404,7 +4404,7 @@ const questionDatabase = [
             "http://localhost:8080/hello"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。server.portでポート番号（例:8081）を、server.servlet.context-pathでアプリケーションのルートURL（例:/sample）を設定します。そのためアクセスURLは「http://localhost:8081/sample/...」となります。",
         "category": "総合問題"
     },
     {
@@ -4417,7 +4417,7 @@ const questionDatabase = [
             "Thymeleafを使用するには、web.xmlにViewResolverを手動で定義しなければならない。"
         ],
         "answer": 3,
-        "explanation": "正解は4番です。",
+        "explanation": "正解は4番です。\n\n【解説】\n正解の通りです。Thymeleafを利用するにはHTMLの<html>タグに「xmlns:th=\"http://www.thymeleaf.org\"」を宣言する必要があります。これにより「th:」から始まる専用の属性が使用可能になります。",
         "category": "総合問題"
     },
     {
@@ -4430,7 +4430,7 @@ const questionDatabase = [
             "http://localhost:8080/shop/product/register?method=post"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。Thymeleafのリンク式「@{/パス}」を使用すると、application.propertiesで設定したコンテキストパス（例:/ecや/shopなど）が自動的にURLの先頭に補完されます。",
         "category": "総合問題"
     },
     {
@@ -4443,7 +4443,7 @@ const questionDatabase = [
             "method 属性を省略すると、GETリクエストのみ受け付けるようになる。"
         ],
         "answer": 3,
-        "explanation": "正解は4番です。",
+        "explanation": "正解は4番です。\n\n【解説】\n正解の通りです。POSTリクエストを受け取るには、@PostMapping(\"/パス\")、または @RequestMapping(value=\"/パス\", method=RequestMethod.POST) を使用します。",
         "category": "総合問題"
     },
     {
@@ -4456,7 +4456,7 @@ const questionDatabase = [
             "----------"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。HTMLフォームから送信された値を受け取るフォームクラスのフィールド名は、HTML側のname属性と完全に一致している必要があります。また、値をセット・取得するためのgetterとsetterが必須です。",
         "category": "総合問題"
     },
     {
@@ -4469,7 +4469,7 @@ const questionDatabase = [
             "@SessionScope を付与すると、ブラウザを閉じるたびに自動的にセッションが削除される。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。@SessionScopeをコントローラクラスやBeanに付与することで、そのインスタンスはユーザー（セッション）ごとに個別に管理・保持されるようになります。",
         "category": "総合問題"
     },
     {
@@ -4482,7 +4482,7 @@ const questionDatabase = [
             "session.setAttribute で保存した値は、同一リクエスト内でのみ参照可能である。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。セッションスコープに手動で値を保存する場合、メソッドの引数にHttpSessionを受け取り、session.setAttribute(\"キー名\", 値) のように記述して保存します。",
         "category": "総合問題"
     },
     {
@@ -4495,7 +4495,7 @@ const questionDatabase = [
             "<p th:text=\"#{loginUser}\">表示エリア</p>"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。Thymeleafの変数式内でセッションスコープの値にアクセスするには、「${session.キー名}」のように「session.」をプレフィックスとして付けて参照します。",
         "category": "総合問題"
     },
     {
@@ -4508,7 +4508,7 @@ const questionDatabase = [
             "@SequenceGenerator を使用すると、@Id の指定は不要になる。"
         ],
         "answer": 3,
-        "explanation": "正解は4番です。",
+        "explanation": "正解は4番です。\n\n【解説】\n正解の通りです。主キー（@Id）をDBのシーケンスで自動生成させるには、@SequenceGeneratorでシーケンス定義の名前（name）とDB上のシーケンス名（sequenceName）を指定し、@GeneratedValueのgenerator属性にそのnameを紐づけます。",
         "category": "総合問題"
     },
     {
@@ -4521,7 +4521,7 @@ const questionDatabase = [
             "(C) IDに固定値をセットすると、新規登録か更新かの判定がIDの有無で行われるため、意図しない更新が発生する可能性がある。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。Spring Data JPAで新規登録を行う場合、対象となるエンティティクラスをnewで生成し、必要な値をセットしたうえで、リポジトリの save() メソッドに渡します。",
         "category": "総合問題"
     },
     {
@@ -4534,7 +4534,7 @@ const questionDatabase = [
             "@JoinColumn を省略すると、外部キー列が自動的に削除される。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。@ManyToOneは「多対1」の関連を示します。@JoinColumnのname属性には、自身のテーブルが持つ「外部キーの列名（カラム名）」を指定してリレーションを構築します。",
         "category": "総合問題"
     },
     {
@@ -4547,7 +4547,7 @@ const questionDatabase = [
             "SELECT p FROM Product p WHERE p.category = :category"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。",
+        "explanation": "正解は3番です。\n\n【解説】\n正解の通りです。JPQLはテーブル名ではなく「エンティティクラス名」、カラム名ではなく「エンティティのフィールド名」を使ってクエリを記述します。FROM句にはエンティティクラス名を正確に記述する必要があります。",
         "category": "総合問題"
     },
     {
@@ -4560,7 +4560,7 @@ const questionDatabase = [
             "@QueryMapping(\"SELECT p FROM Product p WHERE p.categoryId = :categoryId\")"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。リポジトリのインターフェース内で任意のJPQLを実行したい場合は、対象のメソッドに @Query(\"JPQL文\") アノテーションを付与して記述します。",
         "category": "総合問題"
     },
     {
@@ -4573,7 +4573,7 @@ const questionDatabase = [
             "ProductDto のコンストラクタに引数を渡す必要はなく、フィールドは自動的にマッピングされる。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。特定のフィールドのみを取得してDTOに格納する場合、JPQLのSELECT句で「SELECT new パッケージ名.DTOクラス名(e.id, e.name) FROM ...」のようにコンストラクタ式を用います。",
         "category": "総合問題"
     },
     {
@@ -4586,7 +4586,7 @@ const questionDatabase = [
             "@NotNull は String 型専用のアノテーションであり、Integer 型には使用できない。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。Integer等のオブジェクト型（ラッパークラス）に対して必須入力を課す場合は @NotNull を使用します。送信されなかった場合はnullとなるためこれで検知できます（@NotBlankは文字列専用です）。",
         "category": "総合問題"
     },
     {
@@ -4599,7 +4599,7 @@ const questionDatabase = [
             "error.required -> 入力必須です。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。メッセージリソース（propertiesファイル）は「キー名=メッセージ内容」の形式で記述します。動的な値を入れる部分は「{0}」や「{1}」のようなプレースホルダーを使います。",
         "category": "総合問題"
     },
     {
@@ -4612,7 +4612,7 @@ const questionDatabase = [
             "NotBlank={0}を入力してください。ただしitemNameに限る。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。ValidationMessages.propertiesにおいて「NotBlank={0}は必須入力項目です。」と定義しておくと、{0}の部分にアノテーション側等で指定した項目名（フィールド名など）が自動で埋め込まれます。",
         "category": "総合問題"
     },
     {
@@ -4625,7 +4625,7 @@ const questionDatabase = [
             "th:each で使うコレクションは List 型のみ対応しており、配列は利用できない。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。th:eachのステータス変数（例: st）の「index」プロパティは0から始まる現在の反復インデックスを返し、「count」プロパティは1から始まる現在の反復回数を返します。",
         "category": "総合問題"
     },
     {
@@ -4638,7 +4638,7 @@ const questionDatabase = [
             "th:href では @{} は使用できず、${} で直接URLを組み立てる必要がある。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。リンク式の中でURLパラメータ（クエリ文字列）を付与する場合は、「@{/path(キー=値)}」のようにカッコ()を使って記述します。これにより /path?キー=値 の形に展開されます。",
         "category": "総合問題"
     },
     {
@@ -4651,7 +4651,7 @@ const questionDatabase = [
             "th:fragment と layout:fragment は同一のアノテーションであり、どちらを使っても動作は変わらない。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。Thymeleaf Layout Dialectでは、共通レイアウト側に「layout:fragment=\"名前\"」を定義し、個別画面側では <html> タグ等に「layout:decorate=\"~{レイアウトファイル}\"」を指定することで、フラグメント部分が埋め込まれます。",
         "category": "総合問題"
     },
     {
@@ -4664,7 +4664,7 @@ const questionDatabase = [
             "@RequestMapping はサービスクラスに付与するアノテーションであり、コントローラクラスには使用できない。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。@RequestMappingはコントローラクラスのメソッド（またはクラス）に付与し、指定したURLからのリクエストと処理メソッドを紐づけるためのアノテーションです。",
         "category": "総合問題"
     },
     {
@@ -4677,7 +4677,7 @@ const questionDatabase = [
             "context-path の設定はURLには影響しないため「http://localhost:8081/top」と「http://localhost:8081/sample/top」はどちらでもアクセスできる。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。server.portでポート番号（例:8081）を、server.servlet.context-pathでアプリケーションのルートURL（例:/sample）を設定します。そのためアクセスURLは「http://localhost:8081/sample/...」となります。",
         "category": "総合問題"
     },
     {
@@ -4690,7 +4690,7 @@ const questionDatabase = [
             "Thymeleafを利用するためには、コントローラクラスに @ThymeleafEnabled アノテーションを付与する必要がある。"
         ],
         "answer": 3,
-        "explanation": "正解は4番です。",
+        "explanation": "正解は4番です。\n\n【解説】\n正解の通りです。Thymeleafを利用するにはHTMLの<html>タグに「xmlns:th=\"http://www.thymeleaf.org\"」を宣言する必要があります。これにより「th:」から始まる専用の属性が使用可能になります。",
         "category": "総合問題"
     },
     {
@@ -4703,7 +4703,7 @@ const questionDatabase = [
             "http://localhost:8080/ec/cart/add?method=post"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。Thymeleafのリンク式「@{/パス}」を使用すると、application.propertiesで設定したコンテキストパス（例:/ecや/shopなど）が自動的にURLの先頭に補完されます。",
         "category": "総合問題"
     },
     {
@@ -4716,7 +4716,7 @@ const questionDatabase = [
             "POSTリクエストを受け取るメソッドの引数にフォームクラスを指定すると、送信値が自動でセットされる。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。POSTリクエストを受け取るには、@PostMapping(\"/パス\")、または @RequestMapping(value=\"/パス\", method=RequestMethod.POST) を使用します。",
         "category": "総合問題"
     },
     {
@@ -4729,7 +4729,7 @@ const questionDatabase = [
             "フォームクラスのフィールドは public で宣言し、getter/setter は不要である。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。HTMLフォームから送信された値を受け取るフォームクラスのフィールド名は、HTML側のname属性と完全に一致している必要があります。また、値をセット・取得するためのgetterとsetterが必須です。",
         "category": "総合問題"
     },
     {
@@ -4742,7 +4742,7 @@ const questionDatabase = [
             "@SessionScope を付与すると、cartForm の値はリクエストのたびにリセットされる。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。@SessionScopeをコントローラクラスやBeanに付与することで、そのインスタンスはユーザー（セッション）ごとに個別に管理・保持されるようになります。",
         "category": "総合問題"
     },
     {
@@ -4755,7 +4755,7 @@ const questionDatabase = [
             "セッションスコープへの保存は、コントローラのフィールドに値を代入するだけで自動的に行われる。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。セッションスコープに手動で値を保存する場合、メソッドの引数にHttpSessionを受け取り、session.setAttribute(\"キー名\", 値) のように記述して保存します。",
         "category": "総合問題"
     },
     {
@@ -4768,7 +4768,7 @@ const questionDatabase = [
             "<p th:text=\"@{userId}\">ユーザーID</p>"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。Thymeleafの変数式内でセッションスコープの値にアクセスするには、「${session.キー名}」のように「session.」をプレフィックスとして付けて参照します。",
         "category": "総合問題"
     },
     {
@@ -4781,7 +4781,7 @@ const questionDatabase = [
             "@Id を付与したフィールドには @GeneratedValue を付与できない。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。主キー（@Id）をDBのシーケンスで自動生成させるには、@SequenceGeneratorでシーケンス定義の名前（name）とDB上のシーケンス名（sequenceName）を指定し、@GeneratedValueのgenerator属性にそのnameを紐づけます。",
         "category": "総合問題"
     },
     {
@@ -4794,7 +4794,7 @@ const questionDatabase = [
             "save() を呼ぶ前に、リポジトリに対して insert() メソッドを呼び出す。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。Spring Data JPAで新規登録を行う場合、対象となるエンティティクラスをnewで生成し、必要な値をセットしたうえで、リポジトリの save() メソッドに渡します。",
         "category": "総合問題"
     },
     {
@@ -4807,7 +4807,7 @@ const questionDatabase = [
             "@ManyToOne を付与したフィールドの型は、String 型でなければならない。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。@ManyToOneは「多対1」の関連を示します。@JoinColumnのname属性には、自身のテーブルが持つ「外部キーの列名（カラム名）」を指定してリレーションを構築します。",
         "category": "総合問題"
     },
     {
@@ -4820,7 +4820,7 @@ const questionDatabase = [
             "SELECT e FROM Employee e WHERE e.id = :id"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。",
+        "explanation": "正解は2番です。\n\n【解説】\n正解の通りです。JPQLはテーブル名ではなく「エンティティクラス名」、カラム名ではなく「エンティティのフィールド名」を使ってクエリを記述します。FROM句にはエンティティクラス名を正確に記述する必要があります。",
         "category": "総合問題"
     },
     {
@@ -4833,7 +4833,7 @@ const questionDatabase = [
             "@NamedQuery(query = \"SELECT e FROM Employee e WHERE e.department = :dept\")"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。リポジトリのインターフェース内で任意のJPQLを実行したい場合は、対象のメソッドに @Query(\"JPQL文\") アノテーションを付与して記述します。",
         "category": "総合問題"
     },
     {
@@ -4846,7 +4846,7 @@ const questionDatabase = [
             "SELECT COLUMNS(id, name) FROM Employee e"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。特定のフィールドのみを取得してDTOに格納する場合、JPQLのSELECT句で「SELECT new パッケージ名.DTOクラス名(e.id, e.name) FROM ...」のようにコンストラクタ式を用います。",
         "category": "総合問題"
     },
     {
@@ -4859,7 +4859,7 @@ const questionDatabase = [
             "Integer 型に @NotNull は付与できない。使用するには long 型に変更する必要がある。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。Integer等のオブジェクト型（ラッパークラス）に対して必須入力を課す場合は @NotNull を使用します。送信されなかった場合はnullとなるためこれで検知できます（@NotBlankは文字列専用です）。",
         "category": "総合問題"
     },
     {
@@ -4872,7 +4872,7 @@ const questionDatabase = [
             "<message id=\"greeting.message\">こんにちは、{0}さん！</message>"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。メッセージリソース（propertiesファイル）は「キー名=メッセージ内容」の形式で記述します。動的な値を入れる部分は「{0}」や「{1}」のようなプレースホルダーを使います。",
         "category": "総合問題"
     },
     {
@@ -4885,7 +4885,7 @@ const questionDatabase = [
             "NotBlank -> {0}は必須入力項目です。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。ValidationMessages.propertiesにおいて「NotBlank={0}は必須入力項目です。」と定義しておくと、{0}の部分にアノテーション側等で指定した項目名（フィールド名など）が自動で埋め込まれます。",
         "category": "総合問題"
     },
     {
@@ -4898,7 +4898,7 @@ const questionDatabase = [
             "th:each のステータス変数で使えるのは index のみである。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。th:eachのステータス変数（例: st）の「index」プロパティは0から始まる現在の反復インデックスを返し、「count」プロパティは1から始まる現在の反復回数を返します。",
         "category": "総合問題"
     },
     {
@@ -4911,7 +4911,7 @@ const questionDatabase = [
             "@{} 内で ${} は使えないため、このコードはエラーになる。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。リンク式の中でURLパラメータ（クエリ文字列）を付与する場合は、「@{/path(キー=値)}」のようにカッコ()を使って記述します。これにより /path?キー=値 の形に展開されます。",
         "category": "総合問題"
     },
     {
@@ -4924,7 +4924,7 @@ const questionDatabase = [
             "layout:fragment と th:fragment はどちらを使っても同じ動作になる。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。Thymeleaf Layout Dialectでは、共通レイアウト側に「layout:fragment=\"名前\"」を定義し、個別画面側では <html> タグ等に「layout:decorate=\"~{レイアウトファイル}\"」を指定することで、フラグメント部分が埋め込まれます。",
         "category": "総合問題"
     },
     {
@@ -4937,7 +4937,7 @@ const questionDatabase = [
             "クラスとメソッドの両方に @RequestMapping を付与すると、クラス側の指定は無効になりメソッド側の value のみが有効になる。"
         ],
         "answer": 3,
-        "explanation": "正解は4番です。",
+        "explanation": "正解は4番です。\n\n【解説】\n正解の通りです。@RequestMappingはコントローラクラスのメソッド（またはクラス）に付与し、指定したURLからのリクエストと処理メソッドを紐づけるためのアノテーションです。",
         "category": "総合問題"
     },
     {
@@ -4950,7 +4950,7 @@ const questionDatabase = [
             "http://localhost:9000/store/detail"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。server.portでポート番号（例:8081）を、server.servlet.context-pathでアプリケーションのルートURL（例:/sample）を設定します。そのためアクセスURLは「http://localhost:8081/sample/...」となります。",
         "category": "総合問題"
     },
     {
@@ -4963,7 +4963,7 @@ const questionDatabase = [
             "コントローラから \"pageTitle\" という名前で値を渡すと、title タグの内容がその値で上書きされる。"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。",
+        "explanation": "正解は3番です。\n\n【解説】\n正解の通りです。Thymeleafを利用するにはHTMLの<html>タグに「xmlns:th=\"http://www.thymeleaf.org\"」を宣言する必要があります。これにより「th:」から始まる専用の属性が使用可能になります。",
         "category": "総合問題"
     },
     {
@@ -4976,7 +4976,7 @@ const questionDatabase = [
             "GET  http://localhost:8080/shop/order/confirm?itemId=3"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。Thymeleafのリンク式「@{/パス}」を使用すると、application.propertiesで設定したコンテキストパス（例:/ecや/shopなど）が自動的にURLの先頭に補完されます。",
         "category": "総合問題"
     },
     {
@@ -4989,7 +4989,7 @@ const questionDatabase = [
             "model.addAttribute(\"name\", form.getName()) により、フォームに入力された name の値をビューに渡している。"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。",
+        "explanation": "正解は3番です。\n\n【解説】\n正解の通りです。POSTリクエストを受け取るには、@PostMapping(\"/パス\")、または @RequestMapping(value=\"/パス\", method=RequestMethod.POST) を使用します。",
         "category": "総合問題"
     },
     {
@@ -5002,7 +5002,7 @@ const questionDatabase = [
             "ReviewForm に @FormObject アノテーションを付与しなければ、コントローラの引数として使用できない。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。HTMLフォームから送信された値を受け取るフォームクラスのフィールド名は、HTML側のname属性と完全に一致している必要があります。また、値をセット・取得するためのgetterとsetterが必須です。",
         "category": "総合問題"
     },
     {
@@ -5015,7 +5015,7 @@ const questionDatabase = [
             "パターンBの session.setAttribute は、セッションではなくリクエストスコープに値を保存する。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。@SessionScopeをコントローラクラスやBeanに付与することで、そのインスタンスはユーザー（セッション）ごとに個別に管理・保持されるようになります。",
         "category": "総合問題"
     },
     {
@@ -5028,7 +5028,7 @@ const questionDatabase = [
             "リダイレクト後のリクエストでは新たなリクエストスコープが生成されるため、model.addAttribute の値はリダイレクト先では参照できない。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。",
+        "explanation": "正解は2番です。\n\n【解説】\n正解の通りです。セッションスコープに手動で値を保存する場合、メソッドの引数にHttpSessionを受け取り、session.setAttribute(\"キー名\", 値) のように記述して保存します。",
         "category": "総合問題"
     },
     {
@@ -5041,7 +5041,7 @@ const questionDatabase = [
             "セッションスコープの値はThymeleafから直接参照できないため、このコードはエラーになる。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。Thymeleafの変数式内でセッションスコープの値にアクセスするには、「${session.キー名}」のように「session.」をプレフィックスとして付けて参照します。",
         "category": "総合問題"
     },
     {
@@ -5054,7 +5054,7 @@ const questionDatabase = [
             "@GeneratedValue の strategy = GenerationType.SEQUENCE はシーケンスを使った主キー自動生成を意味する。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。",
+        "explanation": "正解は2番です。\n\n【解説】\n正解の通りです。主キー（@Id）をDBのシーケンスで自動生成させるには、@SequenceGeneratorでシーケンス定義の名前（name）とDB上のシーケンス名（sequenceName）を指定し、@GeneratedValueのgenerator属性にそのnameを紐づけます。",
         "category": "総合問題"
     },
     {
@@ -5067,7 +5067,7 @@ const questionDatabase = [
             "(E) save() を呼ぶ前に IDが設定されているため、新規登録ではなく更新処理として実行される場合がある。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。Spring Data JPAで新規登録を行う場合、対象となるエンティティクラスをnewで生成し、必要な値をセットしたうえで、リポジトリの save() メソッドに渡します。",
         "category": "総合問題"
     },
     {
@@ -5080,7 +5080,7 @@ const questionDatabase = [
             "OrderItem を save() するとき、order と product フィールドにエンティティオブジェクトをセットすることで外部キーが保存される。"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。",
+        "explanation": "正解は3番です。\n\n【解説】\n正解の通りです。@ManyToOneは「多対1」の関連を示します。@JoinColumnのname属性には、自身のテーブルが持つ「外部キーの列名（カラム名）」を指定してリレーションを構築します。",
         "category": "総合問題"
     },
     {
@@ -5093,7 +5093,7 @@ const questionDatabase = [
             "SELECT o FROM Order o WHERE o.status = :status ORDER BY o.createdAt DESC"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。",
+        "explanation": "正解は3番です。\n\n【解説】\n正解の通りです。JPQLはテーブル名ではなく「エンティティクラス名」、カラム名ではなく「エンティティのフィールド名」を使ってクエリを記述します。FROM句にはエンティティクラス名を正確に記述する必要があります。",
         "category": "総合問題"
     },
     {
@@ -5106,7 +5106,7 @@ const questionDatabase = [
             "@Query はリポジトリインターフェースではなく、エンティティクラスに付与する必要がある。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。リポジトリのインターフェース内で任意のJPQLを実行したい場合は、対象のメソッドに @Query(\"JPQL文\") アノテーションを付与して記述します。",
         "category": "総合問題"
     },
     {
@@ -5119,7 +5119,7 @@ const questionDatabase = [
             "戻り値型が List<ProductSummary> であるため、複数件取得した結果がリストで返される。"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。",
+        "explanation": "正解は3番です。\n\n【解説】\n正解の通りです。特定のフィールドのみを取得してDTOに格納する場合、JPQLのSELECT句で「SELECT new パッケージ名.DTOクラス名(e.id, e.name) FROM ...」のようにコンストラクタ式を用います。",
         "category": "総合問題"
     },
     {
@@ -5132,7 +5132,7 @@ const questionDatabase = [
             "@Min(value = 1) は @NotNull を含んでいるため、quantity2 が null でもバリデーションエラーにならない。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。Integer等のオブジェクト型（ラッパークラス）に対して必須入力を課す場合は @NotNull を使用します。送信されなかった場合はnullとなるためこれで検知できます（@NotBlankは文字列専用です）。",
         "category": "総合問題"
     },
     {
@@ -5145,7 +5145,7 @@ const questionDatabase = [
             "th:text=\"#{...}\" ではなく th:text=\"${...}\" でなければ messages.properties の値を参照できない。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。メッセージリソース（propertiesファイル）は「キー名=メッセージ内容」の形式で記述します。動的な値を入れる部分は「{0}」や「{1}」のようなプレースホルダーを使います。",
         "category": "総合問題"
     },
     {
@@ -5158,7 +5158,7 @@ const questionDatabase = [
             "このメッセージキーはリポジトリクラスに定義しなければ有効にならない。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。ValidationMessages.propertiesにおいて「NotBlank={0}は必須入力項目です。」と定義しておくと、{0}の部分にアノテーション側等で指定した項目名（フィールド名など）が自動で埋め込まれます。",
         "category": "総合問題"
     },
     {
@@ -5171,7 +5171,7 @@ const questionDatabase = [
             "pStat.last は最後の要素のとき false を返す。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。th:eachのステータス変数（例: st）の「index」プロパティは0から始まる現在の反復インデックスを返し、「count」プロパティは1から始まる現在の反復回数を返します。",
         "category": "総合問題"
     },
     {
@@ -5184,7 +5184,7 @@ const questionDatabase = [
             "リンクAとリンクBはどちらも同じURL「/item/detail?id=7&category=food」になる。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。",
+        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。リンク式の中でURLパラメータ（クエリ文字列）を付与する場合は、「@{/path(キー=値)}」のようにカッコ()を使って記述します。これにより /path?キー=値 の形に展開されます。",
         "category": "総合問題"
     },
     {
@@ -5197,7 +5197,7 @@ const questionDatabase = [
             "個別画面に layout:decorate を記述することで、レイアウトテンプレートを使ったレイアウト合成が行われる。"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。",
+        "explanation": "正解は3番です。\n\n【解説】\n正解の通りです。Thymeleaf Layout Dialectでは、共通レイアウト側に「layout:fragment=\"名前\"」を定義し、個別画面側では <html> タグ等に「layout:decorate=\"~{レイアウトファイル}\"」を指定することで、フラグメント部分が埋め込まれます。",
         "category": "総合問題"
     }
 ];
