@@ -308,7 +308,11 @@ document.addEventListener('DOMContentLoaded', () => {
         currentQuestionIndex = 0;
         wrongQuestions = []; // 不正解リストをリセット
         
-        currentQuizDate.textContent = set.date;
+        if (/^\d+\/\d+$/.test(set.date)) {
+            currentQuizDate.textContent = `${set.date}確認問題`;
+        } else {
+            currentQuizDate.textContent = set.date;
+        }
         switchView('quiz');
         initQuiz();
     }
