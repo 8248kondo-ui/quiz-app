@@ -4706,11 +4706,6 @@ const dailySets = [
         ]
     },
     {
-        "date": "java総合試験_基礎版２",
-        "title": "java総合試験_基礎版２",
-        "questions": []
-    },
-    {
         "date": "java総合試験_応用版",
         "title": "java総合試験_応用版",
         "questions": [
@@ -4730,7 +4725,6 @@ const dailySets = [
             224,
             225,
             226,
-            227,
             228,
             229,
             230,
@@ -4863,15 +4857,6 @@ const dailySets = [
         "date": "5/21",
         "title": "JavaSpring確認試験 (5/21)",
         "questions": [
-            395,
-            396,
-            397,
-            398,
-            399,
-            400,
-            401,
-            402,
-            403,
             404,
             405,
             406,
