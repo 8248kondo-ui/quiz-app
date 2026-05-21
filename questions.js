@@ -12,7 +12,7 @@ const questionDatabase = [
             "データを「オブジェクト」として管理し、プログラムの変数と直接対応させて保存するデータベースである。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nRDB（リレーショナルデータベース）は、データを「テーブル（表）」の形式で管理し、複数のテーブルを関連付けて扱うのが最大の特徴です。木構造は階層型、キーと値はKVS型のデータベースです。",
+        "explanation": "RDB（リレーショナルデータベース）は、データを「テーブル（表）」の形式で管理し、複数のテーブルを関連付けて扱うのが最大の特徴です。木構造は階層型、キーと値はKVS型のデータベースです。",
         "category": "Oracle"
     },
     {
@@ -25,7 +25,7 @@ const questionDatabase = [
             "スキーマとオブジェクトは全く同じものを指す用語であり、データベースの製品によって呼び方が異なるだけである。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nスキーマはユーザーが所有するテーブルなどの「枠組み（入れ物）」を指し、テーブルやビューなどの個別の要素がオブジェクトと呼ばれます。",
+        "explanation": "スキーマはユーザーが所有するテーブルなどの「枠組み（入れ物）」を指し、テーブルやビューなどの個別の要素がオブジェクトと呼ばれます。",
         "category": "Oracle"
     },
     {
@@ -38,7 +38,7 @@ const questionDatabase = [
             "SELECT、INSERT、UPDATE、DELETEなど、テーブル内のデータそのものを検索・変更するための命令群である。"
         ],
         "answer": 3,
-        "explanation": "正解は4番です。\nDML（Data Manipulation Language）は、データの検索や変更（SELECT, INSERT, UPDATE, DELETE）を行う命令です。CREATEなどはDDL、GRANTなどはDCLに分類されます。",
+        "explanation": "DML（Data Manipulation Language）は、データの検索や変更（SELECT, INSERT, UPDATE, DELETE）を行う命令です。CREATEなどはDDL、GRANTなどはDCLに分類されます。",
         "category": "Oracle"
     },
     {
@@ -51,7 +51,7 @@ const questionDatabase = [
             "新規に作成されたデータベースユーザーには、最初から自動的にすべてのテーブルに対する完全な操作権限が付与される。"
         ],
         "answer": 3,
-        "explanation": "正解は4番です。\n新規作成されたユーザーにはデフォルトで何の権限も付与されていません。必要な操作を行うには、管理者から明示的にGRANT文で権限を付与してもらう必要があります。",
+        "explanation": "新規作成されたユーザーにはデフォルトで何の権限も付与されていません。必要な操作を行うには、管理者から明示的にGRANT文で権限を付与してもらう必要があります。",
         "category": "Oracle"
     },
     {
@@ -64,7 +64,7 @@ const questionDatabase = [
             "EMPLOYEESテーブルの所有者をUSER_Aに変更し、テーブルに対するすべての権限を移譲する。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nGRANT文は権限を付与する命令です。「GRANT 権限 ON オブジェクト TO ユーザー」の構文になり、この場合は「EMPLOYEESテーブルをSELECT（閲覧）する権限」をUSER_Aに与えています。",
+        "explanation": "GRANT文は権限を付与する命令です。「GRANT 権限 ON オブジェクト TO ユーザー」の構文になり、この場合は「EMPLOYEESテーブルをSELECT（閲覧）する権限」をUSER_Aに与えています。",
         "category": "Oracle"
     },
     {
@@ -77,7 +77,7 @@ const questionDatabase = [
             "テーブル内の各行を識別するための制約であり、数値型の列にしか設定することができず、文字型の列には設定できない。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\n主キー（Primary Key）は行を一意に特定するための制約です。そのため、値の重複は一切許されず、またNULL（空）のままデータを登録することもできません。",
+        "explanation": "主キー（Primary Key）は行を一意に特定するための制約です。そのため、値の重複は一切許されず、またNULL（空）のままデータを登録することもできません。",
         "category": "Oracle"
     },
     {
@@ -90,7 +90,7 @@ const questionDatabase = [
             "特定の条件を満たす行のみをテーブルに入力できるように、その列に格納できる値の範囲や文字の種類をあらかじめ制限する。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\n外部キー制約（Foreign Key）は、別のテーブルに存在する値しか入力できないように制限する制約です。これにより、存在しない部署IDなどが登録されるのを防ぎ、データの一貫性を保ちます。",
+        "explanation": "外部キー制約（Foreign Key）は、別のテーブルに存在する値しか入力できないように制限する制約です。これにより、存在しない部署IDなどが登録されるのを防ぎ、データの一貫性を保ちます。",
         "category": "Oracle"
     },
     {
@@ -103,7 +103,7 @@ const questionDatabase = [
             "INSERT INTO EMPLOYEES (EMP_ID, NAME, SALARY) SET (1, '田中', 300000);"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nテーブルに新しい行を追加するには「INSERT INTO テーブル名 VALUES (値...)」を使用します。列を指定する場合は「INSERT INTO テーブル名 (列1...) VALUES (値1...)」の形式になります。",
+        "explanation": "テーブルに新しい行を追加するには「INSERT INTO テーブル名 VALUES (値...)」を使用します。列を指定する場合は「INSERT INTO テーブル名 (列1...) VALUES (値1...)」の形式になります。",
         "category": "Oracle"
     },
     {
@@ -116,7 +116,7 @@ const questionDatabase = [
             "SEARCH * FROM EMPLOYEES;"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\nすべての列を取得する場合は「*（アスタリスク）」を使用します。「SELECT * FROM テーブル名」と記述することで、全データを確認できます。",
+        "explanation": "すべての列を取得する場合は「*（アスタリスク）」を使用します。「SELECT * FROM テーブル名」と記述することで、全データを確認できます。",
         "category": "Oracle"
     },
     {
@@ -129,7 +129,7 @@ const questionDatabase = [
             "WHERE句が指定されていないため、実行時にエラーとなり何も処理されない。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nUPDATE文はデータの更新を行いますが、WHERE句で条件を指定しない場合、テーブルに存在する「すべての行」が更新対象になってしまうため注意が必要です。",
+        "explanation": "UPDATE文はデータの更新を行いますが、WHERE句で条件を指定しない場合、テーブルに存在する「すべての行」が更新対象になってしまうため注意が必要です。",
         "category": "Oracle"
     },
     {
@@ -142,7 +142,7 @@ const questionDatabase = [
             "DELETE * FROM EMPLOYEES WHERE EMP_ID = 10;"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nデータを削除するには「DELETE FROM テーブル名」を使用します。WHERE句で条件（EMP_ID = 10）を指定することで、特定の行のみを安全に削除できます。",
+        "explanation": "データを削除するには「DELETE FROM テーブル名」を使用します。WHERE句で条件（EMP_ID = 10）を指定することで、特定の行のみを安全に削除できます。",
         "category": "Oracle"
     },
     {
@@ -155,7 +155,7 @@ const questionDatabase = [
             "テーブルの構造（列の追加や削除などのDDL）を変更した際に、その変更内容を確定させるための専用の命令である。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nCOMMIT（コミット）は、INSERTやUPDATEなどで行った変更を「確定」させ、データベースに永続的に反映させるための重要なトランザクション制御命令です。",
+        "explanation": "COMMIT（コミット）は、INSERTやUPDATEなどで行った変更を「確定」させ、データベースに永続的に反映させるための重要なトランザクション制御命令です。",
         "category": "Oracle"
     },
     {
@@ -168,7 +168,7 @@ const questionDatabase = [
             "これまでに行った変更を取り消し、最後にコミット（またはトランザクション開始）した直後の状態まで戻す。"
         ],
         "answer": 3,
-        "explanation": "正解は4番です。\nROLLBACK（ロールバック）は、変更を確定させる前（コミット前）の処理を取り消し、トランザクション開始時の状態までデータを元に戻すための命令です。",
+        "explanation": "ROLLBACK（ロールバック）は、変更を確定させる前（コミット前）の処理を取り消し、トランザクション開始時の状態までデータを元に戻すための命令です。",
         "category": "Oracle"
     },
     {
@@ -181,7 +181,7 @@ const questionDatabase = [
             "トランザクションの実行速度を上げるために、変更対象のデータをメモリ上に固定して高速に処理するため。"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\nロック処理は、複数のユーザーが同時に同じデータを更新しようとした際に発生する不整合（データの破壊）を防ぐために、他のユーザーの変更を一時的に待たせる仕組みです。",
+        "explanation": "ロック処理は、複数のユーザーが同時に同じデータを更新しようとした際に発生する不整合（データの破壊）を防ぐために、他のユーザーの変更を一時的に待たせる仕組みです。",
         "category": "Oracle"
     },
     {
@@ -194,7 +194,7 @@ const questionDatabase = [
             "数値の計算処理はSQLのSELECT句では実行できないため、構文エラーが発生する。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nSELECT句の中で算術演算子（+, -, *, /）を使うことができます。これは取得したデータに対して計算を行い、その結果を表示するものであり、テーブルの元のデータが書き換わるわけではありません。",
+        "explanation": "SELECT句の中で算術演算子（+, -, *, /）を使うことができます。これは取得したデータに対して計算を行い、その結果を表示するものであり、テーブルの元のデータが書き換わるわけではありません。",
         "category": "Oracle"
     },
     {
@@ -207,7 +207,7 @@ const questionDatabase = [
             "WHERE SALARY =! 300000"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\n「等しくない」を表す比較演算子は「<>」または「!=」を使用します。「><」や「=!」といった演算子は存在しません。",
+        "explanation": "「等しくない」を表す比較演算子は「<>」または「!=」を使用します。「><」や「=!」といった演算子は存在しません。",
         "category": "Oracle"
     },
     {
@@ -220,7 +220,7 @@ const questionDatabase = [
             "WHERE DEPT_ID HAS NULL"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nNULL（空）であるかどうかを判定する場合は「= NULL」ではなく「IS NULL」を使用する必要があります。逆にNULLでない場合は「IS NOT NULL」を使います。",
+        "explanation": "NULL（空）であるかどうかを判定する場合は「= NULL」ではなく「IS NULL」を使用する必要があります。逆にNULLでない場合は「IS NOT NULL」を使います。",
         "category": "Oracle"
     },
     {
@@ -233,7 +233,7 @@ const questionDatabase = [
             "WHERE NAME LIKE '%東%'"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nLIKE句で「%」は任意の0文字以上の文字列、「_」は任意の1文字を表します。「東%」と記述することで、東から始まるすべての文字列に一致します。",
+        "explanation": "LIKE句で「%」は任意の0文字以上の文字列、「_」は任意の1文字を表します。「東%」と記述することで、東から始まるすべての文字列に一致します。",
         "category": "Oracle"
     },
     {
@@ -246,7 +246,7 @@ const questionDatabase = [
             "GROUP BY句でグループ化を行うと、結果の行は必ずGROUP BYに指定した列の値の降順（大きい順）に並び替えられる。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nGROUP BY句を使用する場合、SELECT句に指定できるのは「GROUP BYで指定した列」または「SUMやAVGなどの集約関数」のみという厳密なルールがあります。",
+        "explanation": "GROUP BY句を使用する場合、SELECT句に指定できるのは「GROUP BYで指定した列」または「SUMやAVGなどの集約関数」のみという厳密なルールがあります。",
         "category": "Oracle"
     },
     {
@@ -259,7 +259,7 @@ const questionDatabase = [
             "SQLの内部処理順序において、「WHERE句による行の事前の絞り込み」は「集約関数による計算」よりも先に行われる。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\n集約関数で計算した結果に対して条件を絞り込む場合は、WHERE句ではなく「HAVING句」を使用しなければなりません。WHERE句は集計前の行の絞り込みに使われます。",
+        "explanation": "集約関数で計算した結果に対して条件を絞り込む場合は、WHERE句ではなく「HAVING句」を使用しなければなりません。WHERE句は集計前の行の絞り込みに使われます。",
         "category": "Oracle"
     },
     {
@@ -272,7 +272,7 @@ const questionDatabase = [
             "ORDER BY句を実行すると、検索結果の表示順序が変わるだけでなく、データベースのテーブル本体のデータの並び順も永続的に変更される。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nORDER BY句に複数の列を指定すると、最初に指定した列（左側）でまず並べ替えられ、その中で同じ値を持つ行に対して、次に指定した列（右側）で並べ替えが行われます。",
+        "explanation": "ORDER BY句に複数の列を指定すると、最初に指定した列（左側）でまず並べ替えられ、その中で同じ値を持つ行に対して、次に指定した列（右側）で並べ替えが行われます。",
         "category": "Oracle"
     },
     {
@@ -285,7 +285,7 @@ const questionDatabase = [
             "最終的な検索結果のデータに対して最後に並び替えを行うため、ORDER BY句はSELECT文の末尾（最後）に記述しなければならない。"
         ],
         "answer": 3,
-        "explanation": "正解は4番です。\nORDER BY句は取得した結果を最後に並べ替えるためのものであるため、SQL文（SELECT文）の必ず一番最後（末尾）に記述しなければなりません。",
+        "explanation": "ORDER BY句は取得した結果を最後に並べ替えるためのものであるため、SQL文（SELECT文）の必ず一番最後（末尾）に記述しなければなりません。",
         "category": "Oracle"
     },
     {
@@ -298,7 +298,7 @@ const questionDatabase = [
             "内部結合と外部結合の違いは取得結果の並び順が異なるだけであり、取得される行の件数や内容に違いは発生しない。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n内部結合（INNER JOIN）は、指定した結合条件に両方のテーブルで一致する行のみを取得します。片方にしか存在しないデータは結果から除外されます。",
+        "explanation": "内部結合（INNER JOIN）は、指定した結合条件に両方のテーブルで一致する行のみを取得します。片方にしか存在しないデータは結果から除外されます。",
         "category": "Oracle"
     },
     {
@@ -311,7 +311,7 @@ const questionDatabase = [
             "結合処理を活用することで、複数に分割されている関連データを一つのテーブルのようにまとめて取得できる。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\n内部結合では条件に一致しない行は除外されます。NULLとして表示して残すのは「外部結合（OUTER JOIN）」の役割です。",
+        "explanation": "内部結合では条件に一致しない行は除外されます。NULLとして表示して残すのは「外部結合（OUTER JOIN）」の役割です。",
         "category": "Oracle"
     },
     {
@@ -324,7 +324,7 @@ const questionDatabase = [
             "INSERT INTO USERS (NAME, PASS) VALUES ('ユーザー名', 'パスワード');"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\n新しいユーザーを作成する際は「CREATE USER ユーザー名 IDENTIFIED BY 'パスワード'」の構文を使用します。",
+        "explanation": "新しいユーザーを作成する際は「CREATE USER ユーザー名 IDENTIFIED BY 'パスワード'」の構文を使用します。",
         "category": "Oracle"
     },
     {
@@ -337,7 +337,7 @@ const questionDatabase = [
             "ALLOW CREATE SESSION FOR USER_A;"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\n権限を付与するGRANT文では「TO ユーザー名」を使用します。データベースにログイン（接続）するためには「CREATE SESSION」権限が必要です。",
+        "explanation": "権限を付与するGRANT文では「TO ユーザー名」を使用します。データベースにログイン（接続）するためには「CREATE SESSION」権限が必要です。",
         "category": "Oracle"
     },
     {
@@ -350,7 +350,7 @@ const questionDatabase = [
             "DROP USER USER_A CASCADE;"
         ],
         "answer": 3,
-        "explanation": "正解は4番です。\nユーザーがテーブルなどのオブジェクトを所有している場合、通常は削除できませんが「CASCADE」オプションを付けることで、所有オブジェクトごと強制的に削除できます。",
+        "explanation": "ユーザーがテーブルなどのオブジェクトを所有している場合、通常は削除できませんが「CASCADE」オプションを付けることで、所有オブジェクトごと強制的に削除できます。",
         "category": "Oracle"
     },
     {
@@ -363,7 +363,7 @@ const questionDatabase = [
             "CHECK NULL制約"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\nNULL（空の値）の入力を禁止し、必ず何らかの値を入力させるようにするには「NOT NULL制約」を使用します。",
+        "explanation": "NULL（空の値）の入力を禁止し、必ず何らかの値を入力させるようにするには「NOT NULL制約」を使用します。",
         "category": "Oracle"
     },
     {
@@ -376,7 +376,7 @@ const questionDatabase = [
             "DROP COLUMN AGE FROM EMPLOYEES;"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\n既存のテーブル構造を変更するにはALTER TABLE文を使います。列を削除する場合は「DROP COLUMN 列名」と記述します。",
+        "explanation": "既存のテーブル構造を変更するにはALTER TABLE文を使います。列を削除する場合は「DROP COLUMN 列名」と記述します。",
         "category": "Oracle"
     },
     {
@@ -389,7 +389,7 @@ const questionDatabase = [
             "RELATION (列名) TO 参照先テーブル名 (参照先列名)"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\n外部キー制約を設定する場合は「FOREIGN KEY (自テーブルの列名) REFERENCES 参照先テーブル名 (参照先列名)」の形式で記述します。",
+        "explanation": "外部キー制約を設定する場合は「FOREIGN KEY (自テーブルの列名) REFERENCES 参照先テーブル名 (参照先列名)」の形式で記述します。",
         "category": "Oracle"
     },
     {
@@ -402,7 +402,7 @@ const questionDatabase = [
             "NAMEが'300000'以上である行のSALARY列のみが返される。"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\nWHERE句で「>=」を使用すると「以上（その値を含む）」となります。そのため、SALARYが300000以上の行が絞り込まれ、SELECT句で指定したNAME列のみが取得されます。",
+        "explanation": "WHERE句で「>=」を使用すると「以上（その値を含む）」となります。そのため、SALARYが300000以上の行が絞り込まれ、SELECT句で指定したNAME列のみが取得されます。",
         "category": "Oracle"
     },
     {
@@ -415,7 +415,7 @@ const questionDatabase = [
             "SELECT DEPT_ID FROM EMPLOYEES GROUP BY UNIQUE;"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\n重複する値を取り除いて1つにまとめて表示するには「DISTINCT」キーワードをSELECT句の直後に記述します。",
+        "explanation": "重複する値を取り除いて1つにまとめて表示するには「DISTINCT」キーワードをSELECT句の直後に記述します。",
         "category": "Oracle"
     },
     {
@@ -428,7 +428,7 @@ const questionDatabase = [
             "SELECT NAME = 従業員名 FROM EMPLOYEES;"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\n取得する列に別名を付ける場合は「AS」キーワードを使用します。「SELECT 列名 AS 別名」のように記述することで、出力結果の列名が変わります。",
+        "explanation": "取得する列に別名を付ける場合は「AS」キーワードを使用します。「SELECT 列名 AS 別名」のように記述することで、出力結果の列名が変わります。",
         "category": "Oracle"
     },
     {
@@ -441,7 +441,7 @@ const questionDatabase = [
             "構文エラーにはならないが、データの不足により何もテーブルには追加されない。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nINSERT文では、挿入先として指定した列の数と、VALUES内に指定した値の数が完全に一致していなければ構文エラーとなります。",
+        "explanation": "INSERT文では、挿入先として指定した列の数と、VALUES内に指定した値の数が完全に一致していなければ構文エラーとなります。",
         "category": "Oracle"
     },
     {
@@ -454,7 +454,7 @@ const questionDatabase = [
             "MODIFY EMPLOYEES SET SALARY = 350000 WHERE EMP_ID = 10;"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nUPDATE文で条件を指定する場合は「UPDATE テーブル名 SET 列名 = 値 WHERE 条件」の順序で記述する必要があります。",
+        "explanation": "UPDATE文で条件を指定する場合は「UPDATE テーブル名 SET 列名 = 値 WHERE 条件」の順序で記述する必要があります。",
         "category": "Oracle"
     },
     {
@@ -467,7 +467,7 @@ const questionDatabase = [
             "WHERE句による条件指定がないため、EMPLOYEESテーブル内のすべての行のデータが削除される。"
         ],
         "answer": 3,
-        "explanation": "正解は4番です。\nDELETE文は行を削除する命令です。WHERE句で条件を指定しないと、対象が「すべての行」となり、テーブルの中身が空になってしまいます。",
+        "explanation": "DELETE文は行を削除する命令です。WHERE句で条件を指定しないと、対象が「すべての行」となり、テーブルの中身が空になってしまいます。",
         "category": "Oracle"
     },
     {
@@ -480,7 +480,7 @@ const questionDatabase = [
             "COMMITを行わない限り、自分自身のSELECT文を実行しても追加したデータを検索することはできない。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nCOMMITを行う前は、変更した本人だけがその結果を確認できますが、他のユーザーからは変更前のデータしか見えません（これをトランザクションの分離性と呼びます）。",
+        "explanation": "COMMITを行う前は、変更した本人だけがその結果を確認できますが、他のユーザーからは変更前のデータしか見えません（これをトランザクションの分離性と呼びます）。",
         "category": "Oracle"
     },
     {
@@ -493,7 +493,7 @@ const questionDatabase = [
             "ユーザーBには該当するデータがすべてNULL（空）となって表示される。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nトランザクションの分離性により、他のユーザー（ユーザーA）が変更中でまだCOMMITしていないデータは、ユーザーBからは更新前の古いデータとして見えます。",
+        "explanation": "トランザクションの分離性により、他のユーザー（ユーザーA）が変更中でまだCOMMITしていないデータは、ユーザーBからは更新前の古いデータとして見えます。",
         "category": "Oracle"
     },
     {
@@ -506,7 +506,7 @@ const questionDatabase = [
             "COMMITを行わなくても、システム障害時に自動で復旧できるようにデータをディスクに一時保存する機能である。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nSAVEPOINT（セーブポイント）を設定しておくと、ROLLBACK時にトランザクションの最初まで戻るのではなく、指定したセーブポイントの地点までだけ部分的に戻すことができます。",
+        "explanation": "SAVEPOINT（セーブポイント）を設定しておくと、ROLLBACK時にトランザクションの最初まで戻るのではなく、指定したセーブポイントの地点までだけ部分的に戻すことができます。",
         "category": "Oracle"
     },
     {
@@ -519,7 +519,7 @@ const questionDatabase = [
             "SELECT句の中で足し算（+）などの算術演算子は使用できないため、構文エラーとなる。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nSELECT句での算術演算（+ 500など）は、取得結果の表示上で計算を行うだけであり、データベースに保存されている実際のデータが書き換わるわけではありません。",
+        "explanation": "SELECT句での算術演算（+ 500など）は、取得結果の表示上で計算を行うだけであり、データベースに保存されている実際のデータが書き換わるわけではありません。",
         "category": "Oracle"
     },
     {
@@ -532,7 +532,7 @@ const questionDatabase = [
             "WHERE DEPT_ID != 10 AND DEPT_ID != 20"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nIN演算子「IN (A, B)」は、「Aと等しい、または（OR）Bと等しい」という複数のOR条件を簡潔に書くためのものです。",
+        "explanation": "IN演算子「IN (A, B)」は、「Aと等しい、または（OR）Bと等しい」という複数のOR条件を簡潔に書くためのものです。",
         "category": "Oracle"
     },
     {
@@ -545,7 +545,7 @@ const questionDatabase = [
             "WHERE NAME NOT NULL AND NAME = '%藤%'"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\n「空ではない」は「IS NOT NULL」、「『藤』が含まれる（部分一致）」は前後に%を付けた「LIKE '%藤%'」を使用し、これらを「AND」で繋ぎます。",
+        "explanation": "「空ではない」は「IS NOT NULL」、「『藤』が含まれる（部分一致）」は前後に%を付けた「LIKE '%藤%'」を使用し、これらを「AND」で繋ぎます。",
         "category": "Oracle"
     },
     {
@@ -558,7 +558,7 @@ const questionDatabase = [
             "両者に動作の違いはなく、どちらもテーブルの全行数を数える。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nCOUNT(*)はNULLを含むすべての行（レコード数そのもの）を数えますが、COUNT(列名)と指定した場合は、その列にNULLが入っている行は除外してカウントされます。",
+        "explanation": "COUNT(*)はNULLを含むすべての行（レコード数そのもの）を数えますが、COUNT(列名)と指定した場合は、その列にNULLが入っている行は除外してカウントされます。",
         "category": "Oracle"
     },
     {
@@ -571,7 +571,7 @@ const questionDatabase = [
             "GROUP BY句を使用する場合、SELECT句に集約関数を含めることはできないためエラーになる。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nGROUP BY句を使用すると、指定した列（DEPT_ID）の値ごとにグループ化され、それぞれのグループごとに集約関数（SUM）が計算されて出力されます。",
+        "explanation": "GROUP BY句を使用すると、指定した列（DEPT_ID）の値ごとにグループ化され、それぞれのグループごとに集約関数（SUM）が計算されて出力されます。",
         "category": "Oracle"
     },
     {
@@ -584,7 +584,7 @@ const questionDatabase = [
             "SELECT DEPT_ID, AVG(SALARY) FROM EMPLOYEES GROUP BY DEPT_ID WHERE AVG(SALARY) >= 300000;"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nGROUP BYでグループ化した後に、集約関数の結果（平均値など）を条件にして絞り込む場合は、WHERE句ではなく必ず「HAVING句」を使用します。",
+        "explanation": "GROUP BYでグループ化した後に、集約関数の結果（平均値など）を条件にして絞り込む場合は、WHERE句ではなく必ず「HAVING句」を使用します。",
         "category": "Oracle"
     },
     {
@@ -597,7 +597,7 @@ const questionDatabase = [
             "WHERE句とON句を同じSQL文の中に同時に記述すると処理が競合を起こすため、エラーになる。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n結合する複数のテーブルに「同じ名前の列」がある場合、そのまま列名だけを書くとデータベースはどちらの列か判断できず「列の定義が曖昧」というエラーを出します。",
+        "explanation": "結合する複数のテーブルに「同じ名前の列」がある場合、そのまま列名だけを書くとデータベースはどちらの列か判断できず「列の定義が曖昧」というエラーを出します。",
         "category": "Oracle"
     },
     {
@@ -610,7 +610,7 @@ const questionDatabase = [
             "テーブルAの5行とテーブルBの3行が無条件に掛け合わされ、結果は必ず15行になる。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\n左外部結合（LEFT OUTER JOIN）は、左側のテーブル（テーブルA）の全行を必ず結果に残します。右側のデータが一致しなくてもNULLとして表示するため、最低でも5行は出力されます。",
+        "explanation": "左外部結合（LEFT OUTER JOIN）は、左側のテーブル（テーブルA）の全行を必ず結果に残します。右側のデータが一致しなくてもNULLとして表示するため、最低でも5行は出力されます。",
         "category": "Oracle"
     },
     {
@@ -623,7 +623,7 @@ const questionDatabase = [
             "FROM EMPLOYEES LEFT DEPARTMENTS JOIN ON EMPLOYEES.DEPT_ID = DEPARTMENTS.DEPT_ID"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n左外部結合は「LEFT OUTER JOIN」または単に「LEFT JOIN」と記述します。結合条件は「ON」の後に指定します。",
+        "explanation": "左外部結合は「LEFT OUTER JOIN」または単に「LEFT JOIN」と記述します。結合条件は「ON」の後に指定します。",
         "category": "Oracle"
     },
     {
@@ -636,7 +636,7 @@ const questionDatabase = [
             "サブクエリはWHERE句の中にしか記述することができず、FROM句やSELECT句には記述できない。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nサブクエリ（副問合せ）とは、WHERE句などの条件指定の中で、さらに別のSELECT文をカッコ()で囲んで埋め込む手法のことです。",
+        "explanation": "サブクエリ（副問合せ）とは、WHERE句などの条件指定の中で、さらに別のSELECT文をカッコ()で囲んで埋め込む手法のことです。",
         "category": "Oracle"
     },
     {
@@ -649,7 +649,7 @@ const questionDatabase = [
             "実行結果として「1行1列（たった1つの単一の値）」だけを返すサブクエリのこと。"
         ],
         "answer": 3,
-        "explanation": "正解は4番です。\nスカラ・サブクエリとは、実行結果が必ず「1行1列（単一の値）」になるサブクエリのことです。これにより、= や > などの比較演算子と直接比較できるようになります。",
+        "explanation": "スカラ・サブクエリとは、実行結果が必ず「1行1列（単一の値）」になるサブクエリのことです。これにより、= や > などの比較演算子と直接比較できるようになります。",
         "category": "Oracle"
     },
     {
@@ -662,7 +662,7 @@ const questionDatabase = [
             "(SELECT COUNT(*) FROM EMPLOYEES)"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\n「=」演算子は単一の値と比較する必要がありますが、「SELECT SALARY FROM EMPLOYEES WHERE DEPT_ID = 10」は条件に一致する従業員が複数いる場合、複数行を返してしまうためエラーになります。AVGやMAX、COUNTは必ず1行1列を返すため問題ありません。",
+        "explanation": "「=」演算子は単一の値と比較する必要がありますが、「SELECT SALARY FROM EMPLOYEES WHERE DEPT_ID = 10」は条件に一致する従業員が複数いる場合、複数行を返してしまうためエラーになります。AVGやMAX、COUNTは必ず1行1列を返すため問題ありません。",
         "category": "Oracle"
     },
     {
@@ -675,7 +675,7 @@ const questionDatabase = [
             "人間が書いたソースコードをそのまま読み取ってどの環境でも動作する。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nJavaは一度コンパイルしてクラスファイル（バイトコード）を作成すれば、JVM（Java仮想マシン）がインストールされているどのOS環境でも動作するという「Write Once, Run Anywhere」の特徴を持っています。",
+        "explanation": "Javaは一度コンパイルしてクラスファイル（バイトコード）を作成すれば、JVM（Java仮想マシン）がインストールされているどのOS環境でも動作するという「Write Once, Run Anywhere」の特徴を持っています。",
         "category": "Java"
     },
     {
@@ -688,7 +688,7 @@ const questionDatabase = [
             "コンパイラが変換したクラスファイルは、人間がそのまま読むことができる。"
         ],
         "answer": 3,
-        "explanation": "正解は4番です。\nコンパイラが変換したクラスファイルは、人間が読むためのものではなくJVMが解釈するための機械語に近い形式（バイトコード）になっています。",
+        "explanation": "コンパイラが変換したクラスファイルは、人間が読むためのものではなくJVMが解釈するための機械語に近い形式（バイトコード）になっています。",
         "category": "Java"
     },
     {
@@ -701,7 +701,7 @@ const questionDatabase = [
             "文字列を内部に保存するだけで、コンソールには何も表示しない。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nSystem.out.println() は、指定された文字列をコンソールに表示した直後に自動的に改行を行います。改行しない場合は print() を使用します。",
+        "explanation": "System.out.println() は、指定された文字列をコンソールに表示した直後に自動的に改行を行います。改行しない場合は print() を使用します。",
         "category": "Java"
     },
     {
@@ -714,7 +714,7 @@ const questionDatabase = [
             "プログラムが実行されたとき、一番最初に呼び出される入り口である。"
         ],
         "answer": 3,
-        "explanation": "正解は4番です。\nmainメソッドはJavaプログラムの実行時の「エントリーポイント（入り口）」であり、プログラムを起動したときに一番最初に呼び出されます。",
+        "explanation": "mainメソッドはJavaプログラムの実行時の「エントリーポイント（入り口）」であり、プログラムを起動したときに一番最初に呼び出されます。",
         "category": "Java"
     },
     {
@@ -727,7 +727,7 @@ const questionDatabase = [
             "AとBの間にダブルクォーテーションを挟んで表示する。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\n「\\n」はエスケープシーケンスの一つで「改行」を表します。そのため、Aが表示された後に改行され、次の行にBが表示されます。",
+        "explanation": "「\\n」はエスケープシーケンスの一つで「改行」を表します。そのため、Aが表示された後に改行され、次の行にBが表示されます。",
         "category": "Java"
     },
     {
@@ -740,7 +740,7 @@ const questionDatabase = [
             "プログラムが終了した後も、箱の中のデータは半永久的に保存され続ける。"
         ],
         "answer": 3,
-        "explanation": "正解は4番です。\n変数はメモリ上に一時的に確保される領域です。プログラムの実行が終了すると、メモリ上の変数のデータはすべて消去されます。",
+        "explanation": "変数はメモリ上に一時的に確保される領域です。プログラムの実行が終了すると、メモリ上の変数のデータはすべて消去されます。",
         "category": "Java"
     },
     {
@@ -753,7 +753,7 @@ const questionDatabase = [
             "ageという箱を用意するが、中は空のままで何も記憶させない。"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\nint age; で整数を格納できる箱をageという名前で用意し、age = 20; でその中に20という数値を記憶（代入）させています。",
+        "explanation": "int age; で整数を格納できる箱をageという名前で用意し、age = 20; でその中に20という数値を記憶（代入）させています。",
         "category": "Java"
     },
     {
@@ -766,7 +766,7 @@ const questionDatabase = [
             "入力された1行目のデータを読み飛ばし、変数 str には何も保存しない状態にする。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nreadLine()メソッドは、ユーザーが入力した文字列を「Enterキーが押されるまで」の1行分まとめて読み込むためのメソッドです。",
+        "explanation": "readLine()メソッドは、ユーザーが入力した文字列を「Enterキーが押されるまで」の1行分まとめて読み込むためのメソッドです。",
         "category": "Java"
     },
     {
@@ -779,7 +779,7 @@ const questionDatabase = [
             "1行目と2行目の入力を読み飛ばし、3行目の入力内容だけを変数 memo に保存する。"
         ],
         "answer": 3,
-        "explanation": "正解は4番です。\n最初の2回の br.readLine(); は読み込んだ結果を変数に代入していないため単に読み飛ばされます。3回目の読み込み結果のみが memo に保存されます。",
+        "explanation": "最初の2回の br.readLine(); は読み込んだ結果を変数に代入していないため単に読み飛ばされます。3回目の読み込み結果のみが memo に保存されます。",
         "category": "Java"
     },
     {
@@ -792,7 +792,7 @@ const questionDatabase = [
             "検索を高速化するための索引付け（インデックス）を行うこと"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\n「%」は剰余演算子と呼ばれ、割り算を行った際の「余り」を求めるために使用されます。（例：5 % 2 は 1 となる）",
+        "explanation": "「%」は剰余演算子と呼ばれ、割り算を行った際の「余り」を求めるために使用されます。（例：5 % 2 は 1 となる）",
         "category": "Java"
     },
     {
@@ -805,7 +805,7 @@ const questionDatabase = [
             "変数の値を1減らすこと"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\n「a++」のように変数名の後ろに「++」を付けると（後置インクリメント）、まず現在の値が代入などの処理に使われ、その後に変数自身の値が1加算されます。",
+        "explanation": "「a++」のように変数名の後ろに「++」を付けると（後置インクリメント）、まず現在の値が代入などの処理に使われ、その後に変数自身の値が1加算されます。",
         "category": "Java"
     },
     {
@@ -818,7 +818,7 @@ const questionDatabase = [
             "複数のテーブルのデータを共通の列を基準に結びつける（結合）こと"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\n「+」演算子は、左右のどちらかが文字列（String）の場合、数値の加算ではなく「文字列の連結」として機能し、1つの繋がった文字列を作成します。",
+        "explanation": "「+」演算子は、左右のどちらかが文字列（String）の場合、数値の加算ではなく「文字列の連結」として機能し、1つの繋がった文字列を作成します。",
         "category": "Java"
     },
     {
@@ -831,7 +831,7 @@ const questionDatabase = [
             "異なる型の変数を演算する際、サイズの大きい型に自動で揃えられる"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\nboolean型（true/false）は特殊な型であり、intなどの数値型やその他の型と相互にキャスト（型変換）することはできません。",
+        "explanation": "boolean型（true/false）は特殊な型であり、intなどの数値型やその他の型と相互にキャスト（型変換）することはできません。",
         "category": "Java"
     },
     {
@@ -844,7 +844,7 @@ const questionDatabase = [
             "データの矛盾を防ぐため、表を適切な形に分割する（正規化）こと"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\n配列は「同じデータ型」の複数の値を、一つの変数名とインデックス（番号）を使って連続して管理するためのデータ構造です。",
+        "explanation": "配列は「同じデータ型」の複数の値を、一つの変数名とインデックス（番号）を使って連続して管理するためのデータ構造です。",
         "category": "Java"
     },
     {
@@ -857,7 +857,7 @@ const questionDatabase = [
             "検索速度を向上させるため、要素にインデックスを作成すること"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nnew int[5] と記述すると、要素数が5つのint型配列がメモリ上に作成されます。int型配列の各要素は、デフォルトで 0 に初期化されます。",
+        "explanation": "new int[5] と記述すると、要素数が5つのint型配列がメモリ上に作成されます。int型配列の各要素は、デフォルトで 0 に初期化されます。",
         "category": "Java"
     },
     {
@@ -870,7 +870,7 @@ const questionDatabase = [
             "連続した数値を自動生成する（シーケンス）こと"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\n配列変数名.length は配列の「要素の数（長さ）」を返します。この場合は {1, 2, 3} の3つの要素があるため、3が取得されます。",
+        "explanation": "配列変数名.length は配列の「要素の数（長さ）」を返します。この場合は {1, 2, 3} の3つの要素があるため、3が取得されます。",
         "category": "Java"
     },
     {
@@ -883,7 +883,7 @@ const questionDatabase = [
             "「!=」は左辺と右辺の値が等しいときに true を返す。"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\n関係演算子「==」は、左辺と右辺の値が等しいかどうかを判定し、等しければ true、そうでなければ false を返します。",
+        "explanation": "関係演算子「==」は、左辺と右辺の値が等しいかどうかを判定し、等しければ true、そうでなければ false を返します。",
         "category": "Java"
     },
     {
@@ -896,7 +896,7 @@ const questionDatabase = [
             "括弧内に記述する条件式は、評価結果が boolean 型になる必要がある。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nif文において「else if」ブロックは任意であり、全く記述しなくても構文エラーにはなりません。複数条件を判定したい場合のみ追加します。",
+        "explanation": "if文において「else if」ブロックは任意であり、全く記述しなくても構文エラーにはなりません。複数条件を判定したい場合のみ追加します。",
         "category": "Java"
     },
     {
@@ -909,7 +909,7 @@ const questionDatabase = [
             "評価する式には、int 型などの整数や String 型の文字列などを指定することができる。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nswitch文の case ラベルには、変数や評価結果が変わる式を指定することはできず、必ず「定数」を指定しなければなりません。",
+        "explanation": "switch文の case ラベルには、変数や評価結果が変わる式を指定することはできず、必ず「定数」を指定しなければなりません。",
         "category": "Java"
     },
     {
@@ -922,7 +922,7 @@ const questionDatabase = [
             "左右両方の条件式が false の場合、全体として true を返す。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n論理演算子「||」（論理和・OR）は、左右の条件式のうち、少なくとも「どちらか一方」が true であれば全体として true になります。",
+        "explanation": "論理演算子「||」（論理和・OR）は、左右の条件式のうち、少なくとも「どちらか一方」が true であれば全体として true になります。",
         "category": "Java"
     },
     {
@@ -935,7 +935,7 @@ const questionDatabase = [
             "丸括弧内は「変化式; 条件式; 初期化式」の順序で記述し、セミコロンで区切る。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nfor文の丸括弧の中は「初期化式 ; 条件式 ; 変化式」という順番で記述し、それぞれの要素をセミコロン（;）で区切るのが正しい構文です。",
+        "explanation": "for文の丸括弧の中は「初期化式 ; 条件式 ; 変化式」という順番で記述し、それぞれの要素をセミコロン（;）で区切るのが正しい構文です。",
         "category": "Java"
     },
     {
@@ -948,7 +948,7 @@ const questionDatabase = [
             "do-while文は無限ループを作成できるが、while文では無限ループを作成することができない。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nwhile文はループ処理の最初に条件を評価しますが、do-while文はループ処理の「最後」に条件を評価するため、最低でも必ず1回はブロック内の処理が実行されます。",
+        "explanation": "while文はループ処理の最初に条件を評価しますが、do-while文はループ処理の「最後」に条件を評価するため、最低でも必ず1回はブロック内の処理が実行されます。",
         "category": "Java"
     },
     {
@@ -961,7 +961,7 @@ const questionDatabase = [
             "すべての処理を順番に1つの巨大なファイルに記述して上から順に実行する考え方である。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nオブジェクト指向は、関連する「データ（属性・状態）」と「手続き（操作・ふるまい）」をひとまとめにして「オブジェクト（モノ）」として扱う考え方です。",
+        "explanation": "オブジェクト指向は、関連する「データ（属性・状態）」と「手続き（操作・ふるまい）」をひとまとめにして「オブジェクト（モノ）」として扱う考え方です。",
         "category": "Java"
     },
     {
@@ -974,7 +974,7 @@ const questionDatabase = [
             "扱う対象を現実世界の概念のようにモデル化して、プログラムの設計に落とし込みやすくなる。"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\nオブジェクト指向では「カプセル化」を用いて、どこからでも自由にデータを書き換えられる状況を防ぎ、予期せぬ不具合を防ぐことで動作予測を容易にします。",
+        "explanation": "オブジェクト指向では「カプセル化」を用いて、どこからでも自由にデータを書き換えられる状況を防ぎ、予期せぬ不具合を防ぐことで動作予測を容易にします。",
         "category": "Java"
     },
     {
@@ -987,7 +987,7 @@ const questionDatabase = [
             "class クラス名 { } の形式で記述し、波括弧の中にフィールドやメソッドを定義する。"
         ],
         "answer": 3,
-        "explanation": "正解は4番です。\nJavaのクラスは、「class クラス名 { //フィールドやメソッドの定義 }」という形式で、波括弧の中に内容を記述します。",
+        "explanation": "Javaのクラスは、「class クラス名 { //フィールドやメソッドの定義 }」という形式で、波括弧の中に内容を記述します。",
         "category": "Java"
     },
     {
@@ -1000,7 +1000,7 @@ const questionDatabase = [
             "CarクラスのメソッドmyCarを呼び出し、新しく生成したCarオブジェクトの処理を実行する。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nnew Car() によってメモリ上に新しいCarオブジェクトを生成し、その参照（場所）を、Carクラス型の変数 myCar に代入しています。",
+        "explanation": "new Car() によってメモリ上に新しいCarオブジェクトを生成し、その参照（場所）を、Carクラス型の変数 myCar に代入しています。",
         "category": "Java"
     },
     {
@@ -1013,7 +1013,7 @@ const questionDatabase = [
             "クラスのブロック内に宣言され、そのオブジェクトが持つ「ふるまい」や「処理」を表す。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nフィールド（メンバ変数）はクラスのブロック内に直接定義され、そのクラスから生成されたオブジェクトが保持する個別の「状態」や「データ」を表します。",
+        "explanation": "フィールド（メンバ変数）はクラスのブロック内に直接定義され、そのクラスから生成されたオブジェクトが保持する個別の「状態」や「データ」を表します。",
         "category": "Java"
     },
     {
@@ -1026,7 +1026,7 @@ const questionDatabase = [
             "クラス間でデータを送受信するための専用の箱であり、具体的な処理内容は一切記述できない。"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\nメソッドはクラスの中に定義され、オブジェクトが実行できる「機能」や「ふるまい」を具体的な処理（コードの塊）として表現したものです。",
+        "explanation": "メソッドはクラスの中に定義され、オブジェクトが実行できる「機能」や「ふるまい」を具体的な処理（コードの塊）として表現したものです。",
         "category": "Java"
     },
     {
@@ -1039,7 +1039,7 @@ const questionDatabase = [
             "メソッドの処理を途中で中断し、呼び出し元の処理の指定した行に強制的にジャンプさせるため。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n引数（パラメータ）は、メソッドを呼び出す際に、メソッド内部での計算や処理に必要となるデータ（値）を外部から渡すための仕組みです。",
+        "explanation": "引数（パラメータ）は、メソッドを呼び出す際に、メソッド内部での計算や処理に必要となるデータ（値）を外部から渡すための仕組みです。",
         "category": "Java"
     },
     {
@@ -1052,7 +1052,7 @@ const questionDatabase = [
             "メソッドの処理が終了した際に、その処理の実行結果をデータとして呼び出し元へ返すため。"
         ],
         "answer": 3,
-        "explanation": "正解は4番です。\n戻り値（返り値）は、メソッドの処理がすべて完了した後に、その結果のデータをメソッドの呼び出し元へ送り返すための仕組みです。",
+        "explanation": "戻り値（返り値）は、メソッドの処理がすべて完了した後に、その結果のデータをメソッドの呼び出し元へ送り返すための仕組みです。",
         "category": "Java"
     },
     {
@@ -1065,7 +1065,7 @@ const questionDatabase = [
             "どのクラスからでも自由にアクセスできる。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nprivate修飾子を付けたフィールドやメソッドは、完全に隠蔽され「そのクラスの内部からのみ」アクセスできるようになります（カプセル化の基本）。",
+        "explanation": "private修飾子を付けたフィールドやメソッドは、完全に隠蔽され「そのクラスの内部からのみ」アクセスできるようになります（カプセル化の基本）。",
         "category": "Java"
     },
     {
@@ -1078,7 +1078,7 @@ const questionDatabase = [
             "サブクラスからのみアクセスでき、他のクラスからはアクセスできない。"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\npublic修飾子は最も制限が緩いアクセス修飾子であり、異なるパッケージも含めて「すべてのクラスから」自由にアクセス可能になります。",
+        "explanation": "public修飾子は最も制限が緩いアクセス修飾子であり、異なるパッケージも含めて「すべてのクラスから」自由にアクセス可能になります。",
         "category": "Java"
     },
     {
@@ -1091,7 +1091,7 @@ const questionDatabase = [
             "オーバーロードされたメソッドは、クラスのインスタンスを生成しなくても呼び出すことができる。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nオーバーロードとは、「同じクラス内」に「同じメソッド名」で「引数の型や数（または並び順）が異なる」メソッドを複数定義することを指します。",
+        "explanation": "オーバーロードとは、「同じクラス内」に「同じメソッド名」で「引数の型や数（または並び順）が異なる」メソッドを複数定義することを指します。",
         "category": "Java"
     },
     {
@@ -1104,7 +1104,7 @@ const questionDatabase = [
             "引数の型が一致するメソッドが複数あるためコンパイルエラーになる。"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\n呼び出し時の引数が (1, 2) とどちらもint型であるため、定義されている中から引数が (int, int) に一致するメソッドが選択されて実行されます。",
+        "explanation": "呼び出し時の引数が (1, 2) とどちらもint型であるため、定義されている中から引数が (int, int) に一致するメソッドが選択されて実行されます。",
         "category": "Java"
     },
     {
@@ -1117,7 +1117,7 @@ const questionDatabase = [
             "プログラム全体の終了時に、後処理として実行される。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nコンストラクタは、new演算子を使って「インスタンス（オブジェクト）が生成された瞬間」に、初期化処理を行うために自動的かつその都度実行されます。",
+        "explanation": "コンストラクタは、new演算子を使って「インスタンス（オブジェクト）が生成された瞬間」に、初期化処理を行うために自動的かつその都度実行されます。",
         "category": "Java"
     },
     {
@@ -1130,7 +1130,7 @@ const questionDatabase = [
             "オーバーロードされたコンストラクタは、new なしで直接呼び出すことができる。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nコンストラクタも通常のメソッドと同様に、引数の型や数を変えることで同じクラス内に複数定義（オーバーロード）することができます。",
+        "explanation": "コンストラクタも通常のメソッドと同様に、引数の型や数を変えることで同じクラス内に複数定義（オーバーロード）することができます。",
         "category": "Java"
     },
     {
@@ -1143,7 +1143,7 @@ const questionDatabase = [
             "static メソッドは、1つのクラスにつき1つしか定義できない。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nstaticメソッドはインスタンスごとの状態に依存しない共通の処理であり、インスタンスを生成（new）しなくても「クラス名.メソッド名()」で直接呼び出せます。",
+        "explanation": "staticメソッドはインスタンスごとの状態に依存しない共通の処理であり、インスタンスを生成（new）しなくても「クラス名.メソッド名()」で直接呼び出せます。",
         "category": "Java"
     },
     {
@@ -1156,7 +1156,7 @@ const questionDatabase = [
             "static メンバはクラス全体で共有されるため、すべてのインスタンスから同じ値にアクセスされる。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nstaticメソッドはインスタンスがなくても呼び出せるため、メソッド内で特定のインスタンスに紐づく変数（非static変数）を直接参照することはできません。",
+        "explanation": "staticメソッドはインスタンスがなくても呼び出せるため、メソッド内で特定のインスタンスに紐づく変数（非static変数）を直接参照することはできません。",
         "category": "Java"
     },
     {
@@ -1169,7 +1169,7 @@ const questionDatabase = [
             "import 文はファイルの末尾に記述しなければならない。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\njava.langパッケージにはStringやSystemなど最も基本的なクラスが含まれており、このパッケージのクラスだけは特別にimport文なしで使用できます。",
+        "explanation": "java.langパッケージにはStringやSystemなど最も基本的なクラスが含まれており、このパッケージのクラスだけは特別にimport文なしで使用できます。",
         "category": "Java"
     },
     {
@@ -1182,7 +1182,7 @@ const questionDatabase = [
             "コンパイルエラーになる。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n配列は参照型であるため、メソッドに渡されるのは「配列の実体の場所（参照）」です。メソッド内で要素を変更すると、呼び出し元の配列も変更（99に）されます。",
+        "explanation": "配列は参照型であるため、メソッドに渡されるのは「配列の実体の場所（参照）」です。メソッド内で要素を変更すると、呼び出し元の配列も変更（99に）されます。",
         "category": "Java"
     },
     {
@@ -1195,7 +1195,7 @@ const questionDatabase = [
             "サブクラスは、スーパークラスのすべてのメンバーに制限なくアクセスできる。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nサブクラス（子クラス）は extends キーワードを用いて定義し、スーパークラス（親クラス）の持つ private 以外のフィールドやメソッドを引き継いで利用できます。",
+        "explanation": "サブクラス（子クラス）は extends キーワードを用いて定義し、スーパークラス（親クラス）の持つ private 以外のフィールドやメソッドを引き継いで利用できます。",
         "category": "Java"
     },
     {
@@ -1208,7 +1208,7 @@ const questionDatabase = [
             "protected が付いたメンバーは、private と同じく同じクラス内からしかアクセスできない。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nprotected修飾子は、デフォルトのアクセス範囲（同じパッケージ内）に加えて、「異なるパッケージであっても、それを継承したサブクラスから」のアクセスを許可します。",
+        "explanation": "protected修飾子は、デフォルトのアクセス範囲（同じパッケージ内）に加えて、「異なるパッケージであっても、それを継承したサブクラスから」のアクセスを許可します。",
         "category": "Java"
     },
     {
@@ -1221,7 +1221,7 @@ const questionDatabase = [
             "@Override アノテーションを付けると、コンパイル時ではなく実行時にミスを検出できる。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nオーバーライドとは、サブクラスがスーパークラスから継承したメソッドを、「全く同じメソッド名・引数・戻り値」で独自の処理に書き換える（再定義する）ことです。",
+        "explanation": "オーバーライドとは、サブクラスがスーパークラスから継承したメソッドを、「全く同じメソッド名・引数・戻り値」で独自の処理に書き換える（再定義する）ことです。",
         "category": "Java"
     },
     {
@@ -1234,7 +1234,7 @@ const questionDatabase = [
             "クラスに final を付けると、そのクラスを継承して新たなサブクラスを作ることができるようになる。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n変数やフィールドに final を付けると、その値は一度代入されたら二度と変更できない「定数」として扱われるようになります。",
+        "explanation": "変数やフィールドに final を付けると、その値は一度代入されたら二度と変更できない「定数」として扱われるようになります。",
         "category": "Java"
     },
     {
@@ -1247,7 +1247,7 @@ const questionDatabase = [
             "抽象クラスはインターフェイスと同様に implements キーワードで利用する。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\n抽象クラス（abstract class）は未完成のメソッド（抽象メソッド）を持つことができるため、直接newしてインスタンス化することはできず、必ず継承して利用します。",
+        "explanation": "抽象クラス（abstract class）は未完成のメソッド（抽象メソッド）を持つことができるため、直接newしてインスタンス化することはできず、必ず継承して利用します。",
         "category": "Java"
     },
     {
@@ -1260,7 +1260,7 @@ const questionDatabase = [
             "クラス名やメソッド名の前に protected 修飾子を付与する。"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\n抽象クラスや抽象メソッドを定義する際には、クラス宣言やメソッド宣言の先頭に「abstract」という修飾子を付与する必要があります。",
+        "explanation": "抽象クラスや抽象メソッドを定義する際には、クラス宣言やメソッド宣言の先頭に「abstract」という修飾子を付与する必要があります。",
         "category": "Java"
     },
     {
@@ -1273,7 +1273,7 @@ const questionDatabase = [
             "インターフェイスはコンストラクタを持ち、インスタンス生成時に初期処理を行うことができる。"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\nインターフェイスは、具体的な処理を持たない「抽象メソッド」と「定数」のみを定義でき、1つのクラスに複数のインターフェイスを同時に実装（implements）できます。",
+        "explanation": "インターフェイスは、具体的な処理を持たない「抽象メソッド」と「定数」のみを定義でき、1つのクラスに複数のインターフェイスを同時に実装（implements）できます。",
         "category": "Java"
     },
     {
@@ -1286,7 +1286,7 @@ const questionDatabase = [
             "インターフェイスのフィールドには abstract が暗黙的に付与され、実装クラスで定義が必要となる。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nインターフェイス内で定義したフィールドには、明記しなくても自動的に public static final が付与され、変更不可能な定数として扱われます。",
+        "explanation": "インターフェイス内で定義したフィールドには、明記しなくても自動的に public static final が付与され、変更不可能な定数として扱われます。",
         "category": "Java"
     },
     {
@@ -1299,7 +1299,7 @@ const questionDatabase = [
             "1つのクラスに対して複数のインターフェイスを同時に実装させることができる。"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\nインターフェイスは抽象クラス以上に未完成な設計図（仕様書）であるため、抽象クラスと同様にnew演算子を使って直接インスタンスを生成することはできません。",
+        "explanation": "インターフェイスは抽象クラス以上に未完成な設計図（仕様書）であるため、抽象クラスと同様にnew演算子を使って直接インスタンスを生成することはできません。",
         "category": "Java"
     },
     {
@@ -1312,7 +1312,7 @@ const questionDatabase = [
             "情報の隠蔽・サブクラスへの機能継承・同一メソッド名による異なる振る舞い"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\nオブジェクト指向の3大要素は「カプセル化（データの隠蔽）」「継承（機能の引き継ぎ）」「ポリモーフィズム（多様性）」の3つを指します。",
+        "explanation": "オブジェクト指向の3大要素は「カプセル化（データの隠蔽）」「継承（機能の引き継ぎ）」「ポリモーフィズム（多様性）」の3つを指します。",
         "category": "Java"
     },
     {
@@ -1325,7 +1325,7 @@ const questionDatabase = [
             "継承とは複数のインターフェイスを同時に実装する多重実装のことで、ポリモーフィズムとはフィールドの値を隠すことである。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nカプセル化は保護、継承は再利用と拡張、ポリモーフィズム（多態性）は同じ呼び出し方（同名メソッド）でオブジェクトごとに異なる動作をさせる強力な仕組みです。",
+        "explanation": "カプセル化は保護、継承は再利用と拡張、ポリモーフィズム（多態性）は同じ呼び出し方（同名メソッド）でオブジェクトごとに異なる動作をさせる強力な仕組みです。",
         "category": "Java"
     },
     {
@@ -1338,7 +1338,7 @@ const questionDatabase = [
             "クラスの継承関係を強制的に無効化する"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nパッケージは、多数のクラスをフォルダのように分類・グループ化する仕組みです。これにより、異なるパッケージ間であれば同じ名前のクラスを作成でき、名前の衝突を防げます。",
+        "explanation": "パッケージは、多数のクラスをフォルダのように分類・グループ化する仕組みです。これにより、異なるパッケージ間であれば同じ名前のクラスを作成でき、名前の衝突を防げます。",
         "category": "Java"
     },
     {
@@ -1351,7 +1351,7 @@ const questionDatabase = [
             "指定したクラスのコンストラクタの引数を省略できる"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nimport文をファイルの先頭に記述することで、プログラム内でそのクラスを使用する際に「java.util.ArrayList」のような長い完全修飾名を「ArrayList」と省略して書けるようになります。",
+        "explanation": "import文をファイルの先頭に記述することで、プログラム内でそのクラスを使用する際に「java.util.ArrayList」のような長い完全修飾名を「ArrayList」と省略して書けるようになります。",
         "category": "Java"
     },
     {
@@ -1364,7 +1364,7 @@ const questionDatabase = [
             "メソッドの戻り値がnullとして返却されたとき"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\ncatchブロックは、tryブロック内でエラー（例外）が発生し、その例外の種類がcatchで指定した例外の型（またはそのサブクラス）と一致した場合にのみ実行されます。",
+        "explanation": "catchブロックは、tryブロック内でエラー（例外）が発生し、その例外の種類がcatchで指定した例外の型（またはそのサブクラス）と一致した場合にのみ実行されます。",
         "category": "Java"
     },
     {
@@ -1377,7 +1377,7 @@ const questionDatabase = [
             "例外が発生し、異常終了した場合のみ、実行される"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nfinallyブロックに記述された処理は、例外が発生してもしなくても、tryまたはcatchの処理が終わった後に「必ず」実行されます。ファイルのクローズ処理などによく使われます。",
+        "explanation": "finallyブロックに記述された処理は、例外が発生してもしなくても、tryまたはcatchの処理が終わった後に「必ず」実行されます。ファイルのクローズ処理などによく使われます。",
         "category": "Java"
     },
     {
@@ -1390,7 +1390,7 @@ const questionDatabase = [
             "独自に定義したすべてのオリジナル例外クラス"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nRuntimeExceptionとそのサブクラス（非検査例外）は、プログラマの論理的ミス（NullPointerExceptionなど）を表すため、try-catchやthrowsでの明示的な例外処理を強制されません。",
+        "explanation": "RuntimeExceptionとそのサブクラス（非検査例外）は、プログラマの論理的ミス（NullPointerExceptionなど）を表すため、try-catchやthrowsでの明示的な例外処理を強制されません。",
         "category": "Java"
     },
     {
@@ -1403,7 +1403,7 @@ const questionDatabase = [
             "配列は格納された要素を自動的に昇順に並び替えされる"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n配列は作成時に要素数が固定されますが、List（ArrayListなど）は要素を追加（add）や削除（remove）するたびに、内部的にサイズが自動で拡張・縮小される便利なデータ構造です。",
+        "explanation": "配列は作成時に要素数が固定されますが、List（ArrayListなど）は要素を追加（add）や削除（remove）するたびに、内部的にサイズが自動で拡張・縮小される便利なデータ構造です。",
         "category": "Java"
     },
     {
@@ -1416,7 +1416,7 @@ const questionDatabase = [
             "実行時に例外が発生する"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nlist.get(1)はインデックス1（2番目）の要素を取得します。最初に追加されたBananaがインデックス1でしたが、set(1, \"Orange\")によって「Orange」に上書きされたため、Orangeが出力されます。",
+        "explanation": "list.get(1)はインデックス1（2番目）の要素を取得します。最初に追加されたBananaがインデックス1でしたが、set(1, \"Orange\")によって「Orange」に上書きされたため、Orangeが出力されます。",
         "category": "Java"
     },
     {
@@ -1429,8 +1429,8 @@ const questionDatabase = [
             "A：動的　／　B：動的"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\n静的ページ（Static）はサーバー上にあるHTMLファイルをそのまま返し、動的ページ（Dynamic）はアクセス時にプログラムが処理を行ってその都度異なる内容を生成します。",
-        "category": "JavaSpring"
+        "explanation": "静的ページ（Static）はサーバー上にあるHTMLファイルをそのまま返し、動的ページ（Dynamic）はアクセス時にプログラムが処理を行ってその都度異なる内容を生成します。",
+        "category": "Spring"
     },
     {
         "id": 111,
@@ -1442,8 +1442,8 @@ const questionDatabase = [
             "リクエストとレスポンスは同一の通信であり、方向による区別はない。"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\nWebの通信は、クライアント（ブラウザ）からサーバーに対して要求を送る「リクエスト」と、サーバーがその結果を返す「レスポンス」という一連のやり取りで構成されます。",
-        "category": "JavaSpring"
+        "explanation": "Webの通信は、クライアント（ブラウザ）からサーバーに対して要求を送る「リクエスト」と、サーバーがその結果を返す「レスポンス」という一連のやり取りで構成されます。",
+        "category": "Spring"
     },
     {
         "id": 112,
@@ -1455,8 +1455,8 @@ const questionDatabase = [
             "コンテキストパスは、ドメイン名（ホスト名）と同じ意味で使われる用語である。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nコンテキストパスは、1つのサーバー上で動いている複数のWebアプリケーションを識別するため、URLのルートの直後に付与されるアプリケーション固有のパスです。",
-        "category": "JavaSpring"
+        "explanation": "コンテキストパスは、1つのサーバー上で動いている複数のWebアプリケーションを識別するため、URLのルートの直後に付与されるアプリケーション固有のパスです。",
+        "category": "Spring"
     },
     {
         "id": 113,
@@ -1468,8 +1468,8 @@ const questionDatabase = [
             "A：AOP（アスペクト指向）　／　B：Spring MVC"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nSpringの最大の特徴であるDI（Dependency Injection：依存性の注入）により、オブジェクト間の依存関係が自動的に解決されます。Webアプリ開発ではSpring MVCが使われます。",
-        "category": "JavaSpring"
+        "explanation": "Springの最大の特徴であるDI（Dependency Injection：依存性の注入）により、オブジェクト間の依存関係が自動的に解決されます。Webアプリ開発ではSpring MVCが使われます。",
+        "category": "Spring"
     },
     {
         "id": 114,
@@ -1481,8 +1481,8 @@ const questionDatabase = [
             "HTMLテンプレートを直接定義するためのクラスであることを示す。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nクラスに@Controllerアノテーションを付与することで、Springはそのクラスが画面遷移を伴うHTTPリクエストを受け付けるコントローラーであると認識します。",
-        "category": "JavaSpring"
+        "explanation": "クラスに@Controllerアノテーションを付与することで、Springはそのクラスが画面遷移を伴うHTTPリクエストを受け付けるコントローラーであると認識します。",
+        "category": "Spring"
     },
     {
         "id": 115,
@@ -1494,8 +1494,8 @@ const questionDatabase = [
             "そのメソッドは、戻り値を必ずvoidにしなければならない。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n@RequestMapping（または@GetMapping, @PostMappingなど）を付与することで、指定したURLに対するリクエストが来た際に、そのメソッドが自動的に実行されるようマッピングされます。",
-        "category": "JavaSpring"
+        "explanation": "@RequestMapping（または@GetMapping, @PostMappingなど）を付与することで、指定したURLに対するリクエストが来た際に、そのメソッドが自動的に実行されるようマッピングされます。",
+        "category": "Spring"
     },
     {
         "id": 116,
@@ -1507,8 +1507,8 @@ const questionDatabase = [
             "戻り値はHTTPステータスコードを表す数値でなければならない。"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\nコントローラのメソッドがString型の戻り値を返す場合、その文字列は「遷移先の画面（ビュー・テンプレート）の名前」として扱われ、対応するHTMLファイルが表示されます。",
-        "category": "JavaSpring"
+        "explanation": "コントローラのメソッドがString型の戻り値を返す場合、その文字列は「遷移先の画面（ビュー・テンプレート）の名前」として扱われ、対応するHTMLファイルが表示されます。",
+        "category": "Spring"
     },
     {
         "id": 117,
@@ -1520,8 +1520,8 @@ const questionDatabase = [
             "ファイル名のみで構成され、ディレクトリ情報を含まないパスのことである。"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\n絶対パスはルートディレクトリ（「/」）やURLのドメイン名から始まる完全な経路指定のことです。逆に現在の位置を基準とするものは相対パスと呼ばれます。",
-        "category": "JavaSpring"
+        "explanation": "絶対パスはルートディレクトリ（「/」）やURLのドメイン名から始まる完全な経路指定のことです。逆に現在の位置を基準とするものは相対パスと呼ばれます。",
+        "category": "Spring"
     },
     {
         "id": 118,
@@ -1533,8 +1533,8 @@ const questionDatabase = [
             "フォワードはクライアントとサーバー間で2回の通信が発生する。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nフォワードは、サーバー内部で処理を別の画面（テンプレート）に引き継ぐ方式です。クライアントとサーバー間の通信は1回のみで完結するため、ブラウザのURLバーは変化しません。",
-        "category": "JavaSpring"
+        "explanation": "フォワードは、サーバー内部で処理を別の画面（テンプレート）に引き継ぐ方式です。クライアントとサーバー間の通信は1回のみで完結するため、ブラウザのURLバーは変化しません。",
+        "category": "Spring"
     },
     {
         "id": 119,
@@ -1546,8 +1546,8 @@ const questionDatabase = [
             "リダイレクトはサーバー内部の処理であり、クライアントには通知されない。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nリダイレクトは、サーバーがブラウザに対して「別のURLへ再リクエストして」と指示を返す方式です。通信が2回発生し、ブラウザのURLバーが新しいURLに変わります。",
-        "category": "JavaSpring"
+        "explanation": "リダイレクトは、サーバーがブラウザに対して「別のURLへ再リクエストして」と指示を返す方式です。通信が2回発生し、ブラウザのURLバーが新しいURLに変わります。",
+        "category": "Spring"
     },
     {
         "id": 120,
@@ -1559,8 +1559,8 @@ const questionDatabase = [
             "HTMLのclass属性の値とコントローラの引数名は完全に一致させる必要がある。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nフォームから送信されたデータ（パラメータ）を受け取るには、HTML側（inputタグなど）のname属性の値と、コントローラの引数名を一致させる必要があります。",
-        "category": "JavaSpring"
+        "explanation": "フォームから送信されたデータ（パラメータ）を受け取るには、HTML側（inputタグなど）のname属性の値と、コントローラの引数名を一致させる必要があります。",
+        "category": "Spring"
     },
     {
         "id": 121,
@@ -1572,8 +1572,8 @@ const questionDatabase = [
             "送信するデータをリクエストボディに格納する方式であり、検索結果をブラウザの履歴に残す目的で使用される。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nGETリクエストは、送信するデータをURLの末尾（クエリパラメータ）に付加して送る方式です。データがURLに見えるため、検索や画面の表示などデータの取得に適しています。",
-        "category": "JavaSpring"
+        "explanation": "GETリクエストは、送信するデータをURLの末尾（クエリパラメータ）に付加して送る方式です。データがURLに見えるため、検索や画面の表示などデータの取得に適しています。",
+        "category": "Spring"
     },
     {
         "id": 122,
@@ -1585,8 +1585,8 @@ const questionDatabase = [
             "URLにデータが出ないため、送信内容がブラウザの履歴に残らない。"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\nPOSTリクエストはデータをリクエストボディに格納して隠して送るため、URLには表示されません。そのため、結果のページをブックマークするのには適していません（GETが適しています）。",
-        "category": "JavaSpring"
+        "explanation": "POSTリクエストはデータをリクエストボディに格納して隠して送るため、URLには表示されません。そのため、結果のページをブックマークするのには適していません（GETが適しています）。",
+        "category": "Spring"
     },
     {
         "id": 123,
@@ -1598,8 +1598,8 @@ const questionDatabase = [
             "画面を表示するためのデザイン情報を保持し、次への画面遷移を制御するクラスである。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nフォーム（Form）クラスは、画面から送信された複数の入力値をまとめて受け取り、一時的に保持しておくための「データの入れ物」として機能する専用のクラスです。",
-        "category": "JavaSpring"
+        "explanation": "フォーム（Form）クラスは、画面から送信された複数の入力値をまとめて受け取り、一時的に保持しておくための「データの入れ物」として機能する専用のクラスです。",
+        "category": "Spring"
     },
     {
         "id": 124,
@@ -1611,8 +1611,8 @@ const questionDatabase = [
             "ブラウザを閉じるかタイムアウトするまで有効であり、すべてのユーザー間で情報を共有して保持する。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nセッションスコープは、特定のユーザーがブラウザを起動してから閉じる（または一定時間経過でタイムアウトする）までの間、ユーザー固有の情報をサーバー側で保持し続ける仕組みです。",
-        "category": "JavaSpring"
+        "explanation": "セッションスコープは、特定のユーザーがブラウザを起動してから閉じる（または一定時間経過でタイムアウトする）までの間、ユーザー固有の情報をサーバー側で保持し続ける仕組みです。",
+        "category": "Spring"
     },
     {
         "id": 125,
@@ -1624,8 +1624,8 @@ const questionDatabase = [
             "アプリケーション全体で共有する設定情報を、サーバー起動時に登録するためのものである。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nModelのaddAttributeメソッドは、コントローラ側で用意したデータ（文字列やオブジェクトなど）をビュー（画面・HTML）に渡して表示させるために使用されます。",
-        "category": "JavaSpring"
+        "explanation": "ModelのaddAttributeメソッドは、コントローラ側で用意したデータ（文字列やオブジェクトなど）をビュー（画面・HTML）に渡して表示させるために使用されます。",
+        "category": "Spring"
     },
     {
         "id": 126,
@@ -1637,8 +1637,8 @@ const questionDatabase = [
             "${application.userName} のように、頭に「application」をつけて指定する。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nThymeleafなどのテンプレートエンジンでセッションスコープの値を表示する場合、明示的に「session.」というプレフィックスを付けるのが一般的な記述方法です。",
-        "category": "JavaSpring"
+        "explanation": "Thymeleafなどのテンプレートエンジンでセッションスコープの値を表示する場合、明示的に「session.」というプレフィックスを付けるのが一般的な記述方法です。",
+        "category": "Spring"
     },
     {
         "id": 127,
@@ -1650,8 +1650,8 @@ const questionDatabase = [
             "古くなった情報を破棄し、最新の画面デザインを強制的に再読み込みさせるため。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nセッションタイムアウトは、長時間操作がない場合に自動でセッションを破棄する仕組みです。他人が操作を引き継ぐ不正利用を防ぎ、同時にサーバーのメモリを解放する目的があります。",
-        "category": "JavaSpring"
+        "explanation": "セッションタイムアウトは、長時間操作がない場合に自動でセッションを破棄する仕組みです。他人が操作を引き継ぐ不正利用を防ぎ、同時にサーバーのメモリを解放する目的があります。",
+        "category": "Spring"
     },
     {
         "id": 128,
@@ -1663,8 +1663,8 @@ const questionDatabase = [
             "JPAはSpring Frameworkにのみ対応した専用の仕様であり、Spring以外のJavaアプリケーションでは使用できない。"
         ],
         "answer": 3,
-        "explanation": "正解は4番です。\nJPA（Java Persistence API）はJavaの標準仕様であり、Spring専用ではありません。他のフレームワークやプレーンなJavaアプリケーションでもHibernateなどの実装を用意すれば使用可能です。",
-        "category": "JavaSpring"
+        "explanation": "JPA（Java Persistence API）はJavaの標準仕様であり、Spring専用ではありません。他のフレームワークやプレーンなJavaアプリケーションでもHibernateなどの実装を用意すれば使用可能です。",
+        "category": "Spring"
     },
     {
         "id": 129,
@@ -1676,8 +1676,8 @@ const questionDatabase = [
             "アプリケーション全体で共通利用される定数値を一元管理するためのクラスとして使用する。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nエンティティクラスは、データベースのテーブルの構造と1対1で対応づけられ、テーブルの「1行分のデータ」を表現し格納するためのオブジェクトとして使用されます。",
-        "category": "JavaSpring"
+        "explanation": "エンティティクラスは、データベースのテーブルの構造と1対1で対応づけられ、テーブルの「1行分のデータ」を表現し格納するためのオブジェクトとして使用されます。",
+        "category": "Spring"
     },
     {
         "id": 130,
@@ -1689,8 +1689,8 @@ const questionDatabase = [
             "そのエンティティ内で最初に定義された、インデックスが自動付与されるフィールドである。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n@Idアノテーションが付与されたフィールドは、そのテーブルの「主キー（Primary Key）」であることを示します。データベース上の行を一意に特定するために必須となります。",
-        "category": "JavaSpring"
+        "explanation": "@Idアノテーションが付与されたフィールドは、そのテーブルの「主キー（Primary Key）」であることを示します。データベース上の行を一意に特定するために必須となります。",
+        "category": "Spring"
     },
     {
         "id": 131,
@@ -3949,8 +3949,8 @@ const questionDatabase = [
             "JpaRepository を継承すると、メソッドをすべて手動でオーバーライドしなければならない。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nSpring Data JPAでは、インターフェースに JpaRepository<エンティティ型, ID型> を継承させるだけで、findAll・findById・save・deleteなどの基本的なCRUD操作が自動的に利用できます。クラスではなくインターフェースとして定義し、SQL文の記述も不要です。",
-        "category": "JavaSpring"
+        "explanation": "Spring Data JPAでは、インターフェースに JpaRepository<エンティティ型, ID型> を継承させるだけで、findAll・findById・save・deleteなどの基本的なCRUD操作が自動的に利用できます。クラスではなくインターフェースとして定義し、SQL文の記述も不要です。",
+        "category": "Spring"
     },
     {
         "id": 306,
@@ -3962,8 +3962,8 @@ const questionDatabase = [
             "model.addAttribute はデータベースに新しいレコードを追加するメソッドである。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nfindAll() でDBから全件取得したリストを、model.addAttribute(\"items\", items) でリクエストスコープのModelに追加します。これによりThymeleafなどのビューテンプレートから \"items\" という名前でデータを参照できます。セッションスコープには保存されません。",
-        "category": "JavaSpring"
+        "explanation": "findAll() でDBから全件取得したリストを、model.addAttribute(\"items\", items) でリクエストスコープのModelに追加します。これによりThymeleafなどのビューテンプレートから \"items\" という名前でデータを参照できます。セッションスコープには保存されません。",
+        "category": "Spring"
     },
     {
         "id": 307,
@@ -3975,8 +3975,8 @@ const questionDatabase = [
             "getById(id) を使用し、存在しない場合は null が返される。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nJpaRepository の主キー検索には findById(id) を使用します。戻り値は Optional<T> 型であり、レコードが存在する場合は Optional.of(entity)、存在しない場合は Optional.empty() が返されます。findAll は全件取得用、findByPrimaryKey は存在しないメソッドです。",
-        "category": "JavaSpring"
+        "explanation": "JpaRepository の主キー検索には findById(id) を使用します。戻り値は Optional<T> 型であり、レコードが存在する場合は Optional.of(entity)、存在しない場合は Optional.empty() が返されます。findAll は全件取得用、findByPrimaryKey は存在しないメソッドです。",
+        "category": "Spring"
     },
     {
         "id": 308,
@@ -3988,8 +3988,8 @@ const questionDatabase = [
             "save メソッドはIDを持つエンティティにのみ使用でき、新規登録には使用できない。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nJpaRepository の save(entity) メソッドは新規登録と更新の両方に対応しています。エンティティのIDが null（未設定）の場合は INSERT、IDが既に設定済みの場合は UPDATE が自動的に判断されて実行されます。戻り値は保存されたエンティティ（T型）であり void ではありません。",
-        "category": "JavaSpring"
+        "explanation": "JpaRepository の save(entity) メソッドは新規登録と更新の両方に対応しています。エンティティのIDが null（未設定）の場合は INSERT、IDが既に設定済みの場合は UPDATE が自動的に判断されて実行されます。戻り値は保存されたエンティティ（T型）であり void ではありません。",
+        "category": "Spring"
     },
     {
         "id": 309,
@@ -4001,8 +4001,8 @@ const questionDatabase = [
             "エンティティ間の多対多の関連を定義する。"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\n@ManyToOneアノテーションは、エンティティ間の「多対1」の関連を定義するために使用します。（例：複数の社員（Many）が1つの部署（One）に所属する関連）",
-        "category": "JavaSpring"
+        "explanation": "@ManyToOneアノテーションは、エンティティ間の「多対1」の関連を定義するために使用します。（例：複数の社員（Many）が1つの部署（One）に所属する関連）",
+        "category": "Spring"
     },
     {
         "id": 310,
@@ -4014,8 +4014,8 @@ const questionDatabase = [
             "関連を持たない独立した列を新たに定義する。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\n@JoinColumnアノテーションは、関連するエンティティを結合する際に、外部キー（Foreign Key）として使用される列を指定するために使用します。",
-        "category": "JavaSpring"
+        "explanation": "@JoinColumnアノテーションは、関連するエンティティを結合する際に、外部キー（Foreign Key）として使用される列を指定するために使用します。",
+        "category": "Spring"
     },
     {
         "id": 311,
@@ -4027,8 +4027,8 @@ const questionDatabase = [
             "実行時にSQLの処理速度を自動的に計測して最適化を行うことができる。"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\nJPQL（Java Persistence Query Language）は、データベースの特定のテーブルや列ではなく、Javaのエンティティクラスやそのフィールドを対象として記述するクエリ言語です。そのため、特定のデータベース製品の種類に依存しないクエリを記述できるメリットがあります。",
-        "category": "JavaSpring"
+        "explanation": "JPQL（Java Persistence Query Language）は、データベースの特定のテーブルや列ではなく、Javaのエンティティクラスやそのフィールドを対象として記述するクエリ言語です。そのため、特定のデータベース製品の種類に依存しないクエリを記述できるメリットがあります。",
+        "category": "Spring"
     },
     {
         "id": 312,
@@ -4040,8 +4040,8 @@ const questionDatabase = [
             "SELECTやFROMなどのJPQLのキーワード自体は大文字と小文字が区別されない。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nJPQLではデータベースのテーブルや列名を直接指定しません。SELECT句には、エンティティクラスのフィールド名や、エンティティ全体を表す別名（識別変数）を指定します。そのため、データベースの列名を指定するという説明は誤りです。",
-        "category": "JavaSpring"
+        "explanation": "JPQLではデータベースのテーブルや列名を直接指定しません。SELECT句には、エンティティクラスのフィールド名や、エンティティ全体を表す別名（識別変数）を指定します。そのため、データベースの列名を指定するという説明は誤りです。",
+        "category": "Spring"
     },
     {
         "id": 313,
@@ -4053,8 +4053,8 @@ const questionDatabase = [
             "コントローラクラス"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n@NamedQueryアノテーションは、エンティティクラス（@Entityが付与されたクラス）のクラス宣言部などに付与して、静的なクエリ（JPQL）を事前に定義するために使用します。",
-        "category": "JavaSpring"
+        "explanation": "@NamedQueryアノテーションは、エンティティクラス（@Entityが付与されたクラス）のクラス宣言部などに付与して、静的なクエリ（JPQL）を事前に定義するために使用します。",
+        "category": "Spring"
     },
     {
         "id": 314,
@@ -4066,8 +4066,8 @@ const questionDatabase = [
             "コントローラクラス"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\n@Queryアノテーションは、リポジトリインターフェースのメソッドに付与して、そのメソッドが実行されたときに実行するクエリ（JPQLやSQL）を直接定義するために使用します。",
-        "category": "JavaSpring"
+        "explanation": "@Queryアノテーションは、リポジトリインターフェースのメソッドに付与して、そのメソッドが実行されたときに実行するクエリ（JPQLやSQL）を直接定義するために使用します。",
+        "category": "Spring"
     },
     {
         "id": 315,
@@ -4079,8 +4079,8 @@ const questionDatabase = [
             "A：動的　／　B：動的"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\n静的ページ（Static）はサーバー上にあるHTMLファイルをそのまま返し、動的ページ（Dynamic）はアクセス時にプログラムが処理を行ってその都度異なる内容を生成します。",
-        "category": "JavaSpring"
+        "explanation": "静的ページ（Static）はサーバー上にあるHTMLファイルをそのまま返し、動的ページ（Dynamic）はアクセス時にプログラムが処理を行ってその都度異なる内容を生成します。",
+        "category": "Spring"
     },
     {
         "id": 316,
@@ -4092,8 +4092,8 @@ const questionDatabase = [
             "リクエストとレスポンスは同一の通信であり、方向による区別はない。"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\nWebの通信は、クライアント（ブラウザ）からサーバーに対して要求を送る「リクエスト」と、サーバーがその結果を返す「レスポンス」という一連のやり取りで構成されます。",
-        "category": "JavaSpring"
+        "explanation": "Webの通信は、クライアント（ブラウザ）からサーバーに対して要求を送る「リクエスト」と、サーバーがその結果を返す「レスポンス」という一連のやり取りで構成されます。",
+        "category": "Spring"
     },
     {
         "id": 317,
@@ -4105,8 +4105,8 @@ const questionDatabase = [
             "コンテキストパスは、ドメイン名（ホスト名）と同じ意味で使われる用語である。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nコンテキストパスは、1つのサーバー上で動いている複数のWebアプリケーションを識別するため、URLのルートの直後に付与されるアプリケーション固有のパスです。",
-        "category": "JavaSpring"
+        "explanation": "コンテキストパスは、1つのサーバー上で動いている複数のWebアプリケーションを識別するため、URLのルートの直後に付与されるアプリケーション固有のパスです。",
+        "category": "Spring"
     },
     {
         "id": 318,
@@ -4118,8 +4118,8 @@ const questionDatabase = [
             "A：AOP（アスペクト指向）　／　B：Spring MVC"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nSpringの最大の特徴であるDI（Dependency Injection：依存性の注入）により、オブジェクト間の依存関係が自動的に解決されます。Webアプリ開発ではSpring MVCが使われます。",
-        "category": "JavaSpring"
+        "explanation": "Springの最大の特徴であるDI（Dependency Injection：依存性の注入）により、オブジェクト間の依存関係が自動的に解決されます。Webアプリ開発ではSpring MVCが使われます。",
+        "category": "Spring"
     },
     {
         "id": 319,
@@ -4131,8 +4131,8 @@ const questionDatabase = [
             "HTMLテンプレートを直接定義するためのクラスであることを示す。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nクラスに@Controllerアノテーションを付与することで、Springはそのクラスが画面遷移を伴うHTTPリクエストを受け付けるコントローラーであると認識します。",
-        "category": "JavaSpring"
+        "explanation": "クラスに@Controllerアノテーションを付与することで、Springはそのクラスが画面遷移を伴うHTTPリクエストを受け付けるコントローラーであると認識します。",
+        "category": "Spring"
     },
     {
         "id": 320,
@@ -4144,8 +4144,8 @@ const questionDatabase = [
             "そのメソッドは、戻り値を必ずvoidにしなければならない。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n@RequestMapping（または@GetMapping, @PostMappingなど）を付与することで、指定したURLに対するリクエストが来た際に、そのメソッドが自動的に実行されるようマッピングされます。",
-        "category": "JavaSpring"
+        "explanation": "@RequestMapping（または@GetMapping, @PostMappingなど）を付与することで、指定したURLに対するリクエストが来た際に、そのメソッドが自動的に実行されるようマッピングされます。",
+        "category": "Spring"
     },
     {
         "id": 321,
@@ -4157,8 +4157,8 @@ const questionDatabase = [
             "戻り値はHTTPステータスコードを表す数値でなければならない。"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\nコントローラのメソッドがString型の戻り値を返す場合、その文字列は「遷移先の画面（ビュー・テンプレート）の名前」として扱われ、対応するHTMLファイルが表示されます。",
-        "category": "JavaSpring"
+        "explanation": "コントローラのメソッドがString型の戻り値を返す場合、その文字列は「遷移先の画面（ビュー・テンプレート）の名前」として扱われ、対応するHTMLファイルが表示されます。",
+        "category": "Spring"
     },
     {
         "id": 322,
@@ -4170,8 +4170,8 @@ const questionDatabase = [
             "ファイル名のみで構成され、ディレクトリ情報を含まないパスのことである。"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\n絶対パスはルートディレクトリ（「/」）やURLのドメイン名から始まる完全な経路指定のことです。逆に現在の位置を基準とするものは相対パスと呼ばれます。",
-        "category": "JavaSpring"
+        "explanation": "絶対パスはルートディレクトリ（「/」）やURLのドメイン名から始まる完全な経路指定のことです。逆に現在の位置を基準とするものは相対パスと呼ばれます。",
+        "category": "Spring"
     },
     {
         "id": 323,
@@ -4183,8 +4183,8 @@ const questionDatabase = [
             "フォワードはクライアントとサーバー間で2回の通信が発生する。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nフォワードは、サーバー内部で処理を別の画面（テンプレート）に引き継ぐ方式です。クライアントとサーバー間の通信は1回のみで完結するため、ブラウザのURLバーは変化しません。",
-        "category": "JavaSpring"
+        "explanation": "フォワードは、サーバー内部で処理を別の画面（テンプレート）に引き継ぐ方式です。クライアントとサーバー間の通信は1回のみで完結するため、ブラウザのURLバーは変化しません。",
+        "category": "Spring"
     },
     {
         "id": 324,
@@ -4196,8 +4196,8 @@ const questionDatabase = [
             "リダイレクトはサーバー内部の処理であり、クライアントには通知されない。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nリダイレクトは、サーバーがブラウザに対して「別のURLへ再リクエストして」と指示を返す方式です。通信が2回発生し、ブラウザのURLバーが新しいURLに変わります。",
-        "category": "JavaSpring"
+        "explanation": "リダイレクトは、サーバーがブラウザに対して「別のURLへ再リクエストして」と指示を返す方式です。通信が2回発生し、ブラウザのURLバーが新しいURLに変わります。",
+        "category": "Spring"
     },
     {
         "id": 337,
@@ -4209,8 +4209,8 @@ const questionDatabase = [
             "model.addAttribute はデータベースに新しいレコードを追加するメソッドである。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nfindAll() でDBから全件取得したリストを、model.addAttribute(\"items\", items) でリクエストスコープのModelに追加します。これによりThymeleafなどのビューテンプレートから \"items\" という名前でデータを参照できます。セッションスコープには保存されません。",
-        "category": "JavaSpring"
+        "explanation": "findAll() でDBから全件取得したリストを、model.addAttribute(\"items\", items) でリクエストスコープのModelに追加します。これによりThymeleafなどのビューテンプレートから \"items\" という名前でデータを参照できます。セッションスコープには保存されません。",
+        "category": "Spring"
     },
     {
         "id": 346,
@@ -4222,8 +4222,8 @@ const questionDatabase = [
             "専用のXMLファイルに入力規則を記述し、それをSpringが読み込むことでアプリケーション全体のチェックを行う。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nフォームクラスのフィールドに@NotBlankなどのアノテーションを付与し、コントローラの引数で@Validatedを付与することで自動的な入力チェックが有効になります。",
-        "category": "JavaSpring"
+        "explanation": "フォームクラスのフィールドに@NotBlankなどのアノテーションを付与し、コントローラの引数で@Validatedを付与することで自動的な入力チェックが有効になります。",
+        "category": "Spring"
     },
     {
         "id": 347,
@@ -4235,8 +4235,8 @@ const questionDatabase = [
             "@ModelAttributeは、リクエストパラメータをオブジェクトに格納し、Modelに自動追加する役割を持つ。"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\n@ModelAttributeを付与しただけでは入力チェックは実行されません。入力チェックを行うには@Validatedを付与する必要があります。",
-        "category": "JavaSpring"
+        "explanation": "@ModelAttributeを付与しただけでは入力チェックは実行されません。入力チェックを行うには@Validatedを付与する必要があります。",
+        "category": "Spring"
     },
     {
         "id": 348,
@@ -4248,8 +4248,8 @@ const questionDatabase = [
             "エラーメッセージのテキストではなく、エラーが発生した入力項目の背景色を自動的に赤色に変更する属性である。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\nThymeleafのth:errors属性は、指定したフィールド（プロパティ）にエラーがある場合、そのHTML要素のテキストとしてエラーメッセージを出力します。",
-        "category": "JavaSpring"
+        "explanation": "Thymeleafのth:errors属性は、指定したフィールド（プロパティ）にエラーがある場合、そのHTML要素のテキストとしてエラーメッセージを出力します。",
+        "category": "Spring"
     },
     {
         "id": 349,
@@ -4261,8 +4261,8 @@ const questionDatabase = [
             "キーと値をハイフン（-）で繋いで記述し、ダブルクォーテーション（\"\"）で囲む。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nプロパティファイルでは「キー=値」の形式で記述し、1行につき1つのメッセージを定義します。",
-        "category": "JavaSpring"
+        "explanation": "プロパティファイルでは「キー=値」の形式で記述し、1行につき1つのメッセージを定義します。",
+        "category": "Spring"
     },
     {
         "id": 350,
@@ -4274,8 +4274,8 @@ const questionDatabase = [
             "コントローラの処理内で発生した例外のスタックトレースをログとして出力するための設定ファイルである。"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\nValidationMessages.propertiesは、Bean Validation（@NotBlankなど）の標準エラーメッセージをカスタマイズするためのファイルです。",
-        "category": "JavaSpring"
+        "explanation": "ValidationMessages.propertiesは、Bean Validation（@NotBlankなど）の標準エラーメッセージをカスタマイズするためのファイルです。",
+        "category": "Spring"
     },
     {
         "id": 351,
@@ -4287,8 +4287,8 @@ const questionDatabase = [
             "DIコンテナに登録するBean（コンポーネント）の依存関係を定義するためのファイルである。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\nmessages.propertiesは、アプリケーション内で共通利用する画面のラベルや独自のメッセージなどを一元管理するためのファイルです。",
-        "category": "JavaSpring"
+        "explanation": "messages.propertiesは、アプリケーション内で共通利用する画面のラベルや独自のメッセージなどを一元管理するためのファイルです。",
+        "category": "Spring"
     },
     {
         "id": 352,
@@ -4300,8 +4300,8 @@ const questionDatabase = [
             "@{メッセージリソースのキー}"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\nThymeleafでmessages.propertiesなどのメッセージリソースから値を取得して表示する場合は、#{キー}のメッセージ式（シャープ記号）を使用します。",
-        "category": "JavaSpring"
+        "explanation": "Thymeleafでmessages.propertiesなどのメッセージリソースから値を取得して表示する場合は、#{キー}のメッセージ式（シャープ記号）を使用します。",
+        "category": "Spring"
     },
     {
         "id": 353,
@@ -4313,8 +4313,8 @@ const questionDatabase = [
             "フィルタクラスが実装しているFilterインターフェースの宣言の直前"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\nSpringのDIコンテナにコンポーネントとして登録するためには、クラスの宣言の直前に@Componentアノテーションを付与します。",
-        "category": "JavaSpring"
+        "explanation": "SpringのDIコンテナにコンポーネントとして登録するためには、クラスの宣言の直前に@Componentアノテーションを付与します。",
+        "category": "Spring"
     },
     {
         "id": 354,
@@ -4326,11 +4326,11 @@ const questionDatabase = [
             "フィルタクラスのクラス名のアルファベット順に基づいて実行されるため、設定クラスで順序を指定することはできない。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\n複数のフィルタの実行順序を制御する場合は、設定クラス（@Configuration）でFilterRegistrationBeanを使用し、setOrderメソッドに数値を指定して登録します。",
-        "category": "JavaSpring"
+        "explanation": "複数のフィルタの実行順序を制御する場合は、設定クラス（@Configuration）でFilterRegistrationBeanを使用し、setOrderメソッドに数値を指定して登録します。",
+        "category": "Spring"
     },
     {
-        "category": "JavaSpring",
+        "category": "Spring",
         "question": "【Thymeleafの基本とテンプレート】に関する問題\n問1. Thymeleafのテンプレートファイルにおける記述として正しいものを選べ。",
         "options": [
             "HTMLタグの中に専用の属性と式を記述することで、動的なWebページを生成する。",
@@ -4339,11 +4339,11 @@ const questionDatabase = [
             "HTMLタグの外部に専用の式を記述し、属性はCSSファイルで定義して読み込ませる。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。ThymeleafはHTMLテンプレート内に独自の属性（th:textなど）と式（${...}など）を埋め込むことで、サーバーサイドのデータと連携して動的なWebページを生成します。",
+        "explanation": "ThymeleafはHTMLテンプレート内に独自の属性（th:textなど）と式（${...}など）を埋め込むことで、サーバーサイドのデータと連携して動的なWebページを生成します。",
         "id": 404
     },
     {
-        "category": "JavaSpring",
+        "category": "Spring",
         "question": "【th:each属性】に関する問題\n問2. Thymeleafの th:each 属性の機能として正しいものを選べ。",
         "options": [
             "指定したコレクションの要素の数だけ、記述したHTML要素を繰り返し出力する。",
@@ -4352,11 +4352,11 @@ const questionDatabase = [
             "指定したコレクションの要素を、自動的に五十音順や昇順に並び替えて出力する。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。th:eachは指定したリストや配列などのコレクションの要素数分だけ、その要素を含むHTMLタグを繰り返し出力するための属性です。",
+        "explanation": "th:eachは指定したリストや配列などのコレクションの要素数分だけ、その要素を含むHTMLタグを繰り返し出力するための属性です。",
         "id": 405
     },
     {
-        "category": "JavaSpring",
+        "category": "Spring",
         "question": "【変数式 ${...}】に関する問題\n問3. Thymeleafの変数式 ${...} を使用した以下の文はどのような処理を行うか。正しいものを選べ。 ただし、コントローラーの処理において、Modelに属性名 \"message\" として文字列が格納されているとする。\n\n---HTML---\n<span th:text=\"${message}\">こんにちは</span>",
         "options": [
             "Modelに格納された \"message\" の値を、spanタグのテキストとして上書き出力する。",
@@ -4365,11 +4365,11 @@ const questionDatabase = [
             "「message」という変数名そのものを、spanタグのテキストとして上書き出力する。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。th:text属性は、評価された式の値（この場合はModelの\"message\"属性の値）で、タグのボディ部分（「こんにちは」）を上書き出力します。",
+        "explanation": "th:text属性は、評価された式の値（この場合はModelの\"message\"属性の値）で、タグのボディ部分（「こんにちは」）を上書き出力します。",
         "id": 406
     },
     {
-        "category": "JavaSpring",
+        "category": "Spring",
         "question": "【リンク式 @{...}】に関する問題\n問4. Thymeleafのリンク式 @{...} の説明として正しいものを選べ。",
         "options": [
             "アプリケーションのコンテキストパスを自動的に補完して、リンク先のURLを生成する。",
@@ -4378,7 +4378,7 @@ const questionDatabase = [
             "選択されたオブジェクトのプロパティを直接取得し、URLのクエリパラメータを生成する。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。リンク式 @{...} を使用すると、コンテキストパス（アプリケーションのルートURL）を自動的に補完した上で、安全にリンク先のURLを生成できます。",
+        "explanation": "リンク式 @{...} を使用すると、コンテキストパス（アプリケーションのルートURL）を自動的に補完した上で、安全にリンク先のURLを生成できます。",
         "id": 407
     },
     {
@@ -4391,7 +4391,7 @@ const questionDatabase = [
             "method属性を省略しているため、このメソッドは実行されない。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。@RequestMappingはコントローラクラスのメソッド（またはクラス）に付与し、指定したURLからのリクエストと処理メソッドを紐づけるためのアノテーションです。",
+        "explanation": "正解の通りです。@RequestMappingはコントローラクラスのメソッド（またはクラス）に付与し、指定したURLからのリクエストと処理メソッドを紐づけるためのアノテーションです。",
         "category": "総合問題"
     },
     {
@@ -4404,7 +4404,7 @@ const questionDatabase = [
             "http://localhost:8080/hello"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。server.portでポート番号（例:8081）を、server.servlet.context-pathでアプリケーションのルートURL（例:/sample）を設定します。そのためアクセスURLは「http://localhost:8081/sample/...」となります。",
+        "explanation": "正解の通りです。server.portでポート番号（例:8081）を、server.servlet.context-pathでアプリケーションのルートURL（例:/sample）を設定します。そのためアクセスURLは「http://localhost:8081/sample/...」となります。",
         "category": "総合問題"
     },
     {
@@ -4417,7 +4417,7 @@ const questionDatabase = [
             "Thymeleafを使用するには、web.xmlにViewResolverを手動で定義しなければならない。"
         ],
         "answer": 3,
-        "explanation": "正解は4番です。\n\n【解説】\n正解の通りです。Thymeleafを利用するにはHTMLの<html>タグに「xmlns:th=\"http://www.thymeleaf.org\"」を宣言する必要があります。これにより「th:」から始まる専用の属性が使用可能になります。",
+        "explanation": "正解の通りです。Thymeleafを利用するにはHTMLの<html>タグに「xmlns:th=\"http://www.thymeleaf.org\"」を宣言する必要があります。これにより「th:」から始まる専用の属性が使用可能になります。",
         "category": "総合問題"
     },
     {
@@ -4430,7 +4430,7 @@ const questionDatabase = [
             "http://localhost:8080/shop/product/register?method=post"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。Thymeleafのリンク式「@{/パス}」を使用すると、application.propertiesで設定したコンテキストパス（例:/ecや/shopなど）が自動的にURLの先頭に補完されます。",
+        "explanation": "正解の通りです。Thymeleafのリンク式「@{/パス}」を使用すると、application.propertiesで設定したコンテキストパス（例:/ecや/shopなど）が自動的にURLの先頭に補完されます。",
         "category": "総合問題"
     },
     {
@@ -4443,7 +4443,7 @@ const questionDatabase = [
             "method 属性を省略すると、GETリクエストのみ受け付けるようになる。"
         ],
         "answer": 3,
-        "explanation": "正解は4番です。\n\n【解説】\n正解の通りです。POSTリクエストを受け取るには、@PostMapping(\"/パス\")、または @RequestMapping(value=\"/パス\", method=RequestMethod.POST) を使用します。",
+        "explanation": "正解の通りです。POSTリクエストを受け取るには、@PostMapping(\"/パス\")、または @RequestMapping(value=\"/パス\", method=RequestMethod.POST) を使用します。",
         "category": "総合問題"
     },
     {
@@ -4456,7 +4456,7 @@ const questionDatabase = [
             "----------"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。HTMLフォームから送信された値を受け取るフォームクラスのフィールド名は、HTML側のname属性と完全に一致している必要があります。また、値をセット・取得するためのgetterとsetterが必須です。",
+        "explanation": "正解の通りです。HTMLフォームから送信された値を受け取るフォームクラスのフィールド名は、HTML側のname属性と完全に一致している必要があります。また、値をセット・取得するためのgetterとsetterが必須です。",
         "category": "総合問題"
     },
     {
@@ -4469,7 +4469,7 @@ const questionDatabase = [
             "@SessionScope を付与すると、ブラウザを閉じるたびに自動的にセッションが削除される。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。@SessionScopeをコントローラクラスやBeanに付与することで、そのインスタンスはユーザー（セッション）ごとに個別に管理・保持されるようになります。",
+        "explanation": "正解の通りです。@SessionScopeをコントローラクラスやBeanに付与することで、そのインスタンスはユーザー（セッション）ごとに個別に管理・保持されるようになります。",
         "category": "総合問題"
     },
     {
@@ -4482,7 +4482,7 @@ const questionDatabase = [
             "session.setAttribute で保存した値は、同一リクエスト内でのみ参照可能である。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。セッションスコープに手動で値を保存する場合、メソッドの引数にHttpSessionを受け取り、session.setAttribute(\"キー名\", 値) のように記述して保存します。",
+        "explanation": "正解の通りです。セッションスコープに手動で値を保存する場合、メソッドの引数にHttpSessionを受け取り、session.setAttribute(\"キー名\", 値) のように記述して保存します。",
         "category": "総合問題"
     },
     {
@@ -4495,7 +4495,7 @@ const questionDatabase = [
             "<p th:text=\"#{loginUser}\">表示エリア</p>"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。Thymeleafの変数式内でセッションスコープの値にアクセスするには、「${session.キー名}」のように「session.」をプレフィックスとして付けて参照します。",
+        "explanation": "正解の通りです。Thymeleafの変数式内でセッションスコープの値にアクセスするには、「${session.キー名}」のように「session.」をプレフィックスとして付けて参照します。",
         "category": "総合問題"
     },
     {
@@ -4508,7 +4508,7 @@ const questionDatabase = [
             "@SequenceGenerator を使用すると、@Id の指定は不要になる。"
         ],
         "answer": 3,
-        "explanation": "正解は4番です。\n\n【解説】\n正解の通りです。主キー（@Id）をDBのシーケンスで自動生成させるには、@SequenceGeneratorでシーケンス定義の名前（name）とDB上のシーケンス名（sequenceName）を指定し、@GeneratedValueのgenerator属性にそのnameを紐づけます。",
+        "explanation": "正解の通りです。主キー（@Id）をDBのシーケンスで自動生成させるには、@SequenceGeneratorでシーケンス定義の名前（name）とDB上のシーケンス名（sequenceName）を指定し、@GeneratedValueのgenerator属性にそのnameを紐づけます。",
         "category": "総合問題"
     },
     {
@@ -4521,7 +4521,7 @@ const questionDatabase = [
             "(C) IDに固定値をセットすると、新規登録か更新かの判定がIDの有無で行われるため、意図しない更新が発生する可能性がある。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。Spring Data JPAで新規登録を行う場合、対象となるエンティティクラスをnewで生成し、必要な値をセットしたうえで、リポジトリの save() メソッドに渡します。",
+        "explanation": "正解の通りです。Spring Data JPAで新規登録を行う場合、対象となるエンティティクラスをnewで生成し、必要な値をセットしたうえで、リポジトリの save() メソッドに渡します。",
         "category": "総合問題"
     },
     {
@@ -4534,7 +4534,7 @@ const questionDatabase = [
             "@JoinColumn を省略すると、外部キー列が自動的に削除される。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。@ManyToOneは「多対1」の関連を示します。@JoinColumnのname属性には、自身のテーブルが持つ「外部キーの列名（カラム名）」を指定してリレーションを構築します。",
+        "explanation": "正解の通りです。@ManyToOneは「多対1」の関連を示します。@JoinColumnのname属性には、自身のテーブルが持つ「外部キーの列名（カラム名）」を指定してリレーションを構築します。",
         "category": "総合問題"
     },
     {
@@ -4547,7 +4547,7 @@ const questionDatabase = [
             "SELECT p FROM Product p WHERE p.category = :category"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\n\n【解説】\n正解の通りです。JPQLはテーブル名ではなく「エンティティクラス名」、カラム名ではなく「エンティティのフィールド名」を使ってクエリを記述します。FROM句にはエンティティクラス名を正確に記述する必要があります。",
+        "explanation": "正解の通りです。JPQLはテーブル名ではなく「エンティティクラス名」、カラム名ではなく「エンティティのフィールド名」を使ってクエリを記述します。FROM句にはエンティティクラス名を正確に記述する必要があります。",
         "category": "総合問題"
     },
     {
@@ -4560,7 +4560,7 @@ const questionDatabase = [
             "@QueryMapping(\"SELECT p FROM Product p WHERE p.categoryId = :categoryId\")"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。リポジトリのインターフェース内で任意のJPQLを実行したい場合は、対象のメソッドに @Query(\"JPQL文\") アノテーションを付与して記述します。",
+        "explanation": "正解の通りです。リポジトリのインターフェース内で任意のJPQLを実行したい場合は、対象のメソッドに @Query(\"JPQL文\") アノテーションを付与して記述します。",
         "category": "総合問題"
     },
     {
@@ -4573,7 +4573,7 @@ const questionDatabase = [
             "ProductDto のコンストラクタに引数を渡す必要はなく、フィールドは自動的にマッピングされる。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。特定のフィールドのみを取得してDTOに格納する場合、JPQLのSELECT句で「SELECT new パッケージ名.DTOクラス名(e.id, e.name) FROM ...」のようにコンストラクタ式を用います。",
+        "explanation": "正解の通りです。特定のフィールドのみを取得してDTOに格納する場合、JPQLのSELECT句で「SELECT new パッケージ名.DTOクラス名(e.id, e.name) FROM ...」のようにコンストラクタ式を用います。",
         "category": "総合問題"
     },
     {
@@ -4586,7 +4586,7 @@ const questionDatabase = [
             "@NotNull は String 型専用のアノテーションであり、Integer 型には使用できない。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。Integer等のオブジェクト型（ラッパークラス）に対して必須入力を課す場合は @NotNull を使用します。送信されなかった場合はnullとなるためこれで検知できます（@NotBlankは文字列専用です）。",
+        "explanation": "正解の通りです。Integer等のオブジェクト型（ラッパークラス）に対して必須入力を課す場合は @NotNull を使用します。送信されなかった場合はnullとなるためこれで検知できます（@NotBlankは文字列専用です）。",
         "category": "総合問題"
     },
     {
@@ -4599,7 +4599,7 @@ const questionDatabase = [
             "error.required -> 入力必須です。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。メッセージリソース（propertiesファイル）は「キー名=メッセージ内容」の形式で記述します。動的な値を入れる部分は「{0}」や「{1}」のようなプレースホルダーを使います。",
+        "explanation": "正解の通りです。メッセージリソース（propertiesファイル）は「キー名=メッセージ内容」の形式で記述します。動的な値を入れる部分は「{0}」や「{1}」のようなプレースホルダーを使います。",
         "category": "総合問題"
     },
     {
@@ -4612,7 +4612,7 @@ const questionDatabase = [
             "NotBlank={0}を入力してください。ただしitemNameに限る。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。ValidationMessages.propertiesにおいて「NotBlank={0}は必須入力項目です。」と定義しておくと、{0}の部分にアノテーション側等で指定した項目名（フィールド名など）が自動で埋め込まれます。",
+        "explanation": "正解の通りです。ValidationMessages.propertiesにおいて「NotBlank={0}は必須入力項目です。」と定義しておくと、{0}の部分にアノテーション側等で指定した項目名（フィールド名など）が自動で埋め込まれます。",
         "category": "総合問題"
     },
     {
@@ -4625,7 +4625,7 @@ const questionDatabase = [
             "th:each で使うコレクションは List 型のみ対応しており、配列は利用できない。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。th:eachのステータス変数（例: st）の「index」プロパティは0から始まる現在の反復インデックスを返し、「count」プロパティは1から始まる現在の反復回数を返します。",
+        "explanation": "正解の通りです。th:eachのステータス変数（例: st）の「index」プロパティは0から始まる現在の反復インデックスを返し、「count」プロパティは1から始まる現在の反復回数を返します。",
         "category": "総合問題"
     },
     {
@@ -4638,7 +4638,7 @@ const questionDatabase = [
             "th:href では @{} は使用できず、${} で直接URLを組み立てる必要がある。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。リンク式の中でURLパラメータ（クエリ文字列）を付与する場合は、「@{/path(キー=値)}」のようにカッコ()を使って記述します。これにより /path?キー=値 の形に展開されます。",
+        "explanation": "正解の通りです。リンク式の中でURLパラメータ（クエリ文字列）を付与する場合は、「@{/path(キー=値)}」のようにカッコ()を使って記述します。これにより /path?キー=値 の形に展開されます。",
         "category": "総合問題"
     },
     {
@@ -4651,7 +4651,7 @@ const questionDatabase = [
             "th:fragment と layout:fragment は同一のアノテーションであり、どちらを使っても動作は変わらない。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。Thymeleaf Layout Dialectでは、共通レイアウト側に「layout:fragment=\"名前\"」を定義し、個別画面側では <html> タグ等に「layout:decorate=\"~{レイアウトファイル}\"」を指定することで、フラグメント部分が埋め込まれます。",
+        "explanation": "正解の通りです。Thymeleaf Layout Dialectでは、共通レイアウト側に「layout:fragment=\"名前\"」を定義し、個別画面側では <html> タグ等に「layout:decorate=\"~{レイアウトファイル}\"」を指定することで、フラグメント部分が埋め込まれます。",
         "category": "総合問題"
     },
     {
@@ -4664,7 +4664,7 @@ const questionDatabase = [
             "@RequestMapping はサービスクラスに付与するアノテーションであり、コントローラクラスには使用できない。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。@RequestMappingはコントローラクラスのメソッド（またはクラス）に付与し、指定したURLからのリクエストと処理メソッドを紐づけるためのアノテーションです。",
+        "explanation": "正解の通りです。@RequestMappingはコントローラクラスのメソッド（またはクラス）に付与し、指定したURLからのリクエストと処理メソッドを紐づけるためのアノテーションです。",
         "category": "総合問題"
     },
     {
@@ -4677,7 +4677,7 @@ const questionDatabase = [
             "context-path の設定はURLには影響しないため「http://localhost:8081/top」と「http://localhost:8081/sample/top」はどちらでもアクセスできる。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。server.portでポート番号（例:8081）を、server.servlet.context-pathでアプリケーションのルートURL（例:/sample）を設定します。そのためアクセスURLは「http://localhost:8081/sample/...」となります。",
+        "explanation": "正解の通りです。server.portでポート番号（例:8081）を、server.servlet.context-pathでアプリケーションのルートURL（例:/sample）を設定します。そのためアクセスURLは「http://localhost:8081/sample/...」となります。",
         "category": "総合問題"
     },
     {
@@ -4690,7 +4690,7 @@ const questionDatabase = [
             "Thymeleafを利用するためには、コントローラクラスに @ThymeleafEnabled アノテーションを付与する必要がある。"
         ],
         "answer": 3,
-        "explanation": "正解は4番です。\n\n【解説】\n正解の通りです。Thymeleafを利用するにはHTMLの<html>タグに「xmlns:th=\"http://www.thymeleaf.org\"」を宣言する必要があります。これにより「th:」から始まる専用の属性が使用可能になります。",
+        "explanation": "正解の通りです。Thymeleafを利用するにはHTMLの<html>タグに「xmlns:th=\"http://www.thymeleaf.org\"」を宣言する必要があります。これにより「th:」から始まる専用の属性が使用可能になります。",
         "category": "総合問題"
     },
     {
@@ -4703,7 +4703,7 @@ const questionDatabase = [
             "http://localhost:8080/ec/cart/add?method=post"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。Thymeleafのリンク式「@{/パス}」を使用すると、application.propertiesで設定したコンテキストパス（例:/ecや/shopなど）が自動的にURLの先頭に補完されます。",
+        "explanation": "正解の通りです。Thymeleafのリンク式「@{/パス}」を使用すると、application.propertiesで設定したコンテキストパス（例:/ecや/shopなど）が自動的にURLの先頭に補完されます。",
         "category": "総合問題"
     },
     {
@@ -4716,7 +4716,7 @@ const questionDatabase = [
             "POSTリクエストを受け取るメソッドの引数にフォームクラスを指定すると、送信値が自動でセットされる。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。POSTリクエストを受け取るには、@PostMapping(\"/パス\")、または @RequestMapping(value=\"/パス\", method=RequestMethod.POST) を使用します。",
+        "explanation": "正解の通りです。POSTリクエストを受け取るには、@PostMapping(\"/パス\")、または @RequestMapping(value=\"/パス\", method=RequestMethod.POST) を使用します。",
         "category": "総合問題"
     },
     {
@@ -4729,7 +4729,7 @@ const questionDatabase = [
             "フォームクラスのフィールドは public で宣言し、getter/setter は不要である。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。HTMLフォームから送信された値を受け取るフォームクラスのフィールド名は、HTML側のname属性と完全に一致している必要があります。また、値をセット・取得するためのgetterとsetterが必須です。",
+        "explanation": "正解の通りです。HTMLフォームから送信された値を受け取るフォームクラスのフィールド名は、HTML側のname属性と完全に一致している必要があります。また、値をセット・取得するためのgetterとsetterが必須です。",
         "category": "総合問題"
     },
     {
@@ -4742,7 +4742,7 @@ const questionDatabase = [
             "@SessionScope を付与すると、cartForm の値はリクエストのたびにリセットされる。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。@SessionScopeをコントローラクラスやBeanに付与することで、そのインスタンスはユーザー（セッション）ごとに個別に管理・保持されるようになります。",
+        "explanation": "正解の通りです。@SessionScopeをコントローラクラスやBeanに付与することで、そのインスタンスはユーザー（セッション）ごとに個別に管理・保持されるようになります。",
         "category": "総合問題"
     },
     {
@@ -4755,7 +4755,7 @@ const questionDatabase = [
             "セッションスコープへの保存は、コントローラのフィールドに値を代入するだけで自動的に行われる。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。セッションスコープに手動で値を保存する場合、メソッドの引数にHttpSessionを受け取り、session.setAttribute(\"キー名\", 値) のように記述して保存します。",
+        "explanation": "正解の通りです。セッションスコープに手動で値を保存する場合、メソッドの引数にHttpSessionを受け取り、session.setAttribute(\"キー名\", 値) のように記述して保存します。",
         "category": "総合問題"
     },
     {
@@ -4768,7 +4768,7 @@ const questionDatabase = [
             "<p th:text=\"@{userId}\">ユーザーID</p>"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。Thymeleafの変数式内でセッションスコープの値にアクセスするには、「${session.キー名}」のように「session.」をプレフィックスとして付けて参照します。",
+        "explanation": "正解の通りです。Thymeleafの変数式内でセッションスコープの値にアクセスするには、「${session.キー名}」のように「session.」をプレフィックスとして付けて参照します。",
         "category": "総合問題"
     },
     {
@@ -4781,7 +4781,7 @@ const questionDatabase = [
             "@Id を付与したフィールドには @GeneratedValue を付与できない。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。主キー（@Id）をDBのシーケンスで自動生成させるには、@SequenceGeneratorでシーケンス定義の名前（name）とDB上のシーケンス名（sequenceName）を指定し、@GeneratedValueのgenerator属性にそのnameを紐づけます。",
+        "explanation": "正解の通りです。主キー（@Id）をDBのシーケンスで自動生成させるには、@SequenceGeneratorでシーケンス定義の名前（name）とDB上のシーケンス名（sequenceName）を指定し、@GeneratedValueのgenerator属性にそのnameを紐づけます。",
         "category": "総合問題"
     },
     {
@@ -4794,7 +4794,7 @@ const questionDatabase = [
             "save() を呼ぶ前に、リポジトリに対して insert() メソッドを呼び出す。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。Spring Data JPAで新規登録を行う場合、対象となるエンティティクラスをnewで生成し、必要な値をセットしたうえで、リポジトリの save() メソッドに渡します。",
+        "explanation": "正解の通りです。Spring Data JPAで新規登録を行う場合、対象となるエンティティクラスをnewで生成し、必要な値をセットしたうえで、リポジトリの save() メソッドに渡します。",
         "category": "総合問題"
     },
     {
@@ -4807,7 +4807,7 @@ const questionDatabase = [
             "@ManyToOne を付与したフィールドの型は、String 型でなければならない。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。@ManyToOneは「多対1」の関連を示します。@JoinColumnのname属性には、自身のテーブルが持つ「外部キーの列名（カラム名）」を指定してリレーションを構築します。",
+        "explanation": "正解の通りです。@ManyToOneは「多対1」の関連を示します。@JoinColumnのname属性には、自身のテーブルが持つ「外部キーの列名（カラム名）」を指定してリレーションを構築します。",
         "category": "総合問題"
     },
     {
@@ -4820,7 +4820,7 @@ const questionDatabase = [
             "SELECT e FROM Employee e WHERE e.id = :id"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\n\n【解説】\n正解の通りです。JPQLはテーブル名ではなく「エンティティクラス名」、カラム名ではなく「エンティティのフィールド名」を使ってクエリを記述します。FROM句にはエンティティクラス名を正確に記述する必要があります。",
+        "explanation": "正解の通りです。JPQLはテーブル名ではなく「エンティティクラス名」、カラム名ではなく「エンティティのフィールド名」を使ってクエリを記述します。FROM句にはエンティティクラス名を正確に記述する必要があります。",
         "category": "総合問題"
     },
     {
@@ -4833,7 +4833,7 @@ const questionDatabase = [
             "@NamedQuery(query = \"SELECT e FROM Employee e WHERE e.department = :dept\")"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。リポジトリのインターフェース内で任意のJPQLを実行したい場合は、対象のメソッドに @Query(\"JPQL文\") アノテーションを付与して記述します。",
+        "explanation": "正解の通りです。リポジトリのインターフェース内で任意のJPQLを実行したい場合は、対象のメソッドに @Query(\"JPQL文\") アノテーションを付与して記述します。",
         "category": "総合問題"
     },
     {
@@ -4846,7 +4846,7 @@ const questionDatabase = [
             "SELECT COLUMNS(id, name) FROM Employee e"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。特定のフィールドのみを取得してDTOに格納する場合、JPQLのSELECT句で「SELECT new パッケージ名.DTOクラス名(e.id, e.name) FROM ...」のようにコンストラクタ式を用います。",
+        "explanation": "正解の通りです。特定のフィールドのみを取得してDTOに格納する場合、JPQLのSELECT句で「SELECT new パッケージ名.DTOクラス名(e.id, e.name) FROM ...」のようにコンストラクタ式を用います。",
         "category": "総合問題"
     },
     {
@@ -4859,7 +4859,7 @@ const questionDatabase = [
             "Integer 型に @NotNull は付与できない。使用するには long 型に変更する必要がある。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。Integer等のオブジェクト型（ラッパークラス）に対して必須入力を課す場合は @NotNull を使用します。送信されなかった場合はnullとなるためこれで検知できます（@NotBlankは文字列専用です）。",
+        "explanation": "正解の通りです。Integer等のオブジェクト型（ラッパークラス）に対して必須入力を課す場合は @NotNull を使用します。送信されなかった場合はnullとなるためこれで検知できます（@NotBlankは文字列専用です）。",
         "category": "総合問題"
     },
     {
@@ -4872,7 +4872,7 @@ const questionDatabase = [
             "<message id=\"greeting.message\">こんにちは、{0}さん！</message>"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。メッセージリソース（propertiesファイル）は「キー名=メッセージ内容」の形式で記述します。動的な値を入れる部分は「{0}」や「{1}」のようなプレースホルダーを使います。",
+        "explanation": "正解の通りです。メッセージリソース（propertiesファイル）は「キー名=メッセージ内容」の形式で記述します。動的な値を入れる部分は「{0}」や「{1}」のようなプレースホルダーを使います。",
         "category": "総合問題"
     },
     {
@@ -4885,7 +4885,7 @@ const questionDatabase = [
             "NotBlank -> {0}は必須入力項目です。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。ValidationMessages.propertiesにおいて「NotBlank={0}は必須入力項目です。」と定義しておくと、{0}の部分にアノテーション側等で指定した項目名（フィールド名など）が自動で埋め込まれます。",
+        "explanation": "正解の通りです。ValidationMessages.propertiesにおいて「NotBlank={0}は必須入力項目です。」と定義しておくと、{0}の部分にアノテーション側等で指定した項目名（フィールド名など）が自動で埋め込まれます。",
         "category": "総合問題"
     },
     {
@@ -4898,7 +4898,7 @@ const questionDatabase = [
             "th:each のステータス変数で使えるのは index のみである。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。th:eachのステータス変数（例: st）の「index」プロパティは0から始まる現在の反復インデックスを返し、「count」プロパティは1から始まる現在の反復回数を返します。",
+        "explanation": "正解の通りです。th:eachのステータス変数（例: st）の「index」プロパティは0から始まる現在の反復インデックスを返し、「count」プロパティは1から始まる現在の反復回数を返します。",
         "category": "総合問題"
     },
     {
@@ -4911,7 +4911,7 @@ const questionDatabase = [
             "@{} 内で ${} は使えないため、このコードはエラーになる。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。リンク式の中でURLパラメータ（クエリ文字列）を付与する場合は、「@{/path(キー=値)}」のようにカッコ()を使って記述します。これにより /path?キー=値 の形に展開されます。",
+        "explanation": "正解の通りです。リンク式の中でURLパラメータ（クエリ文字列）を付与する場合は、「@{/path(キー=値)}」のようにカッコ()を使って記述します。これにより /path?キー=値 の形に展開されます。",
         "category": "総合問題"
     },
     {
@@ -4924,7 +4924,7 @@ const questionDatabase = [
             "layout:fragment と th:fragment はどちらを使っても同じ動作になる。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。Thymeleaf Layout Dialectでは、共通レイアウト側に「layout:fragment=\"名前\"」を定義し、個別画面側では <html> タグ等に「layout:decorate=\"~{レイアウトファイル}\"」を指定することで、フラグメント部分が埋め込まれます。",
+        "explanation": "正解の通りです。Thymeleaf Layout Dialectでは、共通レイアウト側に「layout:fragment=\"名前\"」を定義し、個別画面側では <html> タグ等に「layout:decorate=\"~{レイアウトファイル}\"」を指定することで、フラグメント部分が埋め込まれます。",
         "category": "総合問題"
     },
     {
@@ -4937,7 +4937,7 @@ const questionDatabase = [
             "クラスとメソッドの両方に @RequestMapping を付与すると、クラス側の指定は無効になりメソッド側の value のみが有効になる。"
         ],
         "answer": 3,
-        "explanation": "正解は4番です。\n\n【解説】\n正解の通りです。@RequestMappingはコントローラクラスのメソッド（またはクラス）に付与し、指定したURLからのリクエストと処理メソッドを紐づけるためのアノテーションです。",
+        "explanation": "正解の通りです。@RequestMappingはコントローラクラスのメソッド（またはクラス）に付与し、指定したURLからのリクエストと処理メソッドを紐づけるためのアノテーションです。",
         "category": "総合問題"
     },
     {
@@ -4950,7 +4950,7 @@ const questionDatabase = [
             "http://localhost:9000/store/detail"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。server.portでポート番号（例:8081）を、server.servlet.context-pathでアプリケーションのルートURL（例:/sample）を設定します。そのためアクセスURLは「http://localhost:8081/sample/...」となります。",
+        "explanation": "正解の通りです。server.portでポート番号（例:8081）を、server.servlet.context-pathでアプリケーションのルートURL（例:/sample）を設定します。そのためアクセスURLは「http://localhost:8081/sample/...」となります。",
         "category": "総合問題"
     },
     {
@@ -4963,7 +4963,7 @@ const questionDatabase = [
             "コントローラから \"pageTitle\" という名前で値を渡すと、title タグの内容がその値で上書きされる。"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\n\n【解説】\n正解の通りです。Thymeleafを利用するにはHTMLの<html>タグに「xmlns:th=\"http://www.thymeleaf.org\"」を宣言する必要があります。これにより「th:」から始まる専用の属性が使用可能になります。",
+        "explanation": "正解の通りです。Thymeleafを利用するにはHTMLの<html>タグに「xmlns:th=\"http://www.thymeleaf.org\"」を宣言する必要があります。これにより「th:」から始まる専用の属性が使用可能になります。",
         "category": "総合問題"
     },
     {
@@ -4976,7 +4976,7 @@ const questionDatabase = [
             "GET  http://localhost:8080/shop/order/confirm?itemId=3"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。Thymeleafのリンク式「@{/パス}」を使用すると、application.propertiesで設定したコンテキストパス（例:/ecや/shopなど）が自動的にURLの先頭に補完されます。",
+        "explanation": "正解の通りです。Thymeleafのリンク式「@{/パス}」を使用すると、application.propertiesで設定したコンテキストパス（例:/ecや/shopなど）が自動的にURLの先頭に補完されます。",
         "category": "総合問題"
     },
     {
@@ -4989,7 +4989,7 @@ const questionDatabase = [
             "model.addAttribute(\"name\", form.getName()) により、フォームに入力された name の値をビューに渡している。"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\n\n【解説】\n正解の通りです。POSTリクエストを受け取るには、@PostMapping(\"/パス\")、または @RequestMapping(value=\"/パス\", method=RequestMethod.POST) を使用します。",
+        "explanation": "正解の通りです。POSTリクエストを受け取るには、@PostMapping(\"/パス\")、または @RequestMapping(value=\"/パス\", method=RequestMethod.POST) を使用します。",
         "category": "総合問題"
     },
     {
@@ -5002,7 +5002,7 @@ const questionDatabase = [
             "ReviewForm に @FormObject アノテーションを付与しなければ、コントローラの引数として使用できない。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。HTMLフォームから送信された値を受け取るフォームクラスのフィールド名は、HTML側のname属性と完全に一致している必要があります。また、値をセット・取得するためのgetterとsetterが必須です。",
+        "explanation": "正解の通りです。HTMLフォームから送信された値を受け取るフォームクラスのフィールド名は、HTML側のname属性と完全に一致している必要があります。また、値をセット・取得するためのgetterとsetterが必須です。",
         "category": "総合問題"
     },
     {
@@ -5015,7 +5015,7 @@ const questionDatabase = [
             "パターンBの session.setAttribute は、セッションではなくリクエストスコープに値を保存する。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。@SessionScopeをコントローラクラスやBeanに付与することで、そのインスタンスはユーザー（セッション）ごとに個別に管理・保持されるようになります。",
+        "explanation": "正解の通りです。@SessionScopeをコントローラクラスやBeanに付与することで、そのインスタンスはユーザー（セッション）ごとに個別に管理・保持されるようになります。",
         "category": "総合問題"
     },
     {
@@ -5028,7 +5028,7 @@ const questionDatabase = [
             "リダイレクト後のリクエストでは新たなリクエストスコープが生成されるため、model.addAttribute の値はリダイレクト先では参照できない。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\n\n【解説】\n正解の通りです。セッションスコープに手動で値を保存する場合、メソッドの引数にHttpSessionを受け取り、session.setAttribute(\"キー名\", 値) のように記述して保存します。",
+        "explanation": "正解の通りです。セッションスコープに手動で値を保存する場合、メソッドの引数にHttpSessionを受け取り、session.setAttribute(\"キー名\", 値) のように記述して保存します。",
         "category": "総合問題"
     },
     {
@@ -5041,7 +5041,7 @@ const questionDatabase = [
             "セッションスコープの値はThymeleafから直接参照できないため、このコードはエラーになる。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。Thymeleafの変数式内でセッションスコープの値にアクセスするには、「${session.キー名}」のように「session.」をプレフィックスとして付けて参照します。",
+        "explanation": "正解の通りです。Thymeleafの変数式内でセッションスコープの値にアクセスするには、「${session.キー名}」のように「session.」をプレフィックスとして付けて参照します。",
         "category": "総合問題"
     },
     {
@@ -5054,7 +5054,7 @@ const questionDatabase = [
             "@GeneratedValue の strategy = GenerationType.SEQUENCE はシーケンスを使った主キー自動生成を意味する。"
         ],
         "answer": 1,
-        "explanation": "正解は2番です。\n\n【解説】\n正解の通りです。主キー（@Id）をDBのシーケンスで自動生成させるには、@SequenceGeneratorでシーケンス定義の名前（name）とDB上のシーケンス名（sequenceName）を指定し、@GeneratedValueのgenerator属性にそのnameを紐づけます。",
+        "explanation": "正解の通りです。主キー（@Id）をDBのシーケンスで自動生成させるには、@SequenceGeneratorでシーケンス定義の名前（name）とDB上のシーケンス名（sequenceName）を指定し、@GeneratedValueのgenerator属性にそのnameを紐づけます。",
         "category": "総合問題"
     },
     {
@@ -5067,7 +5067,7 @@ const questionDatabase = [
             "(E) save() を呼ぶ前に IDが設定されているため、新規登録ではなく更新処理として実行される場合がある。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。Spring Data JPAで新規登録を行う場合、対象となるエンティティクラスをnewで生成し、必要な値をセットしたうえで、リポジトリの save() メソッドに渡します。",
+        "explanation": "正解の通りです。Spring Data JPAで新規登録を行う場合、対象となるエンティティクラスをnewで生成し、必要な値をセットしたうえで、リポジトリの save() メソッドに渡します。",
         "category": "総合問題"
     },
     {
@@ -5080,7 +5080,7 @@ const questionDatabase = [
             "OrderItem を save() するとき、order と product フィールドにエンティティオブジェクトをセットすることで外部キーが保存される。"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\n\n【解説】\n正解の通りです。@ManyToOneは「多対1」の関連を示します。@JoinColumnのname属性には、自身のテーブルが持つ「外部キーの列名（カラム名）」を指定してリレーションを構築します。",
+        "explanation": "正解の通りです。@ManyToOneは「多対1」の関連を示します。@JoinColumnのname属性には、自身のテーブルが持つ「外部キーの列名（カラム名）」を指定してリレーションを構築します。",
         "category": "総合問題"
     },
     {
@@ -5093,7 +5093,7 @@ const questionDatabase = [
             "SELECT o FROM Order o WHERE o.status = :status ORDER BY o.createdAt DESC"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\n\n【解説】\n正解の通りです。JPQLはテーブル名ではなく「エンティティクラス名」、カラム名ではなく「エンティティのフィールド名」を使ってクエリを記述します。FROM句にはエンティティクラス名を正確に記述する必要があります。",
+        "explanation": "正解の通りです。JPQLはテーブル名ではなく「エンティティクラス名」、カラム名ではなく「エンティティのフィールド名」を使ってクエリを記述します。FROM句にはエンティティクラス名を正確に記述する必要があります。",
         "category": "総合問題"
     },
     {
@@ -5106,7 +5106,7 @@ const questionDatabase = [
             "@Query はリポジトリインターフェースではなく、エンティティクラスに付与する必要がある。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。リポジトリのインターフェース内で任意のJPQLを実行したい場合は、対象のメソッドに @Query(\"JPQL文\") アノテーションを付与して記述します。",
+        "explanation": "正解の通りです。リポジトリのインターフェース内で任意のJPQLを実行したい場合は、対象のメソッドに @Query(\"JPQL文\") アノテーションを付与して記述します。",
         "category": "総合問題"
     },
     {
@@ -5119,7 +5119,7 @@ const questionDatabase = [
             "戻り値型が List<ProductSummary> であるため、複数件取得した結果がリストで返される。"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\n\n【解説】\n正解の通りです。特定のフィールドのみを取得してDTOに格納する場合、JPQLのSELECT句で「SELECT new パッケージ名.DTOクラス名(e.id, e.name) FROM ...」のようにコンストラクタ式を用います。",
+        "explanation": "正解の通りです。特定のフィールドのみを取得してDTOに格納する場合、JPQLのSELECT句で「SELECT new パッケージ名.DTOクラス名(e.id, e.name) FROM ...」のようにコンストラクタ式を用います。",
         "category": "総合問題"
     },
     {
@@ -5132,7 +5132,7 @@ const questionDatabase = [
             "@Min(value = 1) は @NotNull を含んでいるため、quantity2 が null でもバリデーションエラーにならない。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。Integer等のオブジェクト型（ラッパークラス）に対して必須入力を課す場合は @NotNull を使用します。送信されなかった場合はnullとなるためこれで検知できます（@NotBlankは文字列専用です）。",
+        "explanation": "正解の通りです。Integer等のオブジェクト型（ラッパークラス）に対して必須入力を課す場合は @NotNull を使用します。送信されなかった場合はnullとなるためこれで検知できます（@NotBlankは文字列専用です）。",
         "category": "総合問題"
     },
     {
@@ -5145,7 +5145,7 @@ const questionDatabase = [
             "th:text=\"#{...}\" ではなく th:text=\"${...}\" でなければ messages.properties の値を参照できない。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。メッセージリソース（propertiesファイル）は「キー名=メッセージ内容」の形式で記述します。動的な値を入れる部分は「{0}」や「{1}」のようなプレースホルダーを使います。",
+        "explanation": "正解の通りです。メッセージリソース（propertiesファイル）は「キー名=メッセージ内容」の形式で記述します。動的な値を入れる部分は「{0}」や「{1}」のようなプレースホルダーを使います。",
         "category": "総合問題"
     },
     {
@@ -5158,7 +5158,7 @@ const questionDatabase = [
             "このメッセージキーはリポジトリクラスに定義しなければ有効にならない。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。ValidationMessages.propertiesにおいて「NotBlank={0}は必須入力項目です。」と定義しておくと、{0}の部分にアノテーション側等で指定した項目名（フィールド名など）が自動で埋め込まれます。",
+        "explanation": "正解の通りです。ValidationMessages.propertiesにおいて「NotBlank={0}は必須入力項目です。」と定義しておくと、{0}の部分にアノテーション側等で指定した項目名（フィールド名など）が自動で埋め込まれます。",
         "category": "総合問題"
     },
     {
@@ -5171,7 +5171,7 @@ const questionDatabase = [
             "pStat.last は最後の要素のとき false を返す。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。th:eachのステータス変数（例: st）の「index」プロパティは0から始まる現在の反復インデックスを返し、「count」プロパティは1から始まる現在の反復回数を返します。",
+        "explanation": "正解の通りです。th:eachのステータス変数（例: st）の「index」プロパティは0から始まる現在の反復インデックスを返し、「count」プロパティは1から始まる現在の反復回数を返します。",
         "category": "総合問題"
     },
     {
@@ -5184,7 +5184,7 @@ const questionDatabase = [
             "リンクAとリンクBはどちらも同じURL「/item/detail?id=7&category=food」になる。"
         ],
         "answer": 0,
-        "explanation": "正解は1番です。\n\n【解説】\n正解の通りです。リンク式の中でURLパラメータ（クエリ文字列）を付与する場合は、「@{/path(キー=値)}」のようにカッコ()を使って記述します。これにより /path?キー=値 の形に展開されます。",
+        "explanation": "正解の通りです。リンク式の中でURLパラメータ（クエリ文字列）を付与する場合は、「@{/path(キー=値)}」のようにカッコ()を使って記述します。これにより /path?キー=値 の形に展開されます。",
         "category": "総合問題"
     },
     {
@@ -5197,7 +5197,7 @@ const questionDatabase = [
             "個別画面に layout:decorate を記述することで、レイアウトテンプレートを使ったレイアウト合成が行われる。"
         ],
         "answer": 2,
-        "explanation": "正解は3番です。\n\n【解説】\n正解の通りです。Thymeleaf Layout Dialectでは、共通レイアウト側に「layout:fragment=\"名前\"」を定義し、個別画面側では <html> タグ等に「layout:decorate=\"~{レイアウトファイル}\"」を指定することで、フラグメント部分が埋め込まれます。",
+        "explanation": "正解の通りです。Thymeleaf Layout Dialectでは、共通レイアウト側に「layout:fragment=\"名前\"」を定義し、個別画面側では <html> タグ等に「layout:decorate=\"~{レイアウトファイル}\"」を指定することで、フラグメント部分が埋め込まれます。",
         "category": "総合問題"
     }
 ];
@@ -5389,7 +5389,7 @@ const dailySets = [
     },
     {
         "date": "5/13",
-        "title": "JavaSpring確認試験 (5/13)",
+        "title": "Spring確認試験 (5/13)",
         "questions": [
             110,
             111,
@@ -5405,7 +5405,7 @@ const dailySets = [
     },
     {
         "date": "5/14",
-        "title": "JavaSpring確認試験 (5/14)",
+        "title": "Spring確認試験 (5/14)",
         "questions": [
             120,
             121,
@@ -5419,7 +5419,7 @@ const dailySets = [
     },
     {
         "date": "5/15",
-        "title": "JavaSpring確認試験 (5/15)",
+        "title": "Spring確認試験 (5/15)",
         "questions": [
             128,
             129,
@@ -5637,7 +5637,7 @@ const dailySets = [
     },
     {
         "date": "5/18",
-        "title": "JavaSpring確認試験 (5/18)",
+        "title": "Spring確認試験 (5/18)",
         "questions": [
             305,
             306,
@@ -5647,7 +5647,7 @@ const dailySets = [
     },
     {
         "date": "5/19",
-        "title": "JavaSpring確認試験 (5/19)",
+        "title": "Spring確認試験 (5/19)",
         "questions": [
             309,
             310,
@@ -5659,7 +5659,7 @@ const dailySets = [
     },
     {
         "date": "5/20",
-        "title": "JavaSpring確認試験 (5/20)",
+        "title": "Spring確認試験 (5/20)",
         "questions": [
             346,
             347,
@@ -5674,7 +5674,7 @@ const dailySets = [
     },
     {
         "date": "5/21",
-        "title": "JavaSpring確認試験 (5/21)",
+        "title": "Spring確認試験 (5/21)",
         "questions": [
             404,
             405,

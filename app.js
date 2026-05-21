@@ -324,10 +324,17 @@ document.addEventListener('DOMContentLoaded', () => {
         questionText.textContent = q.question;
         optionsContainer.innerHTML = '';
         
-        q.options.forEach((option, index) => {
+        // Create an array of options with their original indices and shuffle them
+        let optionsWithOriginalIndices = q.options.map((opt, i) => ({ text: opt, originalIndex: i }));
+        optionsWithOriginalIndices.sort(() => Math.random() - 0.5);
+        
+        // Save to a module-scoped variable for checkAnswer to use
+        window.currentShuffledOptions = optionsWithOriginalIndices;
+        
+        optionsWithOriginalIndices.forEach((optObj, index) => {
             const button = document.createElement('button');
             button.className = 'option-btn';
-            button.textContent = option;
+            button.textContent = optObj.text;
             button.addEventListener('click', () => checkAnswer(index));
             optionsContainer.appendChild(button);
         });
@@ -335,16 +342,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function checkAnswer(selectedIndex) {
         const q = currentQuestions[currentQuestionIndex];
-        const isCorrect = selectedIndex === q.answer;
+        const selectedOriginalIndex = window.currentShuffledOptions[selectedIndex].originalIndex;
+        const isCorrect = selectedOriginalIndex === q.answer;
         
         if (!isCorrect && !wrongQuestions.includes(currentQuestionIndex + 1)) {
             wrongQuestions.push(currentQuestionIndex + 1);
         }
         
+        const newCorrectIndex = window.currentShuffledOptions.findIndex(opt => opt.originalIndex === q.answer);
+        
         feedbackOverlay.className = 'overlay ' + (isCorrect ? 'correct' : 'incorrect');
         feedbackTitle.textContent = isCorrect ? '正解！' : '残念、不正解です...';
         correctAnswerText.textContent = q.options[q.answer];
-        explanationText.textContent = q.explanation;
+        explanationText.textContent = `正解は${newCorrectIndex + 1}番です。\n\n${q.explanation}`;
         
         if (isCorrect) {
             nextBtn.textContent = (currentQuestionIndex === currentQuestions.length - 1) ? '結果を見る' : '次へ進む';
@@ -445,7 +455,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <div class="explanation-box">
                         <h3>解説</h3>
-                        <p>${q.explanation}</p>
+                        <p>正解は${q.answer + 1}番です。\n\n${q.explanation}</p>
                     </div>
                 </div>
             `;

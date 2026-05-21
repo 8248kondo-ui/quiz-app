@@ -197,19 +197,29 @@
 }
 
 .calendar-cell.has-quiz {
-    background: rgba(99, 102, 241, 0.1);
-    color: var(--text-main);
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    color: white;
+    font-weight: 700;
     position: relative;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
+    transform: scale(1.05);
+    transition: all 0.2s ease;
+}
+
+.calendar-cell.has-quiz:hover {
+    transform: scale(1.15);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.6);
 }
 
 .calendar-cell.has-quiz::after {
     content: '';
     position: absolute;
     bottom: 6px;
-    width: 4px;
-    height: 4px;
-    background-color: var(--primary);
+    width: 6px;
+    height: 6px;
+    background-color: white;
     border-radius: 50%;
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
 }
 
 .calendar-cell:not(.empty):not(.disabled):hover {
