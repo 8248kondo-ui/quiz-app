@@ -4448,12 +4448,12 @@ const questionDatabase = [
     },
     {
         "id": 413,
-        "question": "【フォームクラスの定義】\n以下のHTMLフォームの入力値を受け取るフォームクラスの定義として正しいものを選べ。\n---Thymeleaf---\n<form th:action=\"@{/user/register}\" method=\"post\">\n<input type=\"text\" name=\"userName\">\n<input type=\"text\" name=\"userAge\">\n<button type=\"submit\">登録</button>\n</form>\n----------\n1.\n---Java---\npublic class UserForm {\nprivate String userName;\nprivate int userAge;\n// getter/setter 省略\n}\n----------\n2.\n---Java---\npublic class UserForm {\nprivate String user_name;\nprivate int user_age;\n// getter/setter 省略\n}\n----------\n3.\n---Java---\npublic class UserForm {\npublic String userName;\npublic int userAge;\n// getter/setter 不要\n}\n----------\n4.\n---Java---\npublic class UserForm {\nprivate String name;",
+        "question": "【フォームクラスの定義】\n以下のHTMLフォームの入力値を受け取るフォームクラスの定義として正しいものを選べ。\n\n---Thymeleaf---\n<form th:action=\"@{/user/register}\" method=\"post\">\n  <input type=\"text\" name=\"userName\">\n  <input type=\"text\" name=\"userAge\">\n  <button type=\"submit\">登録</button>\n</form>\n----------",
         "options": [
-            "private int age;",
-            "// getter/setter 省略",
-            "}",
-            "----------"
+            "private String userName; private int userAge; (getter/setterあり)",
+            "private String user_name; private int user_age; (getter/setterあり)",
+            "public String userName; public int userAge; (getter/setter不要)",
+            "private String name; private int age; (getter/setterあり)"
         ],
         "answer": 0,
         "explanation": "正解の通りです。HTMLフォームから送信された値を受け取るフォームクラスのフィールド名は、HTML側のname属性と完全に一致している必要があります。また、値をセット・取得するためのgetterとsetterが必須です。",
