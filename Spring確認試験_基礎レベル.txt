@@ -1,0 +1,369 @@
+================================================================
+Spring Framework 確認試験 例題集【基礎レベル】
+================================================================
+対象トピック：元の例題集と同じ21トピック／より平易な角度で出題
+================================================================
+
+---
+ステップ１：【@RequestMapping アノテーション】に関する問題
+
+問１. @RequestMapping アノテーションの説明として正しいものを選べ。
+
+1. コントローラクラスのメソッドに付与することで、指定したURLへのリクエスト時にそのメソッドが実行される。
+2. @RequestMapping はクラスにのみ付与可能であり、メソッドに付与しても効果はない。
+3. @RequestMapping を付与しなくても、すべてのメソッドがURLリクエストに応答する。
+4. @RequestMapping はサービスクラスに付与するアノテーションであり、コントローラクラスには使用できない。
+
+正解：1番
+---
+
+---
+ステップ２：【application.properties のパスとポート番号とURLの関係】に関する問題
+
+問２. 以下の application.properties の設定として正しい説明を選べ。
+
+---properties---
+server.port=8081
+server.servlet.context-path=/sample
+----------
+
+1. ブラウザから「/top」にアクセスするには「http://localhost:8081/sample/top」と入力する。
+2. ブラウザから「/top」にアクセスするには「http://localhost:8080/sample/top」と入力する。
+3. ブラウザから「/top」にアクセスするには「http://localhost:8081/top」と入力する。
+4. context-path の設定はURLには影響しないため「http://localhost:8081/top」と「http://localhost:8081/sample/top」はどちらでもアクセスできる。
+
+正解：1番
+---
+
+---
+ステップ３：【Thymeleafを使うための設定】に関する問題
+
+問３. Thymeleafを使うための設定として誤っているものを選べ。
+
+1. build.gradle または pom.xml に spring-boot-starter-thymeleaf を追加することで利用可能になる。
+2. HTMLファイルの html タグに xmlns:th="http://www.thymeleaf.org" を宣言することで th:〇〇 属性が使えるようになる。
+3. ビューファイルはデフォルトで src/main/resources/templates フォルダに配置する。
+4. Thymeleafを利用するためには、コントローラクラスに @ThymeleafEnabled アノテーションを付与する必要がある。
+
+正解：4番
+---
+
+---
+ステップ４：【フォームの送信ボタンを押したときのURL】に関する問題
+
+問４. 以下のThymeleafコードで、送信ボタンを押したときに送信されるURLとして正しいものを選べ。
+ただし、コンテキストパスは「/ec」、ポート番号は「8080」とする。
+
+---Thymeleaf---
+<form th:action="@{/cart/add}" method="post">
+  <input type="text" name="itemId">
+  <button type="submit">カートに追加</button>
+</form>
+----------
+
+1. http://localhost:8080/ec/cart/add
+2. http://localhost:8080/cart/add
+3. http://localhost:8080/ec/add
+4. http://localhost:8080/ec/cart/add?method=post
+
+正解：1番
+---
+
+---
+ステップ５：【フォームで入力した値を受け取るメソッドの定義】に関する問題
+
+問５. フォームで入力した値をPOSTで受け取るメソッドの定義として誤っているものを選べ。
+
+1. @RequestMapping(value = "/form/send", method = RequestMethod.GET) はPOSTリクエストを受け付ける。
+2. @PostMapping("/form/send") はPOSTリクエストを受け付ける正しい記述である。
+3. @RequestMapping(value = "/form/send", method = RequestMethod.POST) はPOSTリクエストを受け付ける正しい記述である。
+4. POSTリクエストを受け取るメソッドの引数にフォームクラスを指定すると、送信値が自動でセットされる。
+
+正解：1番
+---
+
+---
+ステップ６：【フォームクラスの定義】に関する問題
+
+問６. 以下のHTMLフォームの入力値を正しく受け取れるフォームクラスの定義として正しいものを選べ。
+
+---Thymeleaf---
+<form action="/member/register" method="post">
+  <input type="text" name="memberName">
+  <input type="text" name="memberAge">
+  <button type="submit">登録</button>
+</form>
+----------
+
+1. フィールド名を memberName・memberAge とし、それぞれに getter/setter を定義したクラスを用意する。
+2. フィールド名は何でもよく、フォームの name 属性との一致は不要である。
+3. フォームクラスには @FormClass アノテーションを付与しなければならない。
+4. フォームクラスのフィールドは public で宣言し、getter/setter は不要である。
+
+正解：1番
+---
+
+---
+ステップ７：【セッションスコープを利用するメソッド定義】に関する問題
+
+問７. セッションスコープを利用するメソッド定義の説明として正しいものを選べ。
+
+---Java---
+@Controller
+@SessionScope
+public class ShoppingCartController {
+
+    @Autowired
+    private CartForm cartForm;
+
+    @GetMapping("/cart/view")
+    public String viewCart(Model model) {
+        model.addAttribute("cart", cartForm);
+        return "cart/view";
+    }
+}
+----------
+
+1. @SessionScope をコントローラクラスに付与することで、このコントローラのインスタンスがセッション単位で管理される。
+2. @SessionScope はメソッドに付与するアノテーションであり、クラスに付与しても効果はない。
+3. @SessionScope を付与したクラスは、すべてのユーザーで同じインスタンスが共有される。
+4. @SessionScope を付与すると、cartForm の値はリクエストのたびにリセットされる。
+
+正解：1番
+---
+
+---
+ステップ８：【セッションスコープへの値の保存】に関する問題
+
+問８. セッションスコープに値を保存する記述として正しいものを選べ。
+
+1. メソッドの引数に HttpSession を受け取り、session.setAttribute("キー名", 値) で保存する。
+2. メソッドの引数に Model を受け取り、model.addAttribute("キー名", 値) で保存するとセッションスコープに格納される。
+3. セッションスコープへの保存は @SessionAttribute アノテーションをフォームクラスに付与するだけで自動的に行われる。
+4. セッションスコープへの保存は、コントローラのフィールドに値を代入するだけで自動的に行われる。
+
+正解：1番
+---
+
+---
+ステップ９：【ThymeleafでセッションスコープのThymeleaf表示】に関する問題
+
+問９. セッションスコープに "userId" キーで「"U001"」が保存されている。Thymeleafで表示するための正しい記述を選べ。
+
+1. <p th:text="${session.userId}">ユーザーID</p>
+2. <p th:text="${userId}">ユーザーID</p>
+3. <p th:text="#{userId}">ユーザーID</p>
+4. <p th:text="@{userId}">ユーザーID</p>
+
+正解：1番
+---
+
+---
+ステップ１０：【主キー列でシーケンスを利用するエンティティの定義】に関する問題
+
+問１０. 以下のエンティティ定義の説明として正しいものを選べ。
+
+---Java---
+@Entity
+@Table(name = "orders")
+public class Order {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "order_seq")
+    @SequenceGenerator(name = "order_seq", sequenceName = "order_id_seq", allocationSize = 1)
+    private Integer id;
+
+    private Integer amount;
+
+    // getter/setter 省略
+}
+----------
+
+1. @SequenceGenerator の sequenceName にはDB上のシーケンス名を指定し、@GeneratedValue の generator には @SequenceGenerator の name を指定する。
+2. @SequenceGenerator の name にはDB上のシーケンス名を指定する。
+3. @GeneratedValue を付与するだけでシーケンスが使用され、@SequenceGenerator は不要である。
+4. @Id を付与したフィールドには @GeneratedValue を付与できない。
+
+正解：1番
+---
+
+---
+ステップ１１：【エンティティを利用してDBに登録する処理】に関する問題
+
+問１１. エンティティを使ってDBに新規登録する処理として、不具合の原因とならない正しい記述を選べ。
+（選択肢のうち3つは不具合の原因であり、1つだけが正しい処理である）
+
+1. エンティティのオブジェクトを new で生成し、各フィールドに値をセットしてから save() を呼ぶ。
+2. IDフィールドに既存レコードと同じ値を明示的にセットしてから save() を呼ぶ。
+3. エンティティのオブジェクトを生成せずに、フォームクラスのオブジェクトをそのまま save() に渡す。
+4. save() を呼ぶ前に、リポジトリに対して insert() メソッドを呼び出す。
+
+正解：1番
+---
+
+---
+ステップ１２：【外部参照元エンティティの定義（@ManyToOne / @JoinColumn）】に関する問題
+
+問１２. @ManyToOne と @JoinColumn に関する説明として正しいものを選べ。
+
+1. @ManyToOne は「多対1」の関係を表し、@JoinColumn の name 属性には外部キー列名を指定する。
+2. @ManyToOne は「1対多」の関係を表し、参照元テーブルに複数の関連レコードを持たせる。
+3. @JoinColumn の name 属性には、参照先テーブルのテーブル名を指定する。
+4. @ManyToOne を付与したフィールドの型は、String 型でなければならない。
+
+正解：1番
+---
+
+---
+ステップ１３：【JPQLの書き方（誤り箇所の特定）】に関する問題
+
+問１３. JPQLの書き方として誤っているものを選べ。
+
+1. SELECT e FROM Employee e WHERE e.department = :dept
+2. SELECT e FROM employees e WHERE e.salary > 300000
+3. SELECT e FROM Employee e ORDER BY e.name ASC
+4. SELECT e FROM Employee e WHERE e.id = :id
+
+正解：2番
+---
+
+---
+ステップ１４：【@Query によるJPQLの定義】に関する問題
+
+問１４. リポジトリインターフェース内でJPQLを定義する正しい記述を選べ。
+
+---Java---
+public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
+
+    （　　　　　　　　　　　　　　　　　　）
+    List<Employee> findByDept(String dept);
+}
+----------
+
+1. @Query("SELECT e FROM Employee e WHERE e.department = :dept")
+2. @JPQL("SELECT e FROM Employee e WHERE e.department = :dept")
+3. @SQL("SELECT * FROM employee WHERE department = :dept")
+4. @NamedQuery(query = "SELECT e FROM Employee e WHERE e.department = :dept")
+
+正解：1番
+---
+
+---
+ステップ１５：【JPQLで特定の列だけを取得する書き方】に関する問題
+
+問１５. JPQLで特定のフィールドのみを取得してDTOに格納する場合の正しい記述を選べ。
+
+1. SELECT new com.example.dto.EmpDto(e.id, e.name) FROM Employee e
+2. SELECT e.id, e.name FROM Employee e
+3. SELECT (e.id, e.name) FROM Employee e
+4. SELECT COLUMNS(id, name) FROM Employee e
+
+正解：1番
+---
+
+---
+ステップ１６：【@NotNull と Integer 型のバリデーション】に関する問題
+
+問１６. 以下のフォームクラスの説明として正しいものを選べ。
+
+---Java---
+public class OrderForm {
+
+    @NotBlank
+    private String productName;
+
+    @NotNull
+    private Integer quantity;
+
+    // getter/setter 省略
+}
+----------
+
+1. @NotNull を Integer 型に付与すると、フォームから値が送信されなかった（null の）場合にバリデーションエラーになる。
+2. @NotNull を Integer 型に付与すると、空文字の入力もバリデーションエラーになる。
+3. @NotBlank は数値型にも使用でき、Integer 型の quantity に付与するべきである。
+4. Integer 型に @NotNull は付与できない。使用するには long 型に変更する必要がある。
+
+正解：1番
+---
+
+---
+ステップ１７：【メッセージリソースの書き方】に関する問題
+
+問１７. messages.properties のメッセージリソースの書き方として正しいものを選べ。
+
+1. greeting.message=こんにちは、{0}さん！
+2. greeting.message : こんにちは、{0}さん！
+3. "greeting.message"="こんにちは、{0}さん！"
+4. <message id="greeting.message">こんにちは、{0}さん！</message>
+
+正解：1番
+---
+
+---
+ステップ１８：【入力項目名を埋め込むメッセージリソースの書き方】に関する問題
+
+問１８. バリデーションエラーメッセージに項目名「{0}」を埋め込む場合の、ValidationMessages.properties の記述として正しいものを選べ。
+
+1. NotBlank={0}は必須入力項目です。
+2. NotBlank=必須入力項目です。（{0}に項目名は自動挿入不可）
+3. @NotBlank(label="{0}は必須入力項目です。")
+4. NotBlank -> {0}は必須入力項目です。
+
+正解：1番
+---
+
+---
+ステップ１９：【th:each のステータス変数を利用した書き方】に関する問題
+
+問１９. th:each のステータス変数の説明として正しいものを選べ。
+
+---Thymeleaf---
+<tr th:each="emp, st : ${empList}">
+  <td th:text="${st.index}">0</td>
+  <td th:text="${emp.name}">名前</td>
+</tr>
+----------
+
+1. st.index は0から始まるインデックス番号を表し、1件目は「0」が表示される。
+2. st.index は1から始まるカウンターを表し、1件目は「1」が表示される。
+3. ステータス変数（st）は省略不可であり、必ず宣言しなければ th:each は動作しない。
+4. th:each のステータス変数で使えるのは index のみである。
+
+正解：1番
+---
+
+---
+ステップ２０：【リンク式 @{} でパラメータ値を含める書き方】に関する問題
+
+問２０. 以下のリンク式の説明として正しいものを選べ。
+ただし、member.id には「10」が格納されているとする。
+
+---Thymeleaf---
+<a th:href="@{/member/edit(id=${member.id})}">編集</a>
+----------
+
+1. 生成されるURLは「/member/edit?id=10」となる。
+2. 生成されるURLは「/member/edit/10」となる（パスに直接埋め込まれる）。
+3. 生成されるURLは「/member/edit(id=10)」となる。
+4. @{} 内で ${} は使えないため、このコードはエラーになる。
+
+正解：1番
+---
+
+---
+ステップ２１：【個別画面をレイアウトテンプレートに埋め込む記述】に関する問題
+
+問２１. layout:fragment を使ったレイアウト機能の説明として正しいものを選べ。
+
+1. レイアウトテンプレートに layout:fragment="content" を定義し、個別画面に layout:decorate でレイアウトを指定することで、個別画面のコンテンツが埋め込まれる。
+2. 個別画面に layout:fragment を定義するだけで、自動的にレイアウトテンプレートが読み込まれる。
+3. layout:decorate はレイアウトテンプレートにのみ記述し、個別画面には記述しない。
+4. layout:fragment と th:fragment はどちらを使っても同じ動作になる。
+
+正解：1番
+---
+
+================================================================
+以上　全21問【基礎レベル】
+================================================================

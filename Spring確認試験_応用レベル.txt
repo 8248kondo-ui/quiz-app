@@ -1,0 +1,600 @@
+================================================================
+Spring Framework 確認試験 例題集【応用レベル】
+================================================================
+対象トピック：元の例題集と同じ21トピック／複合コード・細部のひっかけで出題
+================================================================
+
+---
+ステップ１：【@RequestMapping アノテーション】に関する問題
+
+問１. 以下のコードの説明として誤っているものを選べ。
+
+---Java---
+@Controller
+@RequestMapping("/product")
+public class ProductController {
+
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public String list(Model model) {
+        return "product/list";
+    }
+
+    @RequestMapping(value = "/list", method = RequestMethod.POST)
+    public String search(ProductSearchForm form, Model model) {
+        return "product/list";
+    }
+}
+----------
+
+1. クラスに付与した @RequestMapping("/product") と、メソッドに付与した @RequestMapping(value = "/list") は組み合わせて解釈されるため、実際のURLは「/product/list」になる。
+2. GETリクエストで「/product/list」にアクセスすると list() が実行される。
+3. POSTリクエストで「/product/list」にアクセスすると search() が実行される。
+4. クラスとメソッドの両方に @RequestMapping を付与すると、クラス側の指定は無効になりメソッド側の value のみが有効になる。
+
+正解：4番
+---
+
+---
+ステップ２：【application.properties のパスとポート番号とURLの関係】に関する問題
+
+問２. 以下の application.properties とコントローラコードをもとに、ブラウザから正しくアクセスできるURLを選べ。
+
+---properties---
+server.port=9000
+server.servlet.context-path=/store
+----------
+
+---Java---
+@Controller
+@RequestMapping("/product")
+public class ProductController {
+
+    @GetMapping("/detail")
+    public String detail() {
+        return "product/detail";
+    }
+}
+----------
+
+1. http://localhost:9000/store/product/detail
+2. http://localhost:8080/store/product/detail
+3. http://localhost:9000/product/detail
+4. http://localhost:9000/store/detail
+
+正解：1番
+---
+
+---
+ステップ３：【Thymeleafを使うための設定】に関する問題
+
+問３. 以下のThymeleafテンプレートと設定に関する説明として誤っているものを選べ。
+
+---Thymeleaf---
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title th:text="${pageTitle}">タイトル</title>
+</head>
+<body>
+  <p th:text="${message}">メッセージ</p>
+</body>
+</html>
+----------
+
+---properties（application.properties）---
+spring.thymeleaf.cache=false
+spring.thymeleaf.prefix=classpath:/templates/
+spring.thymeleaf.suffix=.html
+----------
+
+1. spring.thymeleaf.cache=false は開発中にテンプレートの変更をリロードなしで反映させる設定である。
+2. spring.thymeleaf.prefix と spring.thymeleaf.suffix は、コントローラから返すビュー名にプレフィックスとサフィックスを付けてファイルを特定する。
+3. xmlns:th="http://www.thymeleaf.org" の宣言がなくても th:text 属性は正常に機能する。
+4. コントローラから "pageTitle" という名前で値を渡すと、title タグの内容がその値で上書きされる。
+
+正解：3番
+---
+
+---
+ステップ４：【フォームの送信ボタンを押したときのURL】に関する問題
+
+問４. 以下のコードが実行されたとき、送信ボタンを押した際に送信されるURLとして正しいものを選べ。
+ただし、コンテキストパスは「/shop」、item.id には「3」が格納されているとする。
+
+---Thymeleaf---
+<form th:action="@{/order/confirm(itemId=${item.id})}" method="post">
+  <input type="text" name="quantity">
+  <button type="submit">注文確認</button>
+</form>
+----------
+
+1. POST http://localhost:8080/shop/order/confirm?itemId=3
+2. POST http://localhost:8080/order/confirm?itemId=3
+3. POST http://localhost:8080/shop/order/confirm/3
+4. GET  http://localhost:8080/shop/order/confirm?itemId=3
+
+正解：1番
+---
+
+---
+ステップ５：【フォームで入力した値を受け取るメソッドの定義】に関する問題
+
+問５. 以下のコードの説明として誤っているものを選べ。
+
+---Java---
+@Controller
+public class ContactController {
+
+    @PostMapping("/contact/send")
+    public String send(@ModelAttribute ContactForm form, Model model) {
+        model.addAttribute("name", form.getName());
+        return "contact/thanks";
+    }
+}
+----------
+
+1. @ModelAttribute は省略しても、フォームクラスを引数に取ることで送信値は自動的にバインドされる。
+2. @PostMapping は @RequestMapping(method = RequestMethod.POST) と同等の記述である。
+3. @ModelAttribute を付与しているため、form オブジェクトは自動的にセッションスコープに保存される。
+4. model.addAttribute("name", form.getName()) により、フォームに入力された name の値をビューに渡している。
+
+正解：3番
+---
+
+---
+ステップ６：【フォームクラスの定義】に関する問題
+
+問６. 以下のコードの説明として正しいものを選べ。
+
+---Thymeleaf---
+<form th:action="@{/review/post}" method="post">
+  <input type="text"   name="title">
+  <textarea name="body"></textarea>
+  <input type="number" name="score">
+  <button type="submit">投稿</button>
+</form>
+----------
+
+---Java---
+public class ReviewForm {
+    private String title;
+    private String body;
+    private Integer score;
+    // getter/setter 省略
+}
+----------
+
+1. フォームの name 属性と ReviewForm のフィールド名が一致しているため、Springが自動的に値をバインドする。
+2. textarea の値は String 型では受け取れないため、body フィールドは byte[] 型にする必要がある。
+3. score フィールドは Integer 型ではなく String 型で宣言しなければ数値が正しくバインドされない。
+4. ReviewForm に @FormObject アノテーションを付与しなければ、コントローラの引数として使用できない。
+
+正解：1番
+---
+
+---
+ステップ７：【セッションスコープを利用するメソッド定義】に関する問題
+
+問７. 以下の2つのコードを比較した説明として正しいものを選べ。
+
+---Java（パターンA）---
+@Controller
+@SessionScope
+public class CartController {
+    @Autowired
+    private CartForm cartForm;
+}
+----------
+
+---Java（パターンB）---
+@Controller
+public class CartController {
+    @Autowired
+    private CartForm cartForm;
+
+    @PostMapping("/cart/add")
+    public String addToCart(CartForm form, HttpSession session) {
+        session.setAttribute("cart", form);
+        return "redirect:/cart";
+    }
+}
+----------
+
+1. パターンAは @SessionScope によってコントローラのインスタンスがセッション管理され、パターンBは HttpSession を使って明示的に値をセッションに格納している。
+2. パターンAとパターンBは同じ動作であり、どちらも HttpSession を使ってセッションに保存している。
+3. パターンAの @SessionScope はメソッドにのみ付与可能であるため、このコードはエラーになる。
+4. パターンBの session.setAttribute は、セッションではなくリクエストスコープに値を保存する。
+
+正解：1番
+---
+
+---
+ステップ８：【セッションスコープへの値の保存】に関する問題
+
+問８. 以下のコードの説明として誤っているものを選べ。
+
+---Java---
+@PostMapping("/login")
+public String login(LoginForm form, HttpSession session, Model model) {
+    UserEntity user = userService.findByEmail(form.getEmail());
+    session.setAttribute("loginUser", user);
+    model.addAttribute("message", "ログインしました。");
+    return "redirect:/top";
+}
+----------
+
+1. session.setAttribute("loginUser", user) によりログインユーザーがセッションスコープに保存され、複数のリクエストをまたいで参照できる。
+2. model.addAttribute("message", "ログインしました。") で追加した値は、リダイレクト後のビューにも引き継がれる。
+3. session.setAttribute で保存した値は、ブラウザを閉じるかセッションタイムアウトになるまで保持される。
+4. リダイレクト後のリクエストでは新たなリクエストスコープが生成されるため、model.addAttribute の値はリダイレクト先では参照できない。
+
+正解：2番
+---
+
+---
+ステップ９：【ThymeleafでセッションスコープのThymeleaf表示】に関する問題
+
+問９. 以下のThymeleafコードの説明として正しいものを選べ。
+ただし、セッションスコープには "loginUser" キーで UserEntity オブジェクトが保存されており、UserEntity には name フィールドがあるとする。
+
+---Thymeleaf---
+<p th:text="${session.loginUser.name}">ユーザー名</p>
+----------
+
+1. セッションスコープから loginUser を取り出し、その name フィールドの値を表示している。
+2. ${session.loginUser.name} はコントローラの Model に "session" というキーで追加された値を参照している。
+3. セッションスコープの値を表示するには #{session.loginUser.name} の記述が正しい。
+4. セッションスコープの値はThymeleafから直接参照できないため、このコードはエラーになる。
+
+正解：1番
+---
+
+---
+ステップ１０：【主キー列でシーケンスを利用するエンティティの定義】に関する問題
+
+問１０. 以下のコードの説明として誤っているものを選べ。
+
+---Java---
+@Entity
+@Table(name = "invoices")
+public class Invoice {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "invoice_gen")
+    @SequenceGenerator(
+        name = "invoice_gen",
+        sequenceName = "invoice_id_seq",
+        allocationSize = 1
+    )
+    private Integer id;
+
+    private String invoiceNumber;
+    private Integer totalAmount;
+
+    // getter/setter 省略
+}
+----------
+
+1. @SequenceGenerator の name 属性（"invoice_gen"）は、@GeneratedValue の generator 属性と一致させる必要がある。
+2. @SequenceGenerator の sequenceName 属性（"invoice_id_seq"）には、Java側で定義した任意の名前を指定する。
+3. allocationSize = 1 を指定することで、DBのシーケンスが1ずつ採番されることを示している。
+4. @GeneratedValue の strategy = GenerationType.SEQUENCE はシーケンスを使った主キー自動生成を意味する。
+
+正解：2番
+---
+
+---
+ステップ１１：【エンティティを利用してDBに登録する処理】に関する問題
+
+問１１. 以下のコードの説明として不具合の原因とならないものを選べ。
+（3つの選択肢が不具合の原因、1つだけが正しい処理である）
+
+---Java---
+@Service
+public class StockService {
+
+    @Autowired
+    private StockRepository stockRepository;
+
+    public void register(StockForm form) {
+
+        Stock stock = new Stock();           // (A)
+        stock.setId(99);                     // (B) 固定IDをセット
+        stock.setProductName(form.getProductName());  // (C)
+        stock.setQuantity(form.getQuantity());         // (D)
+        stockRepository.save(stock);         // (E)
+    }
+}
+----------
+
+1. (A) Stock エンティティのオブジェクトを new で生成している。
+2. (B) IDに固定値「99」をセットすると、既存のIDが99のレコードが上書き（UPDATE）される可能性がある。
+3. (B) IDに固定値をセットすると、シーケンスやIDENTITYによる自動採番が無効になる。
+4. (E) save() を呼ぶ前に IDが設定されているため、新規登録ではなく更新処理として実行される場合がある。
+
+正解：1番
+---
+
+---
+ステップ１２：【外部参照元エンティティの定義（@ManyToOne / @JoinColumn）】に関する問題
+
+問１２. 以下のコードの説明として誤っているものを選べ。
+
+---Java---
+@Entity
+@Table(name = "order_items")
+public class OrderItem {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
+    private Integer quantity;
+
+    // getter/setter 省略
+}
+----------
+
+1. OrderItem は Order と Product の両方に対して多対1の関係を持つことができる。
+2. @JoinColumn(name = "order_id") は、order_items テーブルの「order_id」列が外部キー列であることを示す。
+3. @ManyToOne を2つ付与しているため、このエンティティはエラーになる。
+4. OrderItem を save() するとき、order と product フィールドにエンティティオブジェクトをセットすることで外部キーが保存される。
+
+正解：3番
+---
+
+---
+ステップ１３：【JPQLの書き方（誤り箇所の特定）】に関する問題
+
+問１３. 以下のJPQLの記述として誤っているものを選べ。
+
+1. SELECT o FROM Order o WHERE o.customer.name = :name
+2. SELECT o FROM Order o JOIN FETCH o.customer WHERE o.id = :id
+3. SELECT o FROM order o WHERE o.totalAmount > 10000
+4. SELECT o FROM Order o WHERE o.status = :status ORDER BY o.createdAt DESC
+
+正解：3番
+---
+
+---
+ステップ１４：【@Query によるJPQLの定義】に関する問題
+
+問１４. 以下のコードの説明として正しいものを選べ。
+
+---Java---
+public interface OrderRepository extends JpaRepository<Order, Integer> {
+
+    @Query("SELECT o FROM Order o WHERE o.customer.id = :customerId ORDER BY o.createdAt DESC")
+    List<Order> findByCustomerId(@Param("customerId") Integer customerId);
+}
+----------
+
+1. @Query の JPQL で「o.customer.id」のようにエンティティのフィールドを連鎖して参照することができる。
+2. @Query で定義したJPQLはテーブル名で記述するため、「FROM Order」は「FROM orders」と書かなければならない。
+3. @Param("customerId") は省略でき、引数名が一致していれば自動的にバインドされる。
+4. @Query はリポジトリインターフェースではなく、エンティティクラスに付与する必要がある。
+
+正解：1番
+---
+
+---
+ステップ１５：【JPQLで特定の列だけを取得する書き方】に関する問題
+
+問１５. 以下のコードの説明として誤っているものを選べ。
+
+---Java---
+public interface ProductRepository extends JpaRepository<Product, Integer> {
+
+    @Query("SELECT new com.example.dto.ProductSummary(p.id, p.name, p.price) FROM Product p WHERE p.categoryId = :categoryId")
+    List<ProductSummary> findSummaryByCategoryId(@Param("categoryId") Integer categoryId);
+}
+----------
+
+---Java（ProductSummary.java）---
+public class ProductSummary {
+    private Integer id;
+    private String name;
+    private Integer price;
+
+    public ProductSummary(Integer id, String name, Integer price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+    // getter 省略
+}
+----------
+
+1. JPQL の new 演算子でDTOのコンストラクタを呼び出すことで、特定のフィールドのみをDTOにマッピングできる。
+2. ProductSummary クラスには、JPQL で指定したフィールドの順序と型が一致するコンストラクタが必要である。
+3. @Query に new 演算子を使う場合、DTOクラスのフルパッケージ名（FQCN）を省略してクラス名だけで記述できる。
+4. 戻り値型が List<ProductSummary> であるため、複数件取得した結果がリストで返される。
+
+正解：3番
+---
+
+---
+ステップ１６：【@NotNull と Integer 型のバリデーション】に関する問題
+
+問１６. 以下のコードの説明として正しいものを選べ。
+
+---Java---
+public class PurchaseForm {
+
+    @NotBlank(message = "商品名を入力してください。")
+    private String productName;
+
+    @NotNull(message = "数量を入力してください。")
+    private Integer quantity;
+
+    @Min(value = 1, message = "数量は1以上を入力してください。")
+    private Integer quantity2;
+
+    // getter/setter 省略
+}
+----------
+
+1. @NotNull は quantity が null（未入力）の場合にエラーになるが、0を入力した場合はエラーにならない。
+2. @NotNull は quantity が null の場合だけでなく、0を入力した場合もエラーになる。
+3. @NotBlank を Integer 型の quantity に付与すると、数値の形式チェックができる。
+4. @Min(value = 1) は @NotNull を含んでいるため、quantity2 が null でもバリデーションエラーにならない。
+
+正解：1番
+---
+
+---
+ステップ１７：【メッセージリソースの書き方】に関する問題
+
+問１７. 以下のコードの説明として正しいものを選べ。
+
+---properties（messages.properties）---
+item.register.success=商品を登録しました。
+item.register.error=登録に失敗しました。もう一度お試しください。
+----------
+
+---Thymeleaf---
+<p th:text="#{item.register.success}">メッセージ</p>
+----------
+
+1. #{item.register.success} は messages.properties のキー「item.register.success」に対応する値「商品を登録しました。」を表示する。
+2. #{item.register.success} はコントローラから渡された変数「item.register.success」の値を表示する。
+3. messages.properties のキーにドット（.）を含むことはできない。
+4. th:text="#{...}" ではなく th:text="${...}" でなければ messages.properties の値を参照できない。
+
+正解：1番
+---
+
+---
+ステップ１８：【入力項目名を埋め込むメッセージリソースの書き方】に関する問題
+
+問１８. 以下のコードの説明として正しいものを選べ。
+
+---properties（ValidationMessages.properties）---
+NotBlank.memberForm.memberName={0}は必須入力です。
+NotBlank.memberForm.memberEmail={0}は必須入力です。
+----------
+
+---Java---
+public class MemberForm {
+    @NotBlank
+    private String memberName;
+
+    @NotBlank
+    private String memberEmail;
+    // getter/setter 省略
+}
+----------
+
+1. メッセージキーを「アノテーション名.クラス名.フィールド名」の形式で定義することで、フィールドごとに個別のエラーメッセージを設定できる。
+2. {0} には自動的にフィールド名（memberName など）が埋め込まれる。
+3. {0} にはバリデーションアノテーションのクラス名（NotBlank など）が埋め込まれる。
+4. このメッセージキーはリポジトリクラスに定義しなければ有効にならない。
+
+正解：1番
+---
+
+---
+ステップ１９：【th:each のステータス変数】に関する問題
+
+問１９. 以下のコードを実行したときの説明として正しいものを選べ。
+ただし、コントローラから "products" という名前で3件の Product リストが渡されているとする。
+
+---Thymeleaf---
+<table>
+  <tr th:each="p, pStat : ${products}">
+    <td th:text="${pStat.count}">カウント</td>
+    <td th:text="${pStat.index}">インデックス</td>
+    <td th:text="${pStat.last}">最後</td>
+    <td th:text="${p.name}">商品名</td>
+  </tr>
+</table>
+----------
+
+1. 1件目の行では pStat.count=1、pStat.index=0、pStat.last=false が出力される。
+2. 1件目の行では pStat.count=0、pStat.index=1、pStat.last=false が出力される。
+3. 3件目の行では pStat.count=3、pStat.index=3、pStat.last=true が出力される。
+4. pStat.last は最後の要素のとき false を返す。
+
+正解：1番
+---
+
+---
+ステップ２０：【リンク式 @{} でパラメータ値を含める書き方】に関する問題
+
+問２０. 以下の2つのリンク式の説明として正しいものを選べ。
+ただし、item.id には「7」、item.category には「food」が格納されているとする。
+
+---Thymeleaf---
+<!-- リンクA -->
+<a th:href="@{/item/detail(id=${item.id}, category=${item.category})}">詳細A</a>
+
+<!-- リンクB -->
+<a th:href="@{/item/{id}/detail(id=${item.id})}">詳細B</a>
+----------
+
+1. リンクAは「/item/detail?id=7&category=food」、リンクBは「/item/7/detail」となる。
+2. リンクAは「/item/detail?id=7&category=food」、リンクBは「/item/detail?id=7」となる。
+3. リンクAは「/item/detail(id=7, category=food)」、リンクBは「/item/{id}/detail?id=7」となる。
+4. リンクAとリンクBはどちらも同じURL「/item/detail?id=7&category=food」になる。
+
+正解：1番
+---
+
+---
+ステップ２１：【個別画面をレイアウトテンプレートに埋め込む記述】に関する問題
+
+問２１. 以下のコードの説明として誤っているものを選べ。
+
+---Thymeleaf（レイアウトテンプレート layout/base.html）---
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <title>共通タイトル</title>
+</head>
+<body>
+  <header>共通ヘッダー</header>
+  <main layout:fragment="content">
+    <p>ここに個別コンテンツが入ります。</p>
+  </main>
+  <footer>共通フッター</footer>
+</body>
+</html>
+----------
+
+---Thymeleaf（個別画面 product/list.html）---
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+<body>
+  <div layout:fragment="content">
+    <h2>商品一覧</h2>
+    <ul>
+      <li th:each="p : ${products}" th:text="${p.name}">商品名</li>
+    </ul>
+  </div>
+</body>
+</html>
+----------
+
+1. 個別画面の layout:decorate="~{layout/base}" により、layout/base.html をレイアウトテンプレートとして使用することを宣言している。
+2. 個別画面の layout:fragment="content" ブロックが、レイアウトテンプレートの同名 layout:fragment="content" に差し込まれる。
+3. レイアウトテンプレートに記述した header タグと footer タグは、個別画面をレンダリングしても表示されない。
+4. 個別画面に layout:decorate を記述することで、レイアウトテンプレートを使ったレイアウト合成が行われる。
+
+正解：3番
+---
+
+================================================================
+以上　全21問【応用レベル】
+================================================================
