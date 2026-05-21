@@ -5208,7 +5208,7 @@ const questionDatabase = [
 const dailySets = [
     {
         "date": "4/15",
-        "title": "Oracle確認試験 (4/15)",
+        "title": "Oracle確認問題 (4/15)",
         "questions": [
             1,
             2,
@@ -5221,7 +5221,7 @@ const dailySets = [
     },
     {
         "date": "4/16",
-        "title": "Oracle確認試験 (4/16)",
+        "title": "Oracle確認問題 (4/16)",
         "questions": [
             8,
             9,
@@ -5238,7 +5238,7 @@ const dailySets = [
     },
     {
         "date": "4/17",
-        "title": "Oracle確認試験 (4/17)",
+        "title": "Oracle確認問題 (4/17)",
         "questions": [
             19,
             20,
@@ -5250,7 +5250,7 @@ const dailySets = [
     },
     {
         "date": "4/20",
-        "title": "Oracle確認試験 (4/20)",
+        "title": "Oracle確認問題 (4/20)",
         "questions": [
             25,
             26,
@@ -5283,7 +5283,7 @@ const dailySets = [
     },
     {
         "date": "4/21",
-        "title": "Java確認試験 (4/21)",
+        "title": "Java確認問題 (4/21)",
         "questions": [
             52,
             53,
@@ -5298,7 +5298,7 @@ const dailySets = [
     },
     {
         "date": "4/22",
-        "title": "Java確認試験 (4/22)",
+        "title": "Java確認問題 (4/22)",
         "questions": [
             61,
             62,
@@ -5311,7 +5311,7 @@ const dailySets = [
     },
     {
         "date": "4/23",
-        "title": "Java確認試験 (4/23)",
+        "title": "Java確認問題 (4/23)",
         "questions": [
             68,
             69,
@@ -5323,7 +5323,7 @@ const dailySets = [
     },
     {
         "date": "4/27",
-        "title": "Java確認試験 (4/27)",
+        "title": "Java確認問題 (4/27)",
         "questions": [
             74,
             75,
@@ -5337,7 +5337,7 @@ const dailySets = [
     },
     {
         "date": "4/28",
-        "title": "Java確認試験 (4/28)",
+        "title": "Java確認問題 (4/28)",
         "questions": [
             82,
             83,
@@ -5351,7 +5351,7 @@ const dailySets = [
     },
     {
         "date": "4/30",
-        "title": "Java確認試験 (4/30)",
+        "title": "Java確認問題 (4/30)",
         "questions": [
             90,
             91,
@@ -5363,7 +5363,7 @@ const dailySets = [
     },
     {
         "date": "5/1",
-        "title": "Java確認試験 (5/1)",
+        "title": "Java確認問題 (5/1)",
         "questions": [
             96,
             97,
@@ -5376,7 +5376,7 @@ const dailySets = [
     },
     {
         "date": "5/7",
-        "title": "Java確認試験 (5/7)",
+        "title": "Java確認問題 (5/7)",
         "questions": [
             103,
             104,
@@ -5389,7 +5389,7 @@ const dailySets = [
     },
     {
         "date": "5/13",
-        "title": "Spring確認試験 (5/13)",
+        "title": "Spring確認問題 (5/13)",
         "questions": [
             110,
             111,
@@ -5405,7 +5405,7 @@ const dailySets = [
     },
     {
         "date": "5/14",
-        "title": "Spring確認試験 (5/14)",
+        "title": "Spring確認問題 (5/14)",
         "questions": [
             120,
             121,
@@ -5419,7 +5419,7 @@ const dailySets = [
     },
     {
         "date": "5/15",
-        "title": "Spring確認試験 (5/15)",
+        "title": "Spring確認問題 (5/15)",
         "questions": [
             128,
             129,
@@ -5489,8 +5489,8 @@ const dailySets = [
         ]
     },
     {
-        "date": "java総合試験_基礎版01",
-        "title": "java総合試験_基礎版01",
+        "date": "Java総合問題_基礎版01",
+        "title": "Java総合問題_基礎版01",
         "questions": [
             181,
             182,
@@ -5525,8 +5525,8 @@ const dailySets = [
         ]
     },
     {
-        "date": "java総合試験_応用版",
-        "title": "java総合試験_応用版",
+        "date": "Java総合問題_応用版",
+        "title": "Java総合問題_応用版",
         "questions": [
             211,
             212,
@@ -5560,8 +5560,8 @@ const dailySets = [
         ]
     },
     {
-        "date": "java総合試験_コード版",
-        "title": "java総合試験_コード版",
+        "date": "Java総合問題_コード版",
+        "title": "Java総合問題_コード版",
         "questions": [
             241,
             242,
@@ -5595,8 +5595,8 @@ const dailySets = [
         ]
     },
     {
-        "date": "java総合試験_基礎版02",
-        "title": "java総合試験_基礎版02",
+        "date": "Java総合問題_基礎版02",
+        "title": "Java総合問題_基礎版02",
         "questions": [
             270,
             271,
@@ -5637,7 +5637,7 @@ const dailySets = [
     },
     {
         "date": "5/18",
-        "title": "Spring確認試験 (5/18)",
+        "title": "Spring確認問題 (5/18)",
         "questions": [
             305,
             306,
@@ -5647,7 +5647,7 @@ const dailySets = [
     },
     {
         "date": "5/19",
-        "title": "Spring確認試験 (5/19)",
+        "title": "Spring確認問題 (5/19)",
         "questions": [
             309,
             310,
@@ -5659,7 +5659,7 @@ const dailySets = [
     },
     {
         "date": "5/20",
-        "title": "Spring確認試験 (5/20)",
+        "title": "Spring確認問題 (5/20)",
         "questions": [
             346,
             347,
@@ -5674,7 +5674,7 @@ const dailySets = [
     },
     {
         "date": "5/21",
-        "title": "Spring確認試験 (5/21)",
+        "title": "Spring確認問題 (5/21)",
         "questions": [
             404,
             405,
@@ -5683,8 +5683,8 @@ const dailySets = [
         ]
     },
     {
-        "date": "Spring確認試験対策用",
-        "title": "Spring確認試験対策用",
+        "date": "Spring確認問題対策用",
+        "title": "Spring確認問題対策用",
         "questions": [
             408,
             409,
@@ -5710,8 +5710,8 @@ const dailySets = [
         ]
     },
     {
-        "date": "Spring確認試験_基礎レベル",
-        "title": "Spring確認試験 基礎レベル",
+        "date": "Spring確認問題_基礎レベル",
+        "title": "Spring確認問題 基礎レベル",
         "questions": [
             429,
             430,
@@ -5737,8 +5737,8 @@ const dailySets = [
         ]
     },
     {
-        "date": "Spring確認試験_応用レベル",
-        "title": "Spring確認試験 応用レベル",
+        "date": "Spring確認問題_応用レベル",
+        "title": "Spring確認問題 応用レベル",
         "questions": [
             450,
             451,
