@@ -77,6 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextChapterBtn = document.getElementById('next-chapter-btn');
     const learnQuizActionContainer = document.getElementById('learn-quiz-action-container');
     const jumpToQuizBtn = document.getElementById('jump-to-quiz-btn');
+    const learnBackBtn = document.getElementById('learn-back-btn');
     
     const backToHomeBtns = document.querySelectorAll('.back-to-home-btn');
 
@@ -173,9 +174,18 @@ document.addEventListener('DOMContentLoaded', () => {
             tab.classList.add('active');
             currentLearnSubject = tab.getAttribute('data-subject');
             currentChapterIndex = 0;
+            const container = document.querySelector('.learn-container');
+            if (container) container.classList.remove('show-content');
             renderLearnChapters();
         });
     });
+
+    if (learnBackBtn) {
+        learnBackBtn.addEventListener('click', () => {
+            const container = document.querySelector('.learn-container');
+            if (container) container.classList.remove('show-content');
+        });
+    }
 
     function renderLearnChapters() {
         if (!window.learnDatabase) return;
@@ -222,6 +232,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.classList.add('active');
                 currentChapterIndex = index;
                 renderLearnContent(chapter, index, chapters.length);
+                const container = document.querySelector('.learn-container');
+                if (container) container.classList.add('show-content');
             });
             
             learnChaptersList.appendChild(btn);
@@ -312,6 +324,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if(learnView) learnView.classList.remove('hidden');
             if(navLearn) navLearn.classList.add('active');
             // 学習画面を開いた時に目次を描画
+            const container = learnView.querySelector('.learn-container');
+            if (container) container.classList.remove('show-content');
             renderLearnChapters();
         } else if (viewName === 'quiz') {
             if(quizView) quizView.classList.remove('hidden');

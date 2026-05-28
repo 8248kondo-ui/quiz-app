@@ -374,6 +374,26 @@
 }
 
 /* --- 学習画面のスタイル --- */
+.learn-back-btn {
+    display: none;
+    background: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 20px;
+    align-self: flex-start;
+    transition: all 0.2s;
+    font-family: 'Outfit', sans-serif;
+}
+
+.learn-back-btn:hover {
+    background: var(--primary);
+    color: white;
+}
+
 .learn-container {
     display: flex;
     gap: 20px;
@@ -651,4 +671,144 @@
     0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.7); }
     70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(236, 72, 153, 0); }
     100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(236, 72, 153, 0); }
+}
+
+/* --- モバイル対応スタイル --- */
+@media (max-width: 768px) {
+    /* ランディング画面 */
+    .landing-options {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    /* カレンダー表示 */
+    .calendar-grid {
+        gap: 6px;
+    }
+    
+    .calendar-cell {
+        font-size: 14px;
+        border-radius: 8px;
+    }
+    
+    /* 学習画面レイアウトのトグル切り替え */
+    .learn-container {
+        flex-direction: column;
+        height: auto;
+        gap: 0;
+    }
+    
+    .learn-sidebar {
+        width: 100%;
+        height: auto;
+        padding: 15px;
+        box-shadow: none;
+    }
+    
+    .learn-content {
+        width: 100%;
+        height: auto;
+        padding: 20px;
+        box-shadow: none;
+    }
+    
+    /* トグル制御 */
+    .learn-container:not(.show-content) .learn-sidebar {
+        display: flex;
+    }
+    
+    .learn-container:not(.show-content) .learn-content {
+        display: none;
+    }
+    
+    .learn-container.show-content .learn-sidebar {
+        display: none;
+    }
+    
+    .learn-container.show-content .learn-content {
+        display: block;
+    }
+    
+    /* 目次に戻るボタンの表示 */
+    .learn-back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    /* 科目タブの横スクロール化 */
+    .learn-subjects {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 12px;
+        gap: 8px;
+        /* スクロールバー非表示（モダンブラウザ） */
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .learn-subjects::-webkit-scrollbar {
+        height: 4px;
+    }
+    
+    .learn-subjects::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    .learn-subjects::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 2px;
+    }
+    
+    .subject-tab {
+        flex-shrink: 0;
+        padding: 10px 14px;
+        font-size: 14px;
+        text-align: center;
+    }
+    
+    /* 目次コンテナの調整 */
+    .learn-chapters-container {
+        margin-top: 10px;
+    }
+    
+    .learn-chapters {
+        max-height: 250px; /* 長すぎる目次はスクロール可能にする */
+        border: 1px solid var(--glass-border);
+        border-radius: 12px;
+        padding: 10px;
+        background: rgba(0, 0, 0, 0.2);
+    }
+    
+    /* 進捗バーの余白 */
+    .learn-progress-container {
+        padding: 0;
+        margin-bottom: 10px;
+    }
+    
+    /* 本文の文字サイズと余白調整 */
+    #learn-chapter-title {
+        font-size: 22px;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+    }
+    
+    .markdown-body h3 {
+        font-size: 18px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+    
+    .markdown-body p {
+        font-size: 15px;
+        line-height: 1.5;
+    }
+    
+    .markdown-body pre {
+        padding: 12px;
+        margin-bottom: 15px;
+    }
+    
+    .markdown-body code {
+        font-size: 13px;
+    }
 }
