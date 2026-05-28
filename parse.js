@@ -1,5 +1,5 @@
 const fs = require('fs');
-const text = fs.readFileSync('Oracle確認試験まとめ.txt', 'utf-8');
+const text = fs.readFileSync('資料/Oracle確認試験まとめ.txt', 'utf-8');
 const blocks = text.split(/ステップ\d+：/);
 const questions = [];
 const dailySetsMap = new Map();

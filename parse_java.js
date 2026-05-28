@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const text = fs.readFileSync('Java確認試験まとめ.txt', 'utf-8');
+const text = fs.readFileSync('資料/Java確認試験まとめ.txt', 'utf-8');
 const explanations = JSON.parse(fs.readFileSync('explanations_java.json', 'utf-8'));
 
 let qJsContent = fs.readFileSync('questions.js', 'utf-8');

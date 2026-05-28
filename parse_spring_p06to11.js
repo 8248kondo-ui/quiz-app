@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const text = fs.readFileSync('SpringFramework確認試験_Practice06to11.txt', 'utf-8');
+const text = fs.readFileSync('資料/SpringFramework確認試験_Practice06to11.txt', 'utf-8');
 const explanations = JSON.parse(fs.readFileSync('explanations_spring_p06to11.json', 'utf-8'));
 
 let qJsContent = fs.readFileSync('questions.js', 'utf-8');

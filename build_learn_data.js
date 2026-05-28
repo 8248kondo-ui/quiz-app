@@ -74,11 +74,11 @@ function parseHTMLStyle(filename) {
 }
 
 const learnData = {
-    Spring: parseMarkdownStyle('Springまとめ.txt'),
-    Java: parseMarkdownStyle('Javaまとめ.txt'),
-    Oracle: parseMarkdownStyle('Oracleまとめ.txt'),
-    'HTML/CSS': parseHTMLStyle('HTMLまとめ.txt'),
-    JavaScript: parseMarkdownStyle('JavaScriptまとめ.txt')
+    Spring: parseMarkdownStyle('資料/springまとめ.txt'),
+    Java: parseMarkdownStyle('資料/Javaまとめ.txt'),
+    Oracle: parseMarkdownStyle('資料/Oracleまとめ.txt'),
+    'HTML/CSS': parseHTMLStyle('資料/HTMLまとめ.txt'),
+    JavaScript: parseMarkdownStyle('資料/JavaScriptまとめ.txt')
 };
 
 const jsOutput = `const learnDatabase = ${JSON.stringify(learnData, null, 4)};\nwindow.learnDatabase = learnDatabase;\n`;
