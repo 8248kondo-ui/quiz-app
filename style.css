@@ -30,6 +30,11 @@ h1, h2, h3, .logo {
     font-family: 'Outfit', sans-serif;
 }
 
+strong {
+    font-weight: 700;
+    color: white;
+}
+
 .container {
     max-width: 800px;
     margin: 0 auto;

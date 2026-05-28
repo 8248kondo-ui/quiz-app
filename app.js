@@ -243,23 +243,44 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderLearnContent(chapter, index, totalLength) {
         learnChapterTitle.textContent = chapter.title;
         
+        let codeBlocks = [];
         let htmlContent = chapter.content
-            .replace(/</g, '&lt;').replace(/>/g, '&gt;')
-            // コードブロック
-            .replace(/```[a-z]*\r?\n([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
-            // インラインコード
-            .replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>')
-            // 見出し
+            .replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            
+        // 1. コードブロックをプレースホルダーに置換
+        htmlContent = htmlContent.replace(/```[a-z]*\r?\n([\s\S]*?)```/g, (match, code) => {
+            const placeholder = `___CODEBLOCK_PLACEHOLDER_${codeBlocks.length}___`;
+            codeBlocks.push(`<pre><code>${code}</code></pre>`);
+            return placeholder;
+        });
+        
+        // 2. インラインコードをプレースホルダーに置換
+        htmlContent = htmlContent.replace(/`([^`]+)`/g, (match, code) => {
+            const placeholder = `___INLINECODE_PLACEHOLDER_${codeBlocks.length}___`;
+            codeBlocks.push(`<code class="inline-code">${code}</code>`);
+            return placeholder;
+        });
+
+        // 3. 太字 (bold) と 斜体 (italic)
+        htmlContent = htmlContent
+            .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+            .replace(/\*([^*]+)\*/g, '<em>$1</em>');
+
+        // 4. その他のMarkdown要素
+        htmlContent = htmlContent
             .replace(/^###\s+(.*)$/gm, '<h3>$1</h3>')
             .replace(/^##\s+(.*)$/gm, '<h2>$1</h2>')
-            // リスト
             .replace(/^・(.*)$/gm, '<ul><li>$1</li></ul>')
             .replace(/<\/ul>\r?\n<ul>/g, '\n') // 隣接するリストを結合
-            // 古いアスキーアート表対応
             .replace(/(┌[\s\S]*?└[─]*┘)/g, '<pre>$1</pre>')
-            // 改行
             .replace(/\n\n/g, '</p><p>')
             .replace(/\n/g, '<br>');
+
+        // 5. プレースホルダーを元のコードに戻す
+        codeBlocks.forEach((codeHtml, index) => {
+            htmlContent = htmlContent.replace(`___CODEBLOCK_PLACEHOLDER_${index}___`, codeHtml);
+            htmlContent = htmlContent.replace(`___INLINECODE_PLACEHOLDER_${index}___`, codeHtml);
+        });
             
         learnChapterBody.innerHTML = `<p>${htmlContent}</p>`;
         
