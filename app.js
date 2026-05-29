@@ -511,6 +511,16 @@ document.addEventListener('DOMContentLoaded', () => {
         container.appendChild(card);
     }
 
+    // HTMLエスケープ処理を行うヘルパー関数
+    function escapeHTML(str) {
+        if (typeof str !== 'string') return str;
+        return str.replace(/&/g, '&amp;')
+                  .replace(/</g, '&lt;')
+                  .replace(/>/g, '&gt;')
+                  .replace(/"/g, '&quot;')
+                  .replace(/'/g, '&#039;');
+    }
+
     // IDから問題オブジェクトを取得するヘルパー関数
     function getQuestionById(id) {
         return database.find(q => q.id === id);
@@ -668,12 +678,12 @@ document.addEventListener('DOMContentLoaded', () => {
             // .replace(/\n/g, '<br>') を使って改行コードをHTMLの改行に変換
             const optionsHtml = q.options.map((opt, i) => {
                 const isCorrect = i === q.answer;
-                return `<li class="${isCorrect ? 'correct-option' : ''}">${opt}</li>`;
+                return `<li class="${isCorrect ? 'correct-option' : ''}">${escapeHTML(opt)}</li>`;
             }).join('');
 
             item.innerHTML = `
                 <span class="q-num">Question ${index + 1}</span>
-                <h3>${q.question.replace(/\n/g, '<br>')}</h3>
+                <h3>${escapeHTML(q.question).replace(/\n/g, '<br>')}</h3>
                 <div class="archive-details">
                     <div class="options-list-container">
                         <p class="label">選択肢:</p>
@@ -683,11 +693,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     <div class="answer-reveal">
                         <p class="label">正解:</p>
-                        <p class="value">${q.options[q.answer]}</p>
+                        <p class="value">${escapeHTML(q.options[q.answer])}</p>
                     </div>
                     <div class="explanation-box">
                         <h3>解説</h3>
-                        <p>正解は${q.answer + 1}番です。\n\n${q.explanation}</p>
+                        <p>正解は${q.answer + 1}番です。\n\n${escapeHTML(q.explanation)}</p>
                     </div>
                 </div>
             `;
